@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+    integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+  <link rel="stylesheet" href="userestilo">
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;600&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="jquery/jquery.datetimepicker.min.css">
+  <script src='/socket.io/socket.io.js'></script>
+  <script src="scripts/socketio.js"></script>
+  <title>Ayudante</title>
+</head>
+
+<body>
+  <div class="d-flex" id="content-wrapper">
+    <!-- Sidebar -->
+    <div id="sidebar-container" class="bg-primary">
+      <div class="logo">
+        <h4 class="text-light font-weight-bold mb-0"><img src="https://i.postimg.cc/WpdksRTY/ICON.png" alt=""></h4>
+      </div>
+      <div class="menu">
+        <a href="/registro_caso" class="d-block text-light p-3 border-0"><i class="icon ion-md-apps lead mr-2"></i>
+          Registro de casos</a>
+        <a href="/obtener_caso" class="d-block text-light p-3 border-0"><i
+            class="icon ion-md-people lead mr-2"></i>
+          Obtener caso</a>
+      </div>
+    </div>
+    <!-- Fin sidebar -->
+
+    <div class="w-100">
+      <!-- Navbar -->
+      <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+        <div class="container">
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+              <li class="nav-item dropdown">
+                <a class="nav-link text-dark dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <img src="https://i.postimg.cc/j25tSgL0/prescripcion.png" class="img-fluid rounded-circle avatar mr-2"
+                    alt="https://generated.photos/" />
+                  Usuario
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="/">Cerrar sesión</a>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <!-- Fin Navbar -->
+
+      <!-- Page Content -->
+      <div id="content" class="bg-grey w-100">
+        <section class="bg-fondo py-3">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-lg-9 col-md-8">
+                <h1 class="font-weight-bold mb-0">Bienvenido Ayudante</h1>
+                <p class="lead text-muted">A continuación, podrás registrar los casos de COVID-19 en nuestro sistema</p>
+              </div>
+              <div class="col-lg-3 col-md-4 d-flex">
+                <!-- <button class="btn btn-primary w-100 align-self-center">Descargar reporte de hoy</button> -->
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-12 my-4">
+                <div class="card rounded-0">
+                  <div class="card-header bg-light">
+                    <h5 class="d-inline-block font-weight-bold mb-0">Registro de casos</h5>
+                  </div>
+                  <div class="card-body">
+                    <div class="container">
+                      <form id="formCase" action="/logeado_ayudante" method="post">
+                        <div class="row">
+                          <div class="col-lg-6 my-4">
+                            <div class="form-group mb-4">
+                              <label for="nombre" class="font-weight-bold">Nombre</label>
+                              <input class="form-control bg-grey" id="nombre" name="nombre"
+                                placeholder="Ingrese su nombre" autocomplete="off">
+                            </div>
+                            <div class="form-group mb-4">
+                              <label for="apellido" class="font-weight-bold">Apellido</label>
+                              <input class="form-control bg-grey" id="apellido" name="apellido"
+                                placeholder="Ingrese su apellido" autocomplete="off">
+                            </div>
+                            <div class="form-group mb-4">
+                              <label for="cedula" class="font-weight-bold">Cedula</label>
+                              <input class="form-control bg-grey" id="cedula" name="cedula"
+                                placeholder="Ingrese su cedula" autocomplete="off">
+                            </div>
+                            <div class="form-group mb-0">
+                              <label for="sexo" class="font-weight-bold">Sexo:</label>
+                            </div>
+                            <div class="form-group mb-4">
+                              <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                <label class="btn btn-primary active">
+                                  <input type="radio" name="sexo" id="masculino" value="1" checked> Masculino
+                                </label>
+                                <label class="btn btn-primary">
+                                  <input type="radio" name="sexo" id="femenino" value="2"> Femenino
+                                </label>
+                              </div>
+                            </div>
+                            <div class="form-group mb-4">
+                              <label for="fecha_nac" class="font-weight-bold">Fecha de nacimiento</label>
+                              <input type="date" class="form-control w-10" id="fechanac"
+                                                name="fechanac" onkeydown="return false" />
+                            </div>
+                          </div>
+                          <div class="col-lg-6 my-4">
+                            <div class="form-group mb-4">
+                              <label for="apellido" class="font-weight-bold">Dirección de residencia</label>
+                              <input class="form-control bg-grey" id="direc" name="direc"
+                                placeholder="Ingrese su dirección de residencia" autocomplete="off">
+                            </div>
+                            <div class="form-group mb-4">
+                              <label for="apellido" class="font-weight-bold">Dirección de trabajo</label>
+                              <input class="form-control bg-grey" id="dirt" name="dirt"
+                                placeholder="Ingrese su dirección de trabajo" autocomplete="off">
+                            </div>
+                            <div class="form-group mb-0">
+                              <label for="exampleInputEmail1" class="font-weight-bold">Resultado del examen:</label>
+                            </div>
+                            <div class="form-group mb-4">
+                              <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                <label class="btn btn-primary active">
+                                  <input type="radio" name="resultado" id="negativo" value="2" checked> Positivo
+                                </label>
+                                <label class="btn btn-primary">
+                                  <input type="radio" name="resultado" id="positivo" value="0"> Negativo
+                                </label>
+                              </div>
+                            </div>
+                            <div class="form-group mb-4">
+                              <label for="fecha_examen" class="font-weight-bold">Fecha del examen</label>
+                              <input type="date" class="form-control w-10" id="fechaex"
+                                                name="fechaex" onkeydown="return false" />
+                            </div>
+                          </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary mt-4 mb-4 w-25">Registrar caso</button>
+                        <button type="button" onclick=limpiarform(); class="btn btn-primary mt-4 mb-4 w-25">Limpiar</button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+  <script> 
+  function limpiarform(){
+  document.forms['formCase'].reset()
+  }
+  </script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"
+    integrity="sha256-R4pqcOYV8lt7snxMQO/HSbVCFRPMdrhAFMH+vr9giYI=" crossorigin="anonymous"></script>
+  <script src="scripts/registro_caso.js"></script>
+  <script src="jquery/jquery.js"></script>
+  <script src="jquery/jquery.datetimepicker.full.js"></script>
+  <script async defer
+    src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBZFxENpr18VouKnGzRAxHJX4aOGoAXJpY&callback=initMap"></script>
+    <script>  
+      //Obtener fecha de hoy
+  
+      let today = new Date();
+      let dd = today.getDate();
+      let mm = today.getMonth() + 1; //enero es 0!
+      let yyyy = today.getFullYear();
+      
+      if (dd < 10) {
+        dd = "0" + dd;
+      }
+      if (mm < 10) {
+        mm = "0" + mm;
+      }
+      
+      today = yyyy + "-" + mm + "-" + dd ;
+  
+      //Inicialziar el calendario con la fecha de hoy
+      document.getElementById("fechanac").value = today;
+      document.getElementById("fechanac").max = today;
+      document.getElementById("fechaex").value = today;
+      document.getElementById("fechaex").max = today;
+      
+      </script>
+</body>
+</html>

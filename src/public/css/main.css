@@ -1,0 +1,101 @@
+:root{
+    --primary-color: #161d27;
+    --secondary-color: #a19975;
+    --light-color: #ffffff;
+    --grey-color: #efefef;
+    --dark: #000000;
+}
+
+body{
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 15px;
+    color: var(--primary-color);
+    letter-spacing: .05em;
+}
+
+h1,h2,h3,h4,h5,h6 {
+    font-weight: 600 !important;
+}
+
+.text-light {color: var(--light-color) !important;}
+.bg-primary { background-color: var(--primary-color) !important;}
+.bg-grey { background-color: var(--grey-color) !important;}
+
+.navbar {
+    min-height: 80px;
+}
+
+.nav-link{
+    color: var(--light-color);
+}
+
+a{
+    color: var(--light-color);
+}
+
+a:hover{
+    color:var(--light-color);
+    opacity: .9;
+    text-decoration: none;
+}
+
+.section-index {
+    padding: 100px 0;
+}
+
+.form-control {
+    min-height: 3.125rem;
+    line-height: initial;
+}
+
+.btn{
+    font-weight: 600;
+    padding: 12px 25px;
+}
+
+.btn-secondary{
+    background-color: var(--secondary-color);
+    color: var(--light-color);
+    border: 1px solid var(--secondary-color);
+}
+
+.btn-secondary:hover{
+    background-color: var(--secondary-color);
+    border: 1px solid var(--secondary-color);
+}
+
+.main-photo{ 
+    max-width: 500px;
+    border: 10px solid var(--light-color);
+    box-shadow: -10px 10px 0 0 var(--secondary-color);
+}
+
+.heading-title{
+    max-width: 800px;
+}
+
+.card{
+    max-width: 1200px;
+}
+
+.img-1{
+    background-image: url("/assets/img/med1.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+.img-2{
+    background-image: url("/assets/img/med3.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+.swal-text {
+    text-align: center;
+    font-size: 20px;
+    color: var(--dark);
+}
+
+
+
+
