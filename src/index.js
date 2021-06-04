@@ -75,6 +75,7 @@ app.get('/userestilo', (request, response) => {
 app.get('/mainestilo', (request, response) => {
     response.sendFile(path.join(__dirname + '/public/css/main.css'));
 });
+
 //Admin
 app.get('/admin', function (request, response) {
     console.log(request.session)
@@ -300,7 +301,9 @@ app.post('/casos2', (req, res) => {
     .query(sql)
     .then(raw => {
        res.json(raw.rows);
+       console.log(raw.rows);
     })
+    
     .catch(e => console.log(e))
 });
 

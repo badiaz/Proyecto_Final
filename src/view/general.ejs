@@ -226,9 +226,9 @@
 
       for (let index = 0; index < datatemp.length; index++) {
         const persona = datatemp[index];
-        const address = result2[persona.id - 1].direc + " Barranquilla";
-        console.log(address)
-        if (address != "") {
+        const address = result2[persona.id - 19].direc + " Barranquilla";
+        console.log(address);
+         if (address != "") {
           geocoder.geocode({ 'address': address }, function (results1, status) {
             if (status == google.maps.GeocoderStatus.OK) {
               if (persona['estado'] == 1) {
