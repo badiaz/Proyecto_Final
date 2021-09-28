@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+    integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+  <link rel="stylesheet" href="userestilo">
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;600&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
+
+
+  <title>Analisis de Ruta</title>
+</head>
+
+<body>
+  <div class="d-flex" id="content-wrapper">
+    <!-- Sidebar -->
+    <div id="sidebar-container" class="bg-primary">
+      <div class="logo">
+        <h4 class="text-light font-weight-bold mb-0"><img src="https://i.postimg.cc/k4cVktLT/RISK-TOOL.png" alt=""></h4>
+      </div>
+      <div class="menu">
+        <a href="/registro_caso" class="d-block text-light p-3 border-0"><i class="icon ion-md-apps lead mr-2"></i>
+          Analisis de Rutas</a>
+        <!-- <a href="/obtener_caso" class="d-block text-light p-3 border-0"><i class="icon ion-md-people lead mr-2"></i>
+          Obtener caso</a> -->
+      </div>
+    </div>
+    <!-- Fin sidebar -->
+
+    <div class="w-100">
+      <!-- Navbar -->
+      <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+        <div class="container">
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+              <li class="nav-item dropdown">
+                <a class="nav-link text-dark dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <img src="https://i.postimg.cc/ZqwbCQdY/config.png" class="img-fluid rounded-circle avatar mr-2"
+                    alt="https://generated.photos/" />
+                  Usuario
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="/">Cerrar sesión</a>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <!-- Fin Navbar -->
+
+      <!-- Page Content -->
+      <div id="content" class="bg-grey w-100">
+        <section class="bg-light py-3">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-lg-6 col-md-6">
+                <h1 class="font-weight-bold mb-0">Bienvenido Usuario</h1>
+                <p class="lead text-muted">Esta herramienta realiza una evaluación de riesgo asociado al tranporte de
+                  material quimico peligroso por una ruta dada mediante un sistemas de logica difusa. <br><br> A
+                  continuación, podrás ingresar la información requerida:</p>
+              </div>
+
+              <div class="col-lg-6 col-md-6 ">
+                <div id="chartdiv"></div>
+                <!-- <button class="btn btn-primary w-100 align-self-center">Descargar reporte de hoy</button> -->
+              </div>
+            </div>
+
+          </div>
+        </section>
+        <section class="bg-light">
+          <div class="drop-zone" float="right">
+            <span class="drop-zone__prompt">Arrastre o de click aquí para adjuntar la imagen</span>
+            <input type="file" name="myFile" class="drop-zone__input" multiple="multiple" accept="image/*" id="file"
+              onchange="loadFile(event)">
+            <img id="output" width="200" />
+          </div>
+        </section>
+
+        <section>
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-12 my-4">
+                <div class="card rounded-0">
+                  <div class="card-header bg-light">
+                    <h5 class="d-inline-block font-weight-bold mb-0">Analisis de Ruta</h5>
+                  </div>
+                  <div class="card-body">
+                    <div class="container">
+                      <form id="formCase" action="/logeado_ayudante" method="post">
+                        <div class="row">
+                          <div class="col-lg-6 my-4">
+                            <div class="form-group mb-4">
+                              <label class="heat-slider heat-slider--v">
+                                <span class="heat-slider--label font-weight-bold">Número de Bicicleta:</span>
+                                <span class="heat-slider--input">
+                                  <input type="range" value="32" min="0" max="143" oninput="doThings(event)" />
+                                </span>
+                              </label>
+                              <output>change the slider</output>
+                            </div>
+                            <div class="form-group mb-4">
+                              <label for="Moto" class="font-weight-bold">Número de Motos : </label><br><br>
+                              <input class="form-range bg-grey" id="Moto" name="Moto" type="range" value="0" min="0"
+                                max="10" step="1">
+                              <span class="rangeslider__tooltip" id="range-tooltip"></span>
+                            </div>
+                            <div class="form-group mb-4">
+                              <label for="cedula" class="font-weight-bold">Número de Peatones : </label><br><br>
+                              <input class="form-range bg-grey" id="nombre" name="nombre" type="range" value="0" min="0"
+                                max="10" step="1">
+                              <span class="rangeslider__tooltip" id="range-tooltip"></span>
+                            </div>
+                            <div class="form-group mb-4">
+                              <label for="apellido" class="font-weight-bold">Del 0 al 10 califique la condición de la
+                                vía: </label><br><br>
+                              <input class="form-range bg-grey" id="nombre" name="nombre" type="range" value="0" min="0"
+                                max="10" step="1">
+                              <span class="rangeslider__tooltip" id="range-tooltip"></span>
+                            </div>
+                            <div class="form-group mb-4">
+                              <label for="apellido" class="font-weight-bold">Del 0 al 10 que tan buena es la resistencia
+                                al deslizamiento de la vía: </label><br><br>
+                              <input class="form-range bg-grey" id="nombre" name="nombre" type="range" value="0" min="0"
+                                max="10" step="1">
+                              <span class="rangeslider__tooltip" id="range-tooltip"></span>
+                            </div>
+                            <div class="form-group mb-0">
+                              <label for="sexo" class="font-weight-bold">¿Está la calzada dividida?</label>
+                            </div>
+                            <div class="form-group mb-4">
+                              <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                <label class="btn btn-primary active">
+                                  <input type="radio" name="sexo" id="masculino" value="1" checked> Dividida
+                                </label>
+                                <label class="btn btn-primary">
+                                  <input type="radio" name="sexo" id="femenino" value="2"> No Dividida
+                                </label>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-lg-6 my-4">
+                            <div class="form-group mb-4">
+                              <label for="apellido" class="font-weight-bold"> Seleccione el límite de Velocidad de la
+                                carretera: </label><br><br>
+                              <input class="form-range bg-grey" id="nombre" name="nombre" type="range" value="0" min="0"
+                                max="10" step="1">
+                              <span class="rangeslider__tooltip" id="range-tooltip"></span>
+                            </div>
+                            <div class="form-group mb-4">
+                              <label for="apellido" class="font-weight-bold"> Seleccione hora de salida tentativa de la
+                                ruta: </label><br><br>
+                              <input class="form-range bg-grey" id="nombre" name="nombre" type="range" value="0" min="0"
+                                max="10" step="1">
+                              <span class="rangeslider__tooltip" id="range-tooltip"></span>
+                            </div>
+                            <div class="form-group mb-4">
+                              <label for="apellido" class="font-weight-bold"> Del 0 al 10 califique la calidad del
+                                alumbrado público: </label><br><br>
+                              <input class="form-range bg-grey" id="nombre" name="nombre" type="range" value="0" min="0"
+                                max="10" step="1">
+                              <span class="rangeslider__tooltip" id="range-tooltip"></span>
+                            </div>
+                            <div class="form-group mb-4">
+                              <label for="apellido" class="font-weight-bold"> Del 0 al 10 califique la calidad del
+                                separador de la vía: </label> <br><br>
+                              <input class="form-range bg-grey" id="nombre" name="nombre" type="range" value="0" min="0"
+                                max="10" step="1">
+                              <span class="rangeslider__tooltip" id="range-tooltip"></span>
+                            </div>
+                            <div class="form-group mb-4">
+                              <label for="apellido" class="font-weight-bold"> Del 0 al 10 califique la severidad de las
+                                obras en la vía: </label><br><br>
+                              <input class="form-range bg-grey" id="nombre" name="nombre" type="range" value="0" min="0"
+                                max="10" step="1">
+                              <span class="rangeslider__tooltip" id="range-tooltip"></span>
+                            </div>
+                          </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary mt-4 mb-4 w-25">Evaluar Ruta</button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="https://andreruffert.github.io/rangeslider.js/assets/rangeslider.js/dist/rangeslider.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.2/underscore-min.js"></script>
+
+  <script>
+    const output = document.querySelector('output')
+
+    const doThings = (event) => {
+      const { value, min, max, step, parentElement: parent } = event.target
+      const decimals = step && step.includes('.') ? step.split('.')[1] : 1
+      const percent = `${((value - min) / (max - min) * 100).toFixed(decimals)}%`
+      parent.style.setProperty('--p', percent)
+
+      output.value = `value: ${value} (${percent})`
+    }
+
+  </script>
+
+  <script>
+    var loadFile = function (event) {
+      var image = document.getElementById('output');
+      for (images in image) {
+        image.src = URL.createObjectURL(event.target.files[images]);
+      }
+    };
+  </script>
+   <script>
+    document.querySelectorAll(".drop-zone__input").forEach((inputElement) => {
+      const dropZoneElement = inputElement.closest(".drop-zone");
+
+      dropZoneElement.addEventListener("click", (e) => {
+        inputElement.click();
+      });
+
+      inputElement.addEventListener("change", (e) => {
+        if (inputElement.files.length) {
+          updateThumbnail(dropZoneElement, inputElement.files[0]);
+        }
+      });
+
+      dropZoneElement.addEventListener("dragover", (e) => {
+        e.preventDefault();
+        dropZoneElement.classList.add("drop-zone--over");
+      });
+
+      ["dragleave", "dragend"].forEach((type) => {
+        dropZoneElement.addEventListener(type, (e) => {
+          dropZoneElement.classList.remove("drop-zone--over");
+        });
+      });
+
+      dropZoneElement.addEventListener("drop", (e) => {
+        e.preventDefault();
+
+        if (e.dataTransfer.files.length) {
+          inputElement.files = e.dataTransfer.files;
+          updateThumbnail(dropZoneElement, e.dataTransfer.files[0]);
+        }
+
+        dropZoneElement.classList.remove("drop-zone--over");
+      });
+    });
+
+    /**
+     * Updates the thumbnail on a drop zone element.
+     *
+     * @param {HTMLElement} dropZoneElement
+     * @param {File} file
+     */
+    function updateThumbnail(dropZoneElement, file) {
+      let thumbnailElement = dropZoneElement.querySelector(".drop-zone__thumb");
+
+      // First time - remove the prompt
+      if (dropZoneElement.querySelector(".drop-zone__prompt")) {
+        dropZoneElement.querySelector(".drop-zone__prompt").remove();
+      }
+
+      // First time - there is no thumbnail element, so lets create it
+      if (!thumbnailElement) {
+        thumbnailElement = document.createElement("div");
+        thumbnailElement.classList.add("drop-zone__thumb");
+        dropZoneElement.appendChild(thumbnailElement);
+      }
+
+      thumbnailElement.dataset.label = file.name;
+
+      // Show thumbnail for image files
+      if (file.type.startsWith("image/")) {
+        const reader = new FileReader();
+
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+          thumbnailElement.style.backgroundImage = `url('${reader.result}')`;
+        };
+      } else {
+        thumbnailElement.style.backgroundImage = null;
+      }
+    }
+
+
+  </script> 
+
+  <script>
+    function limpiarform() {
+      document.forms['formCase'].reset()
+    }
+  </script>
+
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"
+    integrity="sha256-R4pqcOYV8lt7snxMQO/HSbVCFRPMdrhAFMH+vr9giYI=" crossorigin="anonymous"></script>
+
+
+
+
+  <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+  <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
+  <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+
+  <script>
+    am4core.ready(function () {
+
+      // Themes begin
+      am4core.useTheme(am4themes_animated);
+      // Themes end
+
+      // create chart
+      var chart = am4core.create("chartdiv", am4charts.GaugeChart);
+      chart.innerRadius = am4core.percent(82);
+
+      /**
+       * Normal axis
+       */
+
+      var axis = chart.xAxes.push(new am4charts.ValueAxis());
+      axis.min = 0;
+      axis.max = 100;
+      axis.strictMinMax = true;
+      axis.renderer.radius = am4core.percent(80);
+      axis.renderer.inside = true;
+      axis.renderer.line.strokeOpacity = 1;
+      axis.renderer.ticks.template.disabled = false
+      axis.renderer.ticks.template.strokeOpacity = 1;
+      axis.renderer.ticks.template.length = 10;
+      axis.renderer.grid.template.disabled = true;
+      axis.renderer.labels.template.radius = 40;
+      axis.renderer.labels.template.adapter.add("text", function (text) {
+        return text + "%";
+      })
+
+      /**
+       * Axis for ranges
+       */
+
+      var colorSet = new am4core.ColorSet();
+
+      var axis2 = chart.xAxes.push(new am4charts.ValueAxis());
+      axis2.min = 0;
+      axis2.max = 100;
+      axis2.strictMinMax = true;
+      axis2.renderer.labels.template.disabled = true;
+      axis2.renderer.ticks.template.disabled = true;
+      axis2.renderer.grid.template.disabled = true;
+
+      var range0 = axis2.axisRanges.create();
+      range0.value = 0;
+      range0.endValue = 30;
+      range0.axisFill.fillOpacity = 1;
+      range0.axisFill.fill = am4core.color("green");
+      range0.label.text = "Bajo"
+      range0.label.inside = true;
+      range0.label.location = 0.5;
+      range0.label.radius = am4core.percent(15);
+      range0.label.paddingBottom = -5; // ~half font size
+      range0.label.fontSize = "0.8em";
+
+
+      var range1 = axis2.axisRanges.create();
+      range1.value = 30;
+      range1.endValue = 70;
+      range1.axisFill.fillOpacity = 1;
+      range1.axisFill.fill = am4core.color("orange");
+      range1.label.text = "Medio"
+      range1.label.inside = true;
+      range1.label.location = 0.5;
+      range1.label.radius = am4core.percent(10);
+      range1.label.paddingBottom = -5; // ~half font size
+      range1.label.fontSize = "0.8em";
+
+      var range2 = axis2.axisRanges.create();
+      range2.value = 70;
+      range2.endValue = 100;
+      range2.axisFill.fillOpacity = 1;
+      range2.axisFill.fill = am4core.color("red");
+      range2.label.text = "Alto"
+      range2.label.inside = true;
+      range2.label.location = 0.5;
+      range2.label.radius = am4core.percent(15);
+      range2.label.paddingBottom = -5; // ~half font size
+      range2.label.fontSize = "0.8em";
+
+
+
+      /**
+       * Label
+       */
+
+      var label = chart.radarContainer.createChild(am4core.Label);
+      label.isMeasured = false;
+      label.fontSize = 20;
+      label.x = am4core.percent(50);
+      label.y = am4core.percent(100);
+      label.paddingBottom = 0;
+      label.horizontalCenter = "middle";
+      label.verticalCenter = "bottom";
+      label.text = "50%";
+
+      var label2 = chart.radarContainer.createChild(am4core.Label);
+      label2.isMeasured = false;
+      label2.fontSize = 20;
+      label2.x = am4core.percent(50);
+      label2.y = am4core.percent(100);
+      label2.paddingBottom = 150;
+      label2.horizontalCenter = "middle";
+      label2.verticalCenter = "bottom";
+      label2.text = "Porcentaje de Riesgo";
+
+
+      /**
+       * Hand
+       */
+
+      var hand = chart.hands.push(new am4charts.ClockHand());
+      hand.axis = axis2;
+      hand.innerRadius = am4core.percent(20);
+      hand.startWidth = 10;
+      hand.pin.disabled = true;
+      hand.value = 50;
+
+      hand.events.on("propertychanged", function (ev) {
+        /*   range0.endValue = ev.target.value;
+          range1.value = ev.target.value; */
+        label.text = axis2.positionToValue(hand.currentPosition).toFixed(1);
+        axis2.invalidate();
+      });
+
+      setInterval(function () {
+        var value = Math.round(Math.random() * 100);
+        var animation = new am4core.Animation(hand, {
+          property: "value",
+          to: value
+        }, 1000, am4core.ease.cubicOut).start();
+      }, 2000);
+
+    }); // end am4core.ready()
+  </script>
+</body>
+
+</html>

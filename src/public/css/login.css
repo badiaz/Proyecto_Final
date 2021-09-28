@@ -3,7 +3,7 @@ body {
 	font-family: 'Poppins', sans-serif;
 }
 header {
-	background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url(https://i.postimg.cc/Gm0PZgCT/img-login.jpg);
+	background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url(https://i.postimg.cc/TYXW4CzR/camion.jpg);
 	height: 100vh;
 	-webkit-background-size: cover;
 	background-size: cover;
@@ -69,7 +69,7 @@ header {
     .social_icon span{
     font-size: 60px;
     margin-left: 10px;
-    color: #00fecb;
+    color: #007a79;
     }
     
     .social_icon span:hover{
@@ -89,7 +89,7 @@ header {
     
     .input-group-prepend span{
     width: 50px;
-    background-color: #00fecb;
+    background-color: #007a79;
     color: black;
     border:0 !important;
     }
@@ -114,7 +114,7 @@ header {
     
     .login_btn{
     color: black;
-    background-color: #00fecb;
+    background-color: #007a79;
     width: 100px;
     }
     

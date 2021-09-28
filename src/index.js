@@ -91,7 +91,7 @@ app.get('/admin', function (request, response) {
 app.get('/registro_caso', function (request, response) {
     
     if (request.session.loggedin1) {
-        return response.render(path.join(__dirname + '/view/registro_caso.ejs'));
+        return response.render(path.join(__dirname + '/view/analisis_de_ruta.ejs'));
     } else {
         return response.render(path.join(__dirname + '/view/login.ejs'));
     }
