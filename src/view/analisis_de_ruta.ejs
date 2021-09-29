@@ -104,36 +104,49 @@
                               <label class="heat-slider heat-slider--v">
                                 <span class="heat-slider--label font-weight-bold">Número de Bicicleta:</span>
                                 <span class="heat-slider--input">
-                                  <input type="range" value="32" min="0" max="143" oninput="doThings(event)" />
+                                  <input id="bici" type="range" value="0" min="0" max="10" oninput="doThings(event)" />
                                 </span>
                               </label>
-                              <output>change the slider</output>
+                              <output id="outbici">Por favor deslice para seleccionar...</output>
                             </div>
                             <div class="form-group mb-4">
-                              <label for="Moto" class="font-weight-bold">Número de Motos : </label><br><br>
-                              <input class="form-range bg-grey" id="Moto" name="Moto" type="range" value="0" min="0"
-                                max="10" step="1">
-                              <span class="rangeslider__tooltip" id="range-tooltip"></span>
+                              <label class="heat-slider heat-slider--v">
+                                <span class="heat-slider--label font-weight-bold">Número de Motos:</span>
+                                <span class="heat-slider--input">
+                                  <input type="range" value="0" min="0" max="10" oninput="doThings1(event)" />
+                                </span>
+                              </label>
+                              <output id="outmoto">Por favor deslice para seleccionar...</output>
                             </div>
                             <div class="form-group mb-4">
-                              <label for="cedula" class="font-weight-bold">Número de Peatones : </label><br><br>
-                              <input class="form-range bg-grey" id="nombre" name="nombre" type="range" value="0" min="0"
-                                max="10" step="1">
-                              <span class="rangeslider__tooltip" id="range-tooltip"></span>
+                              <label class="heat-slider heat-slider--v">
+                                <span class="heat-slider--label font-weight-bold">Número de Peatones:</span>
+                                <span class="heat-slider--input">
+                                  <input type="range" value="0" min="0" max="10" oninput="doThings2(event)" />
+                                </span>
+                              </label>
+                              <output id="outpeaton">Por favor deslice para seleccionar...</output>
                             </div>
                             <div class="form-group mb-4">
-                              <label for="apellido" class="font-weight-bold">Del 0 al 10 califique la condición de la
-                                vía: </label><br><br>
-                              <input class="form-range bg-grey" id="nombre" name="nombre" type="range" value="0" min="0"
-                                max="10" step="1">
-                              <span class="rangeslider__tooltip" id="range-tooltip"></span>
+                              <label class="heat-sliderinv heat-sliderinv--v">
+                                <span class="heat-sliderinv--label font-weight-bold">Del 0 al 10 califique la condición
+                                  de
+                                  la via:</span>
+                                <span class="heat-sliderinv--input">
+                                  <input type="range" value="0" min="0" max="10" oninput="doThings3(event)" />
+                                </span>
+                              </label>
+                              <output id="outvia">Por favor deslice para seleccionar...</output>
                             </div>
                             <div class="form-group mb-4">
-                              <label for="apellido" class="font-weight-bold">Del 0 al 10 que tan buena es la resistencia
-                                al deslizamiento de la vía: </label><br><br>
-                              <input class="form-range bg-grey" id="nombre" name="nombre" type="range" value="0" min="0"
-                                max="10" step="1">
-                              <span class="rangeslider__tooltip" id="range-tooltip"></span>
+                              <label class="heat-slider heat-slider--v">
+                                <span class="heat-slider--label font-weight-bold">Del 0 al 10 que tan buena es la
+                                  resistencia al deslizamiento de la vía:</span>
+                                <span class="heat-slider--input">
+                                  <input type="range" value="0" min="0" max="10" oninput="doThings4(event)" />
+                                </span>
+                              </label>
+                              <output id="outdeslizamiento">Por favor deslice para seleccionar...</output>
                             </div>
                             <div class="form-group mb-0">
                               <label for="sexo" class="font-weight-bold">¿Está la calzada dividida?</label>
@@ -151,39 +164,59 @@
                           </div>
                           <div class="col-lg-6 my-4">
                             <div class="form-group mb-4">
-                              <label for="apellido" class="font-weight-bold"> Seleccione el límite de Velocidad de la
-                                carretera: </label><br><br>
-                              <input class="form-range bg-grey" id="nombre" name="nombre" type="range" value="0" min="0"
-                                max="10" step="1">
-                              <span class="rangeslider__tooltip" id="range-tooltip"></span>
+                              <label class="heat-slider heat-slider--v">
+                                <span class="heat-slider--label font-weight-bold">Seleccione el límite de Velocidad de
+                                  la carretera:</span>
+                                <span class="heat-slider--input">
+                                  <input type="range" value="0" min="0" max="100" step="10"
+                                    oninput="doThings5(event)" />
+                                </span>
+                              </label>
+                              <output id="outvelocidad">Por favor deslice para seleccionar...</output>
                             </div>
                             <div class="form-group mb-4">
-                              <label for="apellido" class="font-weight-bold"> Seleccione hora de salida tentativa de la
-                                ruta: </label><br><br>
-                              <input class="form-range bg-grey" id="nombre" name="nombre" type="range" value="0" min="0"
-                                max="10" step="1">
-                              <span class="rangeslider__tooltip" id="range-tooltip"></span>
+                              <label class="heat-slider heat-slider--v">
+                                <span class="heat-slider--label font-weight-bold">Seleccione hora de salida tentativa de
+                                  la
+                                  ruta:</span>
+                                <span class="heat-slider--input">
+                                  <input type="range" value="0" min="0" max="24" step="1" oninput="doThings6(event)" />
+                                </span>
+                              </label>
+                              <output id="outHora">Por favor deslice para seleccionar...</output>
                             </div>
                             <div class="form-group mb-4">
-                              <label for="apellido" class="font-weight-bold"> Del 0 al 10 califique la calidad del
-                                alumbrado público: </label><br><br>
-                              <input class="form-range bg-grey" id="nombre" name="nombre" type="range" value="0" min="0"
-                                max="10" step="1">
-                              <span class="rangeslider__tooltip" id="range-tooltip"></span>
+                              <label class="heat-sliderinv heat-sliderinv--v">
+                                <span class="heat-sliderinv--label font-weight-bold">Del 0 al 10 califique la calidad
+                                  del
+                                  alumbrado público:</span>
+                                <span class="heat-sliderinv--input">
+                                  <input type="range" value="0" min="0" max="10" oninput="doThings7(event)" />
+                                </span>
+                              </label>
+                              <output id="outalumbrado">Por favor deslice para seleccionar...</output>
                             </div>
                             <div class="form-group mb-4">
-                              <label for="apellido" class="font-weight-bold"> Del 0 al 10 califique la calidad del
-                                separador de la vía: </label> <br><br>
-                              <input class="form-range bg-grey" id="nombre" name="nombre" type="range" value="0" min="0"
-                                max="10" step="1">
-                              <span class="rangeslider__tooltip" id="range-tooltip"></span>
+                              <label class="heat-sliderinv heat-sliderinv--v">
+                                <span class="heat-sliderinv--label font-weight-bold">Del 0 al 10 califique la calidad
+                                  del
+                                  separador de la vía:</span>
+                                <span class="heat-sliderinv--input">
+                                  <input type="range" value="0" min="0" max="10" step="1" oninput="doThings8(event)" />
+                                </span>
+                              </label>
+                              <output id="outseparador">Por favor deslice para seleccionar...</output>
                             </div>
                             <div class="form-group mb-4">
-                              <label for="apellido" class="font-weight-bold"> Del 0 al 10 califique la severidad de las
-                                obras en la vía: </label><br><br>
-                              <input class="form-range bg-grey" id="nombre" name="nombre" type="range" value="0" min="0"
-                                max="10" step="1">
-                              <span class="rangeslider__tooltip" id="range-tooltip"></span>
+                              <label class="heat-slider heat-slider--v">
+                                <span class="heat-slider--label font-weight-bold">Del 0 al 10 califique la severidad de
+                                  las
+                                  obras en la vía:</span>
+                                <span class="heat-slider--input">
+                                  <input type="range" value="0" min="0" max="10" step="1" oninput="doThings9(event)" />
+                                </span>
+                              </label>
+                              <output id="outseveridad">Por favor deslice para seleccionar...</output>
                             </div>
                           </div>
                         </div>
@@ -203,17 +236,116 @@
   <script src="https://andreruffert.github.io/rangeslider.js/assets/rangeslider.js/dist/rangeslider.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.2/underscore-min.js"></script>
 
-  <script>
-    const output = document.querySelector('output')
 
+  <!-- SLIDERSSS -->
+  <script>
+    const output = document.querySelector('#outbici')
     const doThings = (event) => {
       const { value, min, max, step, parentElement: parent } = event.target
       const decimals = step && step.includes('.') ? step.split('.')[1] : 1
       const percent = `${((value - min) / (max - min) * 100).toFixed(decimals)}%`
+      let text 
       parent.style.setProperty('--p', percent)
-
-      output.value = `value: ${value} (${percent})`
+      if(document.getElementById('bici').value >=0 && document.getElementById('bici').value<3){
+        text = "El flujo de bicicletas es bajo."
+      }else if(document.getElementById('bici').value>=3 && document.getElementById('bici').value<7){
+        text = "El flujo de bicicletas es medio, se recomienda conducir con precaución para evitar posibles accidentes."
+      }else if(document.getElementById('bici').value>=7 && document.getElementById('bici').value<=10){
+        text = "El flujo de bicicletas es alto, hay un potencial riesgo de colisión, por favor reduzca la velocidad."
+      }
+        output.value = `value: ${value} (${percent}) ${text}`
     }
+
+    const output1 = document.querySelector('#outmoto')
+    const doThings1 = (event) => {
+      const { value, min, max, step, parentElement: parent } = event.target
+      const decimals1 = step && step.includes('.') ? step.split('.')[1] : 1
+      const percent1 = `${((value - min) / (max - min) * 100).toFixed(decimals1)}%`
+      parent.style.setProperty('--p', percent1)
+
+      output1.value = `value: ${value} (${percent1})`
+    }
+
+    const output2 = document.querySelector('#outpeaton')
+    const doThings2 = (event) => {
+      const { value, min, max, step, parentElement: parent } = event.target
+      const decimals2 = step && step.includes('.') ? step.split('.')[1] : 1
+      const percent2 = `${((value - min) / (max - min) * 100).toFixed(decimals2)}%`
+      parent.style.setProperty('--p', percent2)
+
+      output2.value = `value: ${value} (${percent2})`
+    }
+
+    const output3 = document.querySelector('#outvia')
+    const doThings3 = (event) => {
+      const { value, min, max, step, parentElement: parent } = event.target
+      const decimals3 = step && step.includes('.') ? step.split('.')[1] : 1
+      const percent3 = `${((value - min) / (max - min) * 100).toFixed(decimals3)}%`
+      parent.style.setProperty('--p', percent3)
+
+      output3.value = `value: ${value} (${percent3})`
+    }
+
+    const output4 = document.querySelector('#outdeslizamiento')
+    const doThings4 = (event) => {
+      const { value, min, max, step, parentElement: parent } = event.target
+      const decimals4 = step && step.includes('.') ? step.split('.')[1] : 1
+      const percent4 = `${((value - min) / (max - min) * 100).toFixed(decimals4)}%`
+      parent.style.setProperty('--p', percent4)
+
+      output4.value = `value: ${value} (${percent4})`
+    }
+
+    const output5 = document.querySelector('#outvelocidad')
+    const doThings5 = (event) => {
+      const { value, min, max, step, parentElement: parent } = event.target
+      const decimals5 = step && step.includes('.') ? step.split('.')[1] : 1
+      const percent5 = `${((value - min) / (max - min) * 100).toFixed(decimals5)}%`
+      parent.style.setProperty('--p', percent5)
+
+      output5.value = `value: ${value} (${percent5})`
+    }
+
+    const output6 = document.querySelector('#outHora')
+    const doThings6 = (event) => {
+      const { value, min, max, step, parentElement: parent } = event.target
+      const decimals6 = step && step.includes('.') ? step.split('.')[1] : 1
+      const percent6 = `${((value - min) / (max - min) * 100).toFixed(decimals6)}%`
+      parent.style.setProperty('--p', percent6)
+
+      output6.value = `value: ${value} (${percent6})`
+    }
+
+    const output7 = document.querySelector('#outalumbrado')
+    const doThings7 = (event) => {
+      const { value, min, max, step, parentElement: parent } = event.target
+      const decimals7 = step && step.includes('.') ? step.split('.')[1] : 1
+      const percent7 = `${((value - min) / (max - min) * 100).toFixed(decimals7)}%`
+      parent.style.setProperty('--p', percent7)
+
+      output7.value = `value: ${value} (${percent7})`
+    }
+
+    const output8 = document.querySelector('#outseparador')
+    const doThings8 = (event) => {
+      const { value, min, max, step, parentElement: parent } = event.target
+      const decimals8 = step && step.includes('.') ? step.split('.')[1] : 1
+      const percent8 = `${((value - min) / (max - min) * 100).toFixed(decimals8)}%`
+      parent.style.setProperty('--p', percent8)
+
+      output8.value = `value: ${value} (${percent8})`
+    }
+
+    const output9 = document.querySelector('#outseveridad')
+    const doThings9 = (event) => {
+      const { value, min, max, step, parentElement: parent } = event.target
+      const decimals9 = step && step.includes('.') ? step.split('.')[1] : 1
+      const percent9 = `${((value - min) / (max - min) * 100).toFixed(decimals9)}%`
+      parent.style.setProperty('--p', percent9)
+
+      output9.value = `value: ${value} (${percent9})`
+    }
+
 
   </script>
 
@@ -225,7 +357,7 @@
       }
     };
   </script>
-   <script>
+  <script>
     document.querySelectorAll(".drop-zone__input").forEach((inputElement) => {
       const dropZoneElement = inputElement.closest(".drop-zone");
 
@@ -299,7 +431,7 @@
     }
 
 
-  </script> 
+  </script>
 
   <script>
     function limpiarform() {
