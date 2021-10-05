@@ -36,24 +36,73 @@
 </head>
 
 <body>
-	<header>
-		<div class="wrapper">
-			<div class="logo">
-				<img src="https://i.postimg.cc/k4cVktLT/RISK-TOOL.png" alt="">
-			</div>
-			<ul class="nav-area">
-				<li><a href="/">Home</a></li>
-				
-			</ul>
-		</div>
-		<div class="welcome-text">
-			<h1>
-				Saving <span>Lives</span></h1>
-			<a href="login">Log In</a>
-		</div>
-	</header>
+    <main>
+      <div class="big-wrapper light">
+        <img src="./img/shape.png" alt="" class="shape" />
 
-</body>
+        <header>
+          <div class="container">
+            <div class="logo">
+              <img src="https://i.postimg.cc/wTC1XTN5/logo-sin-fondo.png" alt="Logo" />
+              <h3>RISK TOOL</h3>
+            </div>
+
+            <div class="links">
+              <ul>
+                <li><a href="/">Home</a></li>
+                <!-- <li><a href="#">Pricing</a></li>
+                <li><a href="#">Testimonials</a></li> -->
+                <li><a href="login" class="btn">Log In</a></li>
+              </ul>
+            </div>
+
+            <div class="overlay"></div>
+
+            <div class="hamburger-menu">
+              <div class="bar"></div>
+            </div>
+          </div>
+        </header>
+
+        <div class="showcase-area">
+          <div class="container">
+            <div class="left">
+              <div class="big-title">
+                <h1>Saving lives,</h1>
+                <h1>One trip at a time.</h1>
+              </div>
+              <p class="text">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                Delectus eius distinctio odit, magni magnam qui ex perferendis
+                vitae!
+              </p>
+              <!-- <div class="cta">
+                <a href="#" class="btn">Get started</a>
+              </div> -->
+            </div>
+
+            <div class="right">
+              <img src="https://i.postimg.cc/GtbQhxL2/camionsf1.png" alt="Person Image" class="person" />
+            </div>
+          </div>
+        </div>
+
+        <div class="bottom-area">
+          <div class="container">
+            <button class="toggle-btn">
+              <i class="far fa-moon"></i>
+              <i class="far fa-sun"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- JavaScript Files -->
+
+    <script src="https://kit.fontawesome.com/a81368914c.js"></script>
+    <script src="./app.js"></script>
+  </body>
 <script>
 	//Solicitudes a la DB
 	//1. Casos positivos y negativos
@@ -135,5 +184,57 @@
 	}
 	landing();
 </script>
+<script>
+	// Select The Elements
+var toggle_btn;
+var big_wrapper;
+var hamburger_menu;
 
+function declare() {
+  toggle_btn = document.querySelector(".toggle-btn");
+  big_wrapper = document.querySelector(".big-wrapper");
+  hamburger_menu = document.querySelector(".hamburger-menu");
+}
+
+const main = document.querySelector("main");
+
+declare();
+
+let dark = false;
+
+function toggleAnimation() {
+  // Clone the wrapper
+  dark = !dark;
+  let clone = big_wrapper.cloneNode(true);
+  if (dark) {
+    clone.classList.remove("light");
+    clone.classList.add("dark");
+  } else {
+    clone.classList.remove("dark");
+    clone.classList.add("light");
+  }
+  clone.classList.add("copy");
+  main.appendChild(clone);
+
+  document.body.classList.add("stop-scrolling");
+
+  clone.addEventListener("animationend", () => {
+    document.body.classList.remove("stop-scrolling");
+    big_wrapper.remove();
+    clone.classList.remove("copy");
+    // Reset Variables
+    declare();
+    events();
+  });
+}
+
+function events() {
+  toggle_btn.addEventListener("click", toggleAnimation);
+  hamburger_menu.addEventListener("click", () => {
+    big_wrapper.classList.toggle("active");
+  });
+}
+
+events();
+</script>
 </html>

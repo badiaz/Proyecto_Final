@@ -34,53 +34,134 @@
 </head>
 
 <body>
-	<header>
-		<div class="wrapper">
-			<div class="logo">
-				<img src="https://i.postimg.cc/k4cVktLT/RISK-TOOL.png" alt="">
+	<main>
+		<div class="big-wrapper light">
+		  <img src="./img/shape.png" alt="" class="shape" />
+  
+		  <header>
+			<div class="container">
+			  <div class="logo">
+				<img src="https://i.postimg.cc/wTC1XTN5/logo-sin-fondo.png" alt="Logo" />
+				<h3>RISK TOOL</h3>
+			  </div>
+  
+			  <div class="links">
+				<ul>
+				 <!--  <li><a href="/">Inicio</a></li> -->
+				  <!-- <li><a href="#">Pricing</a></li>
+				  <li><a href="#">Testimonials</a></li> -->
+				  <li><a href="/" class="btn">Home</a></li>
+				</ul>
+			  </div>
+  
+			  <div class="overlay"></div>
+  
+			  <div class="hamburger-menu">
+				<div class="bar"></div>
+			  </div>
 			</div>
-			<ul class="nav-area">
-				<li><a href="/">Home</a></li>
-				
-			</ul>
-		</div>
-		<div class="container">
-			<div class="d-flex justify-content-center h-100">
-				<div class="card">
-					<div class="card-header">
-						<h3>Sign In</h3>
-					</div>
-					<div class="card-body">
-						<form id="formlogin">
-							<div class="input-group form-group">
-								<div class="input-group-prepend">
-									<span class="input-group-text"><i class="fas fa-user"></i></span>
-								</div>
-								<input type="text" id="username" class="form-control" placeholder="username">
-
-							</div>
-							<div class="input-group form-group">
-								<div class="input-group-prepend">
-									<span class="input-group-text"><i class="fas fa-key"></i></span>
-								</div>
-								<input type="password" id="password" class="form-control" placeholder="password">
-							</div>
-							<div class="form-group">
-								<input type="submit" value="Login" class="btn float-right login_btn">
-							</div>
-						</form>
-					</div>
+		  </header>
+		  <div class="contenedor__todo">
+			<div class="caja__trasera">
+				<div class="caja__trasera-login">
+					<h3>Do you already have an account?</h3>
+					<p>Let's login</p>
+					<button id="btn__iniciar-sesion">Login</button>
+				</div>
+				<div class="caja__trasera-register">
+					<h3>You do not have an account?</h3>
+					<p>Sign up to log in</p>
+					<button id="btn__registrarse">Sign Up</button>
 				</div>
 			</div>
+	
+			<!--Formulario de Login y registro-->
+			<div class="contenedor__login-register">
+				<!--Login-->
+				<form id="formulario_login" action="" class="formulario__login">
+					<h2>Log In</h2>
+					<input id = "username" type="text" placeholder="Username">
+					<input id="password" type="password" placeholder="Password">
+					<button>Login</button>
+				</form>
+	
+				<!--Register-->
+				<form id="formulario_register" action="/form" method="post" class="formulario__register">
+					<h2>Sign up</h2>
+					<input id="nombre" name="nombre" type="text" placeholder="Name">
+					<input id="apellido" name="apellido" type="text" placeholder="Last name">
+					<input id="cedula" name="cedula" type="text" placeholder="Id">
+					<input id="usuario" name="usuario" type="text" placeholder="Username">
+					<input id="pass" name="contra" type="password" placeholder="Password">
+					<button >Sign Up</button>
+				</form>
+			</div>
 		</div>
-	</header>
+		</div>
+	  </main>
 
 </body>
+
+<script>
+
+	// Select The Elements
+	var toggle_btn;
+	var big_wrapper;
+	var hamburger_menu;
+
+	function declare() {
+		toggle_btn = document.querySelector(".toggle-btn");
+		big_wrapper = document.querySelector(".big-wrapper");
+		hamburger_menu = document.querySelector(".hamburger-menu");
+	}
+
+	const main = document.querySelector("main");
+
+	declare();
+
+	let dark = false;
+
+	function toggleAnimation() {
+		// Clone the wrapper
+		dark = !dark;
+		let clone = big_wrapper.cloneNode(true);
+		if (dark) {
+			clone.classList.remove("light");
+			clone.classList.add("dark");
+		} else {
+			clone.classList.remove("dark");
+			clone.classList.add("light");
+		}
+		clone.classList.add("copy");
+		main.appendChild(clone);
+
+		document.body.classList.add("stop-scrolling");
+
+		clone.addEventListener("animationend", () => {
+			document.body.classList.remove("stop-scrolling");
+			big_wrapper.remove();
+			clone.classList.remove("copy");
+			// Reset Variables
+			declare();
+			events();
+		});
+	}
+
+	function events() {
+		toggle_btn.addEventListener("click", toggleAnimation);
+		hamburger_menu.addEventListener("click", () => {
+			big_wrapper.classList.toggle("active");
+		});
+	}
+
+	events();
+</script>
+
 <script>
 	let username;
 	let contra;
 	let cont = 0;
-	const formLogin = document.querySelector('#formlogin');
+	const formLogin = document.querySelector('#formulario_login');
 	formLogin.addEventListener('submit', event => {
 		username = document.getElementById("username").value;
 		console.log(username);
@@ -115,7 +196,108 @@
 
 	});
 </script>
+<script>
 
+	document.getElementById("btn__iniciar-sesion").addEventListener("click", iniciarSesion);
+	document.getElementById("btn__registrarse").addEventListener("click", register);
+	window.addEventListener("resize", anchoPage);
+
+	//Declarando variables
+	var formulario_login = document.querySelector(".formulario__login");
+	var formulario_register = document.querySelector(".formulario__register");
+	var contenedor_login_register = document.querySelector(".contenedor__login-register");
+	var caja_trasera_login = document.querySelector(".caja__trasera-login");
+	var caja_trasera_register = document.querySelector(".caja__trasera-register");
+
+	//FUNCIONES
+
+	function anchoPage() {
+
+		if (window.innerWidth > 850) {
+			caja_trasera_register.style.display = "block";
+			caja_trasera_login.style.display = "block";
+		} else {
+			caja_trasera_register.style.display = "block";
+			caja_trasera_register.style.opacity = "1";
+			caja_trasera_login.style.display = "none";
+			formulario_login.style.display = "block";
+			contenedor_login_register.style.left = "0px";
+			formulario_register.style.display = "none";
+		}
+	}
+
+	anchoPage();
+
+
+	function iniciarSesion() {
+		if (window.innerWidth > 850) {
+			formulario_login.style.display = "block";
+			contenedor_login_register.style.left = "10px";
+			formulario_register.style.display = "none";
+			caja_trasera_register.style.opacity = "1";
+			caja_trasera_login.style.opacity = "0";
+		} else {
+			formulario_login.style.display = "block";
+			contenedor_login_register.style.left = "0px";
+			formulario_register.style.display = "none";
+			caja_trasera_register.style.display = "block";
+			caja_trasera_login.style.display = "none";
+		}
+	}
+
+	function register() {
+		if (window.innerWidth > 850) {
+			formulario_register.style.display = "block";
+			contenedor_login_register.style.left = "410px";
+			formulario_login.style.display = "none";
+			caja_trasera_register.style.opacity = "0";
+			caja_trasera_login.style.opacity = "1";
+		} else {
+			formulario_register.style.display = "block";
+			contenedor_login_register.style.left = "0px";
+			formulario_login.style.display = "none";
+			caja_trasera_register.style.display = "none";
+			caja_trasera_login.style.display = "block";
+			caja_trasera_login.style.opacity = "1";
+		}
+	}
+</script>
+<script>
+	const formregister = document.querySelector('#formulario_register');
+	formregister.addEventListener('submit', event => {
+		let informacion = {
+			nombre: nombre,
+			apellido: apellido,
+			cedula: cedula,
+			usuario: usuario,
+			password: pass
+		};
+		const opciones = {
+			method: 'POST',
+			body: JSON.stringify(informacion),
+			redirect: 'follow',
+			headers: {
+				'Content-Type': 'application/json'
+				// 'Content-Type': 'application/x-www-form-urlencoded',
+			}
+		};
+		red = fetch('/form', opciones).then(response => {
+			if (response.redirected) {
+				window.location.href = response.url;
+			} else {
+				swal('Usuario registrado exitosamente');
+				document.getElementById("nombre").value = "";
+				document.getElementById("apellido").value = "";
+				document.getElementById("cedula").value = "";
+				document.getElementById("usuario").value = "";
+				document.getElementById("pass").value = "";
+			}
+		});
+
+
+
+	});
+</script>
 
 
 

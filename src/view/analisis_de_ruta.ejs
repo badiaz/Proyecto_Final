@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="userestilo">
   <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;600&display=swap" rel="stylesheet">
   <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
-
+  <script src="https://kit.fontawesome.com/41bcea2ae3.js" crossorigin="anonymous"></script>
 
   <title>Analisis de Ruta</title>
 </head>
@@ -22,10 +22,10 @@
         <h4 class="text-light font-weight-bold mb-0"><img src="https://i.postimg.cc/k4cVktLT/RISK-TOOL.png" alt=""></h4>
       </div>
       <div class="menu">
-        <a href="/registro_caso" class="d-block text-light p-3 border-0"><i class="icon ion-md-apps lead mr-2"></i>
+        <a href="/registro_caso" class="d-block text-light p-3 border-0"><i class="icon ion-md-map lead mr-2"></i>
           Analisis de Rutas</a>
-        <!-- <a href="/obtener_caso" class="d-block text-light p-3 border-0"><i class="icon ion-md-people lead mr-2"></i>
-          Obtener caso</a> -->
+        <a href="/obtener_caso" class="d-block text-light p-3 border-0"><i class="icon ion-md-search lead mr-2"></i>
+          Obtener caso</a>
       </div>
     </div>
     <!-- Fin sidebar -->
@@ -65,8 +65,8 @@
             <div class="row">
               <div class="col-lg-6 col-md-6">
                 <h1 class="font-weight-bold mb-0">Bienvenido Usuario</h1>
-                <p class="lead text-muted">Esta herramienta realiza una evaluación de riesgo asociado al tranporte de
-                  material quimico peligroso por una ruta dada mediante un sistemas de logica difusa. <br><br> A
+                <p class="lead text-muted">Esta herramienta realiza una evaluación de riesgo asociado al transporte de
+                  material químico peligroso por una ruta dada mediante un sistema de lógica difusa. <br><br> A
                   continuación, podrás ingresar la información requerida:</p>
               </div>
 
@@ -78,16 +78,64 @@
 
           </div>
         </section>
-        <section class="bg-light">
-          <div class="drop-zone" float="right">
-            <span class="drop-zone__prompt">Arrastre o de click aquí para adjuntar la imagen</span>
-            <input type="file" name="myFile" class="drop-zone__input" multiple="multiple" accept="image/*" id="file"
-              onchange="loadFile(event)">
-            <img id="output" width="200" />
+        <section>
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-12 my-4">
+                <div class="card rounded-0">
+                  <div class="card-header bg-light">
+                    <h5 class="d-inline-block font-weight-bold mb-0">Información del tramo de la ruta</h5>
+                  </div>
+                  <div class="card-body">
+                    <div class="container">
+                      <form id="formCase" action="/logeado_ayudante" method="post">
+                        <div class="row">
+                          <div class="col-lg-6 my-4">
+
+                            <div class="form-group mb-4">
+                              <label for="fecha_nac" class="font-weight-bold">Fecha de ruta</label>
+                              <input type="date" class="form-control w-10" id="fechanac" name="fechanac"
+                                onkeydown="return false" />
+                            </div>
+                            <div class="drop-zone">
+                              <span class="drop-zone__prompt">Arrastre o de click aquí para adjuntar la imagen</span>
+                              <input type="file" name="myFile[]" class="drop-zone__input" accept="image/*" id="file"
+                                multiple="multiple" onchange="loadFile(event)">
+                            </div>
+                            <img id="output" />
+                          </div>
+                          <div class="col-lg-6 my-4">
+                            <div class="form-group mb-4">
+                              <label for="apellido" class="font-weight-bold">Dirección Incial</label>
+                              <input class="form-control bg-grey" id="direc" name="direc"
+                                placeholder="Ingrese la dirección inicial" autocomplete="off">
+                            </div>
+                            <div class="form-group mb-4">
+                              <label for="apellido" class="font-weight-bold">Dirección Final</label>
+                              <input class="form-control bg-grey" id="dirt" name="dirt"
+                                placeholder="Ingrese la dirección Final" autocomplete="off">
+                            </div>
+                            <div class="form-group mb-4">
+                              <label for="apellido" class="font-weight-bold">Notas Adicionales</label>
+                              <input type="text" class="form-control bg-grey" placeholder="Añada notas al caso"
+                                width="50%" height="100px">
+                            </div>
+
+                          </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary mt-4 mb-4 w-25">Registrar tramo</button>
+                        <!-- <button type="button" onclick=limpiarform(); class="btn btn-primary mt-4 mb-4 w-25">Limpiar</button> -->
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 
-        <section>
+        <section id="targetElement">
           <div class="container">
             <div class="row">
               <div class="col-lg-12 my-4">
@@ -100,128 +148,152 @@
                       <form id="formCase" action="/logeado_ayudante" method="post">
                         <div class="row">
                           <div class="col-lg-6 my-4">
-                            <div class="form-group mb-4">
-                              <label class="heat-slider heat-slider--v">
-                                <span class="heat-slider--label font-weight-bold">Número de Bicicleta:</span>
-                                <span class="heat-slider--input">
-                                  <input id="bici" type="range" value="0" min="0" max="10" oninput="doThings(event)" />
-                                </span>
-                              </label>
-                              <output id="outbici">Por favor deslice para seleccionar...</output>
-                            </div>
-                            <div class="form-group mb-4">
-                              <label class="heat-slider heat-slider--v">
-                                <span class="heat-slider--label font-weight-bold">Número de Motos:</span>
-                                <span class="heat-slider--input">
-                                  <input type="range" value="0" min="0" max="10" oninput="doThings1(event)" />
-                                </span>
-                              </label>
-                              <output id="outmoto">Por favor deslice para seleccionar...</output>
-                            </div>
-                            <div class="form-group mb-4">
-                              <label class="heat-slider heat-slider--v">
-                                <span class="heat-slider--label font-weight-bold">Número de Peatones:</span>
-                                <span class="heat-slider--input">
-                                  <input type="range" value="0" min="0" max="10" oninput="doThings2(event)" />
-                                </span>
-                              </label>
-                              <output id="outpeaton">Por favor deslice para seleccionar...</output>
-                            </div>
-                            <div class="form-group mb-4">
-                              <label class="heat-sliderinv heat-sliderinv--v">
-                                <span class="heat-sliderinv--label font-weight-bold">Del 0 al 10 califique la condición
-                                  de
-                                  la via:</span>
-                                <span class="heat-sliderinv--input">
-                                  <input type="range" value="0" min="0" max="10" oninput="doThings3(event)" />
-                                </span>
-                              </label>
-                              <output id="outvia">Por favor deslice para seleccionar...</output>
-                            </div>
-                            <div class="form-group mb-4">
-                              <label class="heat-slider heat-slider--v">
-                                <span class="heat-slider--label font-weight-bold">Del 0 al 10 que tan buena es la
-                                  resistencia al deslizamiento de la vía:</span>
-                                <span class="heat-slider--input">
-                                  <input type="range" value="0" min="0" max="10" oninput="doThings4(event)" />
-                                </span>
-                              </label>
-                              <output id="outdeslizamiento">Por favor deslice para seleccionar...</output>
-                            </div>
-                            <div class="form-group mb-0">
-                              <label for="sexo" class="font-weight-bold">¿Está la calzada dividida?</label>
-                            </div>
-                            <div class="form-group mb-4">
-                              <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                                <label class="btn btn-primary active">
-                                  <input type="radio" name="sexo" id="masculino" value="1" checked> Dividida
+                            <label for="flujo_carretara" class="font-weight-bold">Flujo de la Carretera</label>
+                            <div class="Divisor_variables">
+                              <div class="form-group mb-4">
+                                <label class="heat-slider heat-slider--v">
+                                  <span class="heat-slider--label font-weight-bold">Número de Bicicleta:</span>
+                                  <span class="heat-slider--input">
+                                    <input id="bici" type="range" value="0" min="0" max="10"
+                                      oninput="doThings(event)" />
+                                  </span>
                                 </label>
-                                <label class="btn btn-primary">
-                                  <input type="radio" name="sexo" id="femenino" value="2"> No Dividida
+                                <output id="outbici">Por favor deslice para seleccionar...</output>
+                              </div>
+                              <div class="form-group mb-4">
+                                <label class="heat-slider heat-slider--v">
+                                  <span class="heat-slider--label font-weight-bold">Número de Motos:</span>
+                                  <span class="heat-slider--input">
+                                    <input type="range" value="0" min="0" max="10" oninput="doThings1(event)" />
+                                  </span>
                                 </label>
+                                <output id="outmoto">Por favor deslice para seleccionar...</output>
+                              </div>
+                              <div class="form-group mb-4">
+                                <label class="heat-slider heat-slider--v">
+                                  <span class="heat-slider--label font-weight-bold">Número de Peatones:</span>
+                                  <span class="heat-slider--input">
+                                    <input type="range" value="0" min="0" max="10" oninput="doThings2(event)" />
+                                  </span>
+                                </label>
+                                <output id="outpeaton">Por favor deslice para seleccionar...</output>
+                              </div>
+                            </div>
+                            <br><br><br>
+                            <label for="flujo_carretara" class="font-weight-bold">Estado de la vía</label>
+                            <div class="Divisor_variables">
+                              <div class="form-group mb-4">
+                                <label class="heat-sliderinv heat-sliderinv--v">
+                                  <span class="heat-sliderinv--label font-weight-bold">Del 0 al 10 califique la
+                                    condición
+                                    de
+                                    la via:</span>
+                                  <span class="heat-sliderinv--input">
+                                    <input type="range" value="0" min="0" max="10" oninput="doThings3(event)" />
+                                  </span>
+                                </label>
+                                <output id="outvia">Por favor deslice para seleccionar...</output>
+                              </div>
+                              <div class="form-group mb-4">
+                                <label class="heat-slider heat-slider--v">
+                                  <span class="heat-slider--label font-weight-bold">Del 0 al 10 que tan buena es la
+                                    resistencia al deslizamiento de la vía:</span>
+                                  <span class="heat-slider--input">
+                                    <input type="range" value="0" min="0" max="10" oninput="doThings4(event)" />
+                                  </span>
+                                </label>
+                                <output id="outdeslizamiento">Por favor deslice para seleccionar...</output>
+                              </div>
+                              <div class="form-group mb-4">
+                                <label class="heat-slider heat-slider--v">
+                                  <span class="heat-slider--label font-weight-bold">Del 0 al 10 califique la severidad
+                                    de
+                                    las
+                                    obras en la vía:</span>
+                                  <span class="heat-slider--input">
+                                    <input type="range" value="0" min="0" max="10" step="1"
+                                      oninput="doThings9(event)" />
+                                  </span>
+                                </label>
+                                <output id="outseveridad">Por favor deslice para seleccionar...</output>
                               </div>
                             </div>
                           </div>
                           <div class="col-lg-6 my-4">
-                            <div class="form-group mb-4">
-                              <label class="heat-slider heat-slider--v">
-                                <span class="heat-slider--label font-weight-bold">Seleccione el límite de Velocidad de
-                                  la carretera:</span>
-                                <span class="heat-slider--input">
-                                  <input type="range" value="0" min="0" max="100" step="10"
-                                    oninput="doThings5(event)" />
-                                </span>
-                              </label>
-                              <output id="outvelocidad">Por favor deslice para seleccionar...</output>
-                            </div>
-                            <div class="form-group mb-4">
-                              <label class="heat-slider heat-slider--v">
-                                <span class="heat-slider--label font-weight-bold">Seleccione hora de salida tentativa de
-                                  la
-                                  ruta:</span>
-                                <span class="heat-slider--input">
-                                  <input type="range" value="0" min="0" max="24" step="1" oninput="doThings6(event)" />
-                                </span>
-                              </label>
-                              <output id="outHora">Por favor deslice para seleccionar...</output>
-                            </div>
-                            <div class="form-group mb-4">
-                              <label class="heat-sliderinv heat-sliderinv--v">
-                                <span class="heat-sliderinv--label font-weight-bold">Del 0 al 10 califique la calidad
-                                  del
-                                  alumbrado público:</span>
-                                <span class="heat-sliderinv--input">
-                                  <input type="range" value="0" min="0" max="10" oninput="doThings7(event)" />
-                                </span>
-                              </label>
-                              <output id="outalumbrado">Por favor deslice para seleccionar...</output>
-                            </div>
-                            <div class="form-group mb-4">
-                              <label class="heat-sliderinv heat-sliderinv--v">
-                                <span class="heat-sliderinv--label font-weight-bold">Del 0 al 10 califique la calidad
-                                  del
-                                  separador de la vía:</span>
-                                <span class="heat-sliderinv--input">
-                                  <input type="range" value="0" min="0" max="10" step="1" oninput="doThings8(event)" />
-                                </span>
-                              </label>
-                              <output id="outseparador">Por favor deslice para seleccionar...</output>
-                            </div>
-                            <div class="form-group mb-4">
-                              <label class="heat-slider heat-slider--v">
-                                <span class="heat-slider--label font-weight-bold">Del 0 al 10 califique la severidad de
-                                  las
-                                  obras en la vía:</span>
-                                <span class="heat-slider--input">
-                                  <input type="range" value="0" min="0" max="10" step="1" oninput="doThings9(event)" />
-                                </span>
-                              </label>
-                              <output id="outseveridad">Por favor deslice para seleccionar...</output>
+                            <label for="flujo_carretara" class="font-weight-bold">Elementos y señalización de la
+                              vía</label>
+                            <div class="Divisor_variables">
+                              <div class="form-group mb-4">
+                                <label class="heat-slider heat-slider--v">
+                                  <span class="heat-slider--label font-weight-bold">Seleccione el límite de Velocidad de
+                                    la carretera:</span>
+                                  <span class="heat-slider--input">
+                                    <input type="range" value="0" min="0" max="100" step="10"
+                                      oninput="doThings5(event)" />
+                                  </span>
+                                </label>
+                                <output id="outvelocidad">Por favor deslice para seleccionar...</output>
+                              </div>
+
+                              <div class="form-group mb-4">
+                                <label class="heat-sliderinv heat-sliderinv--v">
+                                  <span class="heat-sliderinv--label font-weight-bold">Del 0 al 10 califique la calidad
+                                    del
+                                    alumbrado público:</span>
+                                  <span class="heat-sliderinv--input">
+                                    <input type="range" value="0" min="0" max="10" oninput="doThings7(event)" />
+                                  </span>
+                                </label>
+                                <output id="outalumbrado">Por favor deslice para seleccionar...</output>
+                              </div>
+                              <div class="form-group mb-4">
+                                <label class="heat-sliderinv heat-sliderinv--v">
+                                  <span class="heat-sliderinv--label font-weight-bold">Del 0 al 10 califique la calidad
+                                    del
+                                    separador de la vía:</span>
+                                  <span class="heat-sliderinv--input">
+                                    <input type="range" value="0" min="0" max="10" step="1"
+                                      oninput="doThings8(event)" />
+                                  </span>
+                                </label>
+                                <output id="outseparador">Por favor deslice para seleccionar...</output>
+                              </div>
+
+                              <div class="form-group mb-4">
+                                <label for="sexo" class="font-weight-bold">¿Está la calzada dividida?</label>
+                              </div>
+                              <div class="form-group mb-4">
+                                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                  <label class="btn btn-primary active">
+                                    <input type="radio" name="sexo" id="masculino" value="1" checked> Dividida
+                                  </label>
+                                  <label class="btn btn-primary">
+                                    <input type="radio" name="sexo" id="femenino" value="2"> No Dividida
+                                  </label>
+                                </div>
+                              </div>
+                              <div class="form-group mb-4">
+                                <label class="heat-slider heat-slider--v">
+                                  <span class="heat-slider--label font-weight-bold">Seleccione hora de salida tentativa
+                                    de
+                                    la
+                                    ruta:</span>
+                                  <span class="heat-slider--input">
+                                    <input type="range" value="0" min="0" max="24" step="1"
+                                      oninput="doThings6(event)" />
+                                  </span>
+                                </label>
+                                <output id="outHora">Por favor deslice para seleccionar...</output>
+                              </div>
                             </div>
                           </div>
                         </div>
+
                         <button type="submit" class="btn btn-primary mt-4 mb-4 w-25">Evaluar Ruta</button>
+                        <button onclick="addPanel()" class="btn btn-primary mt-4 mb-4 w-25"> Añadir segmento + </button>
                       </form>
+
+
                     </div>
                   </div>
                 </div>
@@ -229,375 +301,545 @@
             </div>
           </div>
         </section>
+
       </div>
     </div>
   </div>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-  <script src="https://andreruffert.github.io/rangeslider.js/assets/rangeslider.js/dist/rangeslider.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.2/underscore-min.js"></script>
+</body>
+<div id="button-up">
+  <a class="fas fa-chevron-up"></a>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://andreruffert.github.io/rangeslider.js/assets/rangeslider.js/dist/rangeslider.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.2/underscore-min.js"></script>
+
+<!-- SLIDERSSS -->
+
+<script>
+  const output = document.querySelector('#outbici')
+  const doThings = (event) => {
+    const { value, min, max, step, parentElement: parent } = event.target
+    const decimals = step && step.includes('.') ? step.split('.')[1] : 1
+    const percent = `${((value - min) / (max - min) * 100).toFixed(decimals)}%`
+    let text
+    parent.style.setProperty('--p', percent)
+    if (document.getElementById('bici').value >= 0 && document.getElementById('bici').value < 3) {
+      text = "El flujo de bicicletas es bajo."
+    } else if (document.getElementById('bici').value >= 3 && document.getElementById('bici').value < 7) {
+      text = "El flujo de bicicletas es medio, se recomienda conducir con precaución para evitar posibles accidentes."
+    } else if (document.getElementById('bici').value >= 7 && document.getElementById('bici').value <= 10) {
+      text = "El flujo de bicicletas es alto, hay un potencial riesgo de colisión."
+    }
+    output.value = `valor: ${value} (${percent}) ${text}`
+  }
+
+  const output1 = document.querySelector('#outmoto')
+  const doThings1 = (event) => {
+    const { value, min, max, step, parentElement: parent } = event.target
+    const decimals1 = step && step.includes('.') ? step.split('.')[1] : 1
+    const percent1 = `${((value - min) / (max - min) * 100).toFixed(decimals1)}%`
+    parent.style.setProperty('--p', percent1)
+
+    output1.value = `valor: ${value} (${percent1})`
+  }
+
+  const output2 = document.querySelector('#outpeaton')
+  const doThings2 = (event) => {
+    const { value, min, max, step, parentElement: parent } = event.target
+    const decimals2 = step && step.includes('.') ? step.split('.')[1] : 1
+    const percent2 = `${((value - min) / (max - min) * 100).toFixed(decimals2)}%`
+    parent.style.setProperty('--p', percent2)
+
+    output2.value = `valor: ${value} (${percent2})`
+  }
+
+  const output3 = document.querySelector('#outvia')
+  const doThings3 = (event) => {
+    const { value, min, max, step, parentElement: parent } = event.target
+    const decimals3 = step && step.includes('.') ? step.split('.')[1] : 1
+    const percent3 = `${((value - min) / (max - min) * 100).toFixed(decimals3)}%`
+    parent.style.setProperty('--p', percent3)
+
+    output3.value = `valor: ${value} (${percent3})`
+  }
+
+  const output4 = document.querySelector('#outdeslizamiento')
+  const doThings4 = (event) => {
+    const { value, min, max, step, parentElement: parent } = event.target
+    const decimals4 = step && step.includes('.') ? step.split('.')[1] : 1
+    const percent4 = `${((value - min) / (max - min) * 100).toFixed(decimals4)}%`
+    parent.style.setProperty('--p', percent4)
+
+    output4.value = `valor: ${value} (${percent4})`
+  }
+
+  const output5 = document.querySelector('#outvelocidad')
+  const doThings5 = (event) => {
+    const { value, min, max, step, parentElement: parent } = event.target
+    const decimals5 = step && step.includes('.') ? step.split('.')[1] : 1
+    const percent5 = `${((value - min) / (max - min) * 100).toFixed(decimals5)}%`
+    parent.style.setProperty('--p', percent5)
+
+    output5.value = `valor: ${value} (${percent5})`
+  }
+
+  const output6 = document.querySelector('#outHora')
+  const doThings6 = (event) => {
+    const { value, min, max, step, parentElement: parent } = event.target
+    const decimals6 = step && step.includes('.') ? step.split('.')[1] : 1
+    const percent6 = `${((value - min) / (max - min) * 100).toFixed(decimals6)}%`
+    parent.style.setProperty('--p', percent6)
+
+    output6.value = `valor: ${value} (${percent6})`
+  }
+
+  const output7 = document.querySelector('#outalumbrado')
+  const doThings7 = (event) => {
+    const { value, min, max, step, parentElement: parent } = event.target
+    const decimals7 = step && step.includes('.') ? step.split('.')[1] : 1
+    const percent7 = `${((value - min) / (max - min) * 100).toFixed(decimals7)}%`
+    parent.style.setProperty('--p', percent7)
+
+    output7.value = `valor: ${value} (${percent7})`
+  }
+
+  const output8 = document.querySelector('#outseparador')
+  const doThings8 = (event) => {
+    const { value, min, max, step, parentElement: parent } = event.target
+    const decimals8 = step && step.includes('.') ? step.split('.')[1] : 1
+    const percent8 = `${((value - min) / (max - min) * 100).toFixed(decimals8)}%`
+    parent.style.setProperty('--p', percent8)
+
+    output8.value = `valor: ${value} (${percent8})`
+  }
+
+  const output9 = document.querySelector('#outseveridad')
+  const doThings9 = (event) => {
+    const { value, min, max, step, parentElement: parent } = event.target
+    const decimals9 = step && step.includes('.') ? step.split('.')[1] : 1
+    const percent9 = `${((value - min) / (max - min) * 100).toFixed(decimals9)}%`
+    parent.style.setProperty('--p', percent9)
+
+    output9.value = `valor: ${value} (${percent9})`
+  }
 
 
-  <!-- SLIDERSSS -->
-  <script>
-    const output = document.querySelector('#outbici')
-    const doThings = (event) => {
-      const { value, min, max, step, parentElement: parent } = event.target
-      const decimals = step && step.includes('.') ? step.split('.')[1] : 1
-      const percent = `${((value - min) / (max - min) * 100).toFixed(decimals)}%`
-      let text 
-      parent.style.setProperty('--p', percent)
-      if(document.getElementById('bici').value >=0 && document.getElementById('bici').value<3){
-        text = "El flujo de bicicletas es bajo."
-      }else if(document.getElementById('bici').value>=3 && document.getElementById('bici').value<7){
-        text = "El flujo de bicicletas es medio, se recomienda conducir con precaución para evitar posibles accidentes."
-      }else if(document.getElementById('bici').value>=7 && document.getElementById('bici').value<=10){
-        text = "El flujo de bicicletas es alto, hay un potencial riesgo de colisión, por favor reduzca la velocidad."
+</script>
+
+<script>
+  var loadFile = function (event) {
+    var image = document.getElementById('output');
+    for (images in image) {
+      image.src = URL.createObjectURL(event.target.files[images]);
+    }
+  };
+</script>
+<script>
+  document.querySelectorAll(".drop-zone__input").forEach((inputElement) => {
+    const dropZoneElement = inputElement.closest(".drop-zone");
+
+    dropZoneElement.addEventListener("click", (e) => {
+      inputElement.click();
+    });
+
+    inputElement.addEventListener("change", (e) => {
+      if (inputElement.files.length) {
+        updateThumbnail(dropZoneElement, inputElement.files[0]);
       }
-        output.value = `value: ${value} (${percent}) ${text}`
-    }
+    });
 
-    const output1 = document.querySelector('#outmoto')
-    const doThings1 = (event) => {
-      const { value, min, max, step, parentElement: parent } = event.target
-      const decimals1 = step && step.includes('.') ? step.split('.')[1] : 1
-      const percent1 = `${((value - min) / (max - min) * 100).toFixed(decimals1)}%`
-      parent.style.setProperty('--p', percent1)
+    dropZoneElement.addEventListener("dragover", (e) => {
+      e.preventDefault();
+      dropZoneElement.classList.add("drop-zone--over");
+    });
 
-      output1.value = `value: ${value} (${percent1})`
-    }
-
-    const output2 = document.querySelector('#outpeaton')
-    const doThings2 = (event) => {
-      const { value, min, max, step, parentElement: parent } = event.target
-      const decimals2 = step && step.includes('.') ? step.split('.')[1] : 1
-      const percent2 = `${((value - min) / (max - min) * 100).toFixed(decimals2)}%`
-      parent.style.setProperty('--p', percent2)
-
-      output2.value = `value: ${value} (${percent2})`
-    }
-
-    const output3 = document.querySelector('#outvia')
-    const doThings3 = (event) => {
-      const { value, min, max, step, parentElement: parent } = event.target
-      const decimals3 = step && step.includes('.') ? step.split('.')[1] : 1
-      const percent3 = `${((value - min) / (max - min) * 100).toFixed(decimals3)}%`
-      parent.style.setProperty('--p', percent3)
-
-      output3.value = `value: ${value} (${percent3})`
-    }
-
-    const output4 = document.querySelector('#outdeslizamiento')
-    const doThings4 = (event) => {
-      const { value, min, max, step, parentElement: parent } = event.target
-      const decimals4 = step && step.includes('.') ? step.split('.')[1] : 1
-      const percent4 = `${((value - min) / (max - min) * 100).toFixed(decimals4)}%`
-      parent.style.setProperty('--p', percent4)
-
-      output4.value = `value: ${value} (${percent4})`
-    }
-
-    const output5 = document.querySelector('#outvelocidad')
-    const doThings5 = (event) => {
-      const { value, min, max, step, parentElement: parent } = event.target
-      const decimals5 = step && step.includes('.') ? step.split('.')[1] : 1
-      const percent5 = `${((value - min) / (max - min) * 100).toFixed(decimals5)}%`
-      parent.style.setProperty('--p', percent5)
-
-      output5.value = `value: ${value} (${percent5})`
-    }
-
-    const output6 = document.querySelector('#outHora')
-    const doThings6 = (event) => {
-      const { value, min, max, step, parentElement: parent } = event.target
-      const decimals6 = step && step.includes('.') ? step.split('.')[1] : 1
-      const percent6 = `${((value - min) / (max - min) * 100).toFixed(decimals6)}%`
-      parent.style.setProperty('--p', percent6)
-
-      output6.value = `value: ${value} (${percent6})`
-    }
-
-    const output7 = document.querySelector('#outalumbrado')
-    const doThings7 = (event) => {
-      const { value, min, max, step, parentElement: parent } = event.target
-      const decimals7 = step && step.includes('.') ? step.split('.')[1] : 1
-      const percent7 = `${((value - min) / (max - min) * 100).toFixed(decimals7)}%`
-      parent.style.setProperty('--p', percent7)
-
-      output7.value = `value: ${value} (${percent7})`
-    }
-
-    const output8 = document.querySelector('#outseparador')
-    const doThings8 = (event) => {
-      const { value, min, max, step, parentElement: parent } = event.target
-      const decimals8 = step && step.includes('.') ? step.split('.')[1] : 1
-      const percent8 = `${((value - min) / (max - min) * 100).toFixed(decimals8)}%`
-      parent.style.setProperty('--p', percent8)
-
-      output8.value = `value: ${value} (${percent8})`
-    }
-
-    const output9 = document.querySelector('#outseveridad')
-    const doThings9 = (event) => {
-      const { value, min, max, step, parentElement: parent } = event.target
-      const decimals9 = step && step.includes('.') ? step.split('.')[1] : 1
-      const percent9 = `${((value - min) / (max - min) * 100).toFixed(decimals9)}%`
-      parent.style.setProperty('--p', percent9)
-
-      output9.value = `value: ${value} (${percent9})`
-    }
-
-
-  </script>
-
-  <script>
-    var loadFile = function (event) {
-      var image = document.getElementById('output');
-      for (images in image) {
-        image.src = URL.createObjectURL(event.target.files[images]);
-      }
-    };
-  </script>
-  <script>
-    document.querySelectorAll(".drop-zone__input").forEach((inputElement) => {
-      const dropZoneElement = inputElement.closest(".drop-zone");
-
-      dropZoneElement.addEventListener("click", (e) => {
-        inputElement.click();
-      });
-
-      inputElement.addEventListener("change", (e) => {
-        if (inputElement.files.length) {
-          updateThumbnail(dropZoneElement, inputElement.files[0]);
-        }
-      });
-
-      dropZoneElement.addEventListener("dragover", (e) => {
-        e.preventDefault();
-        dropZoneElement.classList.add("drop-zone--over");
-      });
-
-      ["dragleave", "dragend"].forEach((type) => {
-        dropZoneElement.addEventListener(type, (e) => {
-          dropZoneElement.classList.remove("drop-zone--over");
-        });
-      });
-
-      dropZoneElement.addEventListener("drop", (e) => {
-        e.preventDefault();
-
-        if (e.dataTransfer.files.length) {
-          inputElement.files = e.dataTransfer.files;
-          updateThumbnail(dropZoneElement, e.dataTransfer.files[0]);
-        }
-
+    ["dragleave", "dragend"].forEach((type) => {
+      dropZoneElement.addEventListener(type, (e) => {
         dropZoneElement.classList.remove("drop-zone--over");
       });
     });
 
+    dropZoneElement.addEventListener("drop", (e) => {
+      e.preventDefault();
+
+      if (e.dataTransfer.files.length) {
+        inputElement.files = e.dataTransfer.files;
+        updateThumbnail(dropZoneElement, e.dataTransfer.files[0]);
+      }
+
+      dropZoneElement.classList.remove("drop-zone--over");
+    });
+  });
+
+  /**
+   * Updates the thumbnail on a drop zone element.
+   *
+   * @param {HTMLElement} dropZoneElement
+   * @param {File} file
+   */
+  function updateThumbnail(dropZoneElement, file) {
+    let thumbnailElement = dropZoneElement.querySelector(".drop-zone__thumb");
+
+    // First time - remove the prompt
+    if (dropZoneElement.querySelector(".drop-zone__prompt")) {
+      dropZoneElement.querySelector(".drop-zone__prompt").remove();
+    }
+
+    // First time - there is no thumbnail element, so lets create it
+    if (!thumbnailElement) {
+      thumbnailElement = document.createElement("div");
+      thumbnailElement.classList.add("drop-zone__thumb");
+      dropZoneElement.appendChild(thumbnailElement);
+    }
+
+    thumbnailElement.dataset.label = file.name;
+
+    // Show thumbnail for image files
+    if (file.type.startsWith("image/")) {
+      const reader = new FileReader();
+
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        thumbnailElement.style.backgroundImage = `url('${reader.result}')`;
+      };
+    } else {
+      thumbnailElement.style.backgroundImage = null;
+    }
+  }
+
+
+</script>
+
+<script>
+  function limpiarform() {
+    document.forms['formCase'].reset()
+  }
+</script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+  integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+  integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+  integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"
+  integrity="sha256-R4pqcOYV8lt7snxMQO/HSbVCFRPMdrhAFMH+vr9giYI=" crossorigin="anonymous"></script>
+<script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+<script>
+  am4core.ready(function () {
+
+    // Themes begin
+    am4core.useTheme(am4themes_animated);
+    // Themes end
+
+    // create chart
+    var chart = am4core.create("chartdiv", am4charts.GaugeChart);
+    chart.innerRadius = am4core.percent(82);
+
     /**
-     * Updates the thumbnail on a drop zone element.
-     *
-     * @param {HTMLElement} dropZoneElement
-     * @param {File} file
+     * Normal axis
      */
-    function updateThumbnail(dropZoneElement, file) {
-      let thumbnailElement = dropZoneElement.querySelector(".drop-zone__thumb");
 
-      // First time - remove the prompt
-      if (dropZoneElement.querySelector(".drop-zone__prompt")) {
-        dropZoneElement.querySelector(".drop-zone__prompt").remove();
-      }
+    var axis = chart.xAxes.push(new am4charts.ValueAxis());
+    axis.min = 0;
+    axis.max = 100;
+    axis.strictMinMax = true;
+    axis.renderer.radius = am4core.percent(80);
+    axis.renderer.inside = true;
+    axis.renderer.line.strokeOpacity = 1;
+    axis.renderer.ticks.template.disabled = false
+    axis.renderer.ticks.template.strokeOpacity = 1;
+    axis.renderer.ticks.template.length = 10;
+    axis.renderer.grid.template.disabled = true;
+    axis.renderer.labels.template.radius = 40;
+    axis.renderer.labels.template.adapter.add("text", function (text) {
+      return text + "%";
+    })
 
-      // First time - there is no thumbnail element, so lets create it
-      if (!thumbnailElement) {
-        thumbnailElement = document.createElement("div");
-        thumbnailElement.classList.add("drop-zone__thumb");
-        dropZoneElement.appendChild(thumbnailElement);
-      }
+    /**
+     * Axis for ranges
+     */
 
-      thumbnailElement.dataset.label = file.name;
+    var colorSet = new am4core.ColorSet();
 
-      // Show thumbnail for image files
-      if (file.type.startsWith("image/")) {
-        const reader = new FileReader();
+    var axis2 = chart.xAxes.push(new am4charts.ValueAxis());
+    axis2.min = 0;
+    axis2.max = 100;
+    axis2.strictMinMax = true;
+    axis2.renderer.labels.template.disabled = true;
+    axis2.renderer.ticks.template.disabled = true;
+    axis2.renderer.grid.template.disabled = true;
 
-        reader.readAsDataURL(file);
-        reader.onload = () => {
-          thumbnailElement.style.backgroundImage = `url('${reader.result}')`;
-        };
-      } else {
-        thumbnailElement.style.backgroundImage = null;
-      }
-    }
-
-
-  </script>
-
-  <script>
-    function limpiarform() {
-      document.forms['formCase'].reset()
-    }
-  </script>
-
-  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-  <!-- Optional JavaScript -->
-  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-    crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-    crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-    crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"
-    integrity="sha256-R4pqcOYV8lt7snxMQO/HSbVCFRPMdrhAFMH+vr9giYI=" crossorigin="anonymous"></script>
+    var range0 = axis2.axisRanges.create();
+    range0.value = 0;
+    range0.endValue = 30;
+    range0.axisFill.fillOpacity = 1;
+    range0.axisFill.fill = am4core.color("green");
+    range0.label.text = "Bajo"
+    range0.label.inside = true;
+    range0.label.location = 0.5;
+    range0.label.radius = am4core.percent(15);
+    range0.label.paddingBottom = -5; // ~half font size
+    range0.label.fontSize = "0.8em";
 
 
+    var range1 = axis2.axisRanges.create();
+    range1.value = 30;
+    range1.endValue = 70;
+    range1.axisFill.fillOpacity = 1;
+    range1.axisFill.fill = am4core.color("orange");
+    range1.label.text = "Medio"
+    range1.label.inside = true;
+    range1.label.location = 0.5;
+    range1.label.radius = am4core.percent(10);
+    range1.label.paddingBottom = -5; // ~half font size
+    range1.label.fontSize = "0.8em";
 
-
-  <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
-  <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
-  <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
-
-  <script>
-    am4core.ready(function () {
-
-      // Themes begin
-      am4core.useTheme(am4themes_animated);
-      // Themes end
-
-      // create chart
-      var chart = am4core.create("chartdiv", am4charts.GaugeChart);
-      chart.innerRadius = am4core.percent(82);
-
-      /**
-       * Normal axis
-       */
-
-      var axis = chart.xAxes.push(new am4charts.ValueAxis());
-      axis.min = 0;
-      axis.max = 100;
-      axis.strictMinMax = true;
-      axis.renderer.radius = am4core.percent(80);
-      axis.renderer.inside = true;
-      axis.renderer.line.strokeOpacity = 1;
-      axis.renderer.ticks.template.disabled = false
-      axis.renderer.ticks.template.strokeOpacity = 1;
-      axis.renderer.ticks.template.length = 10;
-      axis.renderer.grid.template.disabled = true;
-      axis.renderer.labels.template.radius = 40;
-      axis.renderer.labels.template.adapter.add("text", function (text) {
-        return text + "%";
-      })
-
-      /**
-       * Axis for ranges
-       */
-
-      var colorSet = new am4core.ColorSet();
-
-      var axis2 = chart.xAxes.push(new am4charts.ValueAxis());
-      axis2.min = 0;
-      axis2.max = 100;
-      axis2.strictMinMax = true;
-      axis2.renderer.labels.template.disabled = true;
-      axis2.renderer.ticks.template.disabled = true;
-      axis2.renderer.grid.template.disabled = true;
-
-      var range0 = axis2.axisRanges.create();
-      range0.value = 0;
-      range0.endValue = 30;
-      range0.axisFill.fillOpacity = 1;
-      range0.axisFill.fill = am4core.color("green");
-      range0.label.text = "Bajo"
-      range0.label.inside = true;
-      range0.label.location = 0.5;
-      range0.label.radius = am4core.percent(15);
-      range0.label.paddingBottom = -5; // ~half font size
-      range0.label.fontSize = "0.8em";
-
-
-      var range1 = axis2.axisRanges.create();
-      range1.value = 30;
-      range1.endValue = 70;
-      range1.axisFill.fillOpacity = 1;
-      range1.axisFill.fill = am4core.color("orange");
-      range1.label.text = "Medio"
-      range1.label.inside = true;
-      range1.label.location = 0.5;
-      range1.label.radius = am4core.percent(10);
-      range1.label.paddingBottom = -5; // ~half font size
-      range1.label.fontSize = "0.8em";
-
-      var range2 = axis2.axisRanges.create();
-      range2.value = 70;
-      range2.endValue = 100;
-      range2.axisFill.fillOpacity = 1;
-      range2.axisFill.fill = am4core.color("red");
-      range2.label.text = "Alto"
-      range2.label.inside = true;
-      range2.label.location = 0.5;
-      range2.label.radius = am4core.percent(15);
-      range2.label.paddingBottom = -5; // ~half font size
-      range2.label.fontSize = "0.8em";
+    var range2 = axis2.axisRanges.create();
+    range2.value = 70;
+    range2.endValue = 100;
+    range2.axisFill.fillOpacity = 1;
+    range2.axisFill.fill = am4core.color("red");
+    range2.label.text = "Alto"
+    range2.label.inside = true;
+    range2.label.location = 0.5;
+    range2.label.radius = am4core.percent(15);
+    range2.label.paddingBottom = -5; // ~half font size
+    range2.label.fontSize = "0.8em";
 
 
 
-      /**
-       * Label
-       */
+    /**
+     * Label
+     */
 
-      var label = chart.radarContainer.createChild(am4core.Label);
-      label.isMeasured = false;
-      label.fontSize = 20;
-      label.x = am4core.percent(50);
-      label.y = am4core.percent(100);
-      label.paddingBottom = 0;
-      label.horizontalCenter = "middle";
-      label.verticalCenter = "bottom";
-      label.text = "50%";
+    var label = chart.radarContainer.createChild(am4core.Label);
+    label.isMeasured = false;
+    label.fontSize = 20;
+    label.x = am4core.percent(50);
+    label.y = am4core.percent(100);
+    label.paddingBottom = 0;
+    label.horizontalCenter = "middle";
+    label.verticalCenter = "bottom";
+    label.text = "50%";
 
-      var label2 = chart.radarContainer.createChild(am4core.Label);
-      label2.isMeasured = false;
-      label2.fontSize = 20;
-      label2.x = am4core.percent(50);
-      label2.y = am4core.percent(100);
-      label2.paddingBottom = 150;
-      label2.horizontalCenter = "middle";
-      label2.verticalCenter = "bottom";
-      label2.text = "Porcentaje de Riesgo";
+    var label2 = chart.radarContainer.createChild(am4core.Label);
+    label2.isMeasured = false;
+    label2.fontSize = 20;
+    label2.x = am4core.percent(50);
+    label2.y = am4core.percent(100);
+    label2.paddingBottom = 150;
+    label2.horizontalCenter = "middle";
+    label2.verticalCenter = "bottom";
+    label2.text = "Porcentaje de Riesgo";
 
 
-      /**
-       * Hand
-       */
+    /**
+     * Hand
+     */
 
-      var hand = chart.hands.push(new am4charts.ClockHand());
-      hand.axis = axis2;
-      hand.innerRadius = am4core.percent(20);
-      hand.startWidth = 10;
-      hand.pin.disabled = true;
-      hand.value = 50;
+    var hand = chart.hands.push(new am4charts.ClockHand());
+    hand.axis = axis2;
+    hand.innerRadius = am4core.percent(20);
+    hand.startWidth = 10;
+    hand.pin.disabled = true;
+    hand.value = 50;
 
-      hand.events.on("propertychanged", function (ev) {
-        /*   range0.endValue = ev.target.value;
-          range1.value = ev.target.value; */
-        label.text = axis2.positionToValue(hand.currentPosition).toFixed(1);
-        axis2.invalidate();
-      });
+    hand.events.on("propertychanged", function (ev) {
+      /*   range0.endValue = ev.target.value;
+        range1.value = ev.target.value; */
+      label.text = axis2.positionToValue(hand.currentPosition).toFixed(1);
+      axis2.invalidate();
+    });
 
-      setInterval(function () {
-        var value = Math.round(Math.random() * 100);
-        var animation = new am4core.Animation(hand, {
-          property: "value",
-          to: value
-        }, 1000, am4core.ease.cubicOut).start();
-      }, 2000);
+    setInterval(function () {
+      var value = Math.round(Math.random() * 100);
+      var animation = new am4core.Animation(hand, {
+        property: "value",
+        to: value
+      }, 1000, am4core.ease.cubicOut).start();
+    }, 2000);
 
-    }); // end am4core.ready()
-  </script>
-</body>
+  }); // end am4core.ready()
+</script>
+
+<script>
+  var i = 1;
+
+  function addPanel() {
+    var currentPanel = "A" + i;
+    console.log("generando panel")
+    var div = document.createElement('div');
+    console.log(currentPanel)
+    div.id = currentPanel;
+    div.setAttribute('class', 'someClass');
+    div.innerHTML = document.getElementById('blockOfStuff').innerHTML;
+    document.getElementById('targetElement').appendChild(div);
+    document.getElementById(currentPanel).scrollIntoView({
+      block: 'start'
+    });
+    i++;
+
+  }
+</script>
+<script id="blockOfStuff" type="text/html">
+  <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 my-4">
+          <div class="card rounded-0">
+            <div class="card-header bg-light">
+              <h5 class="d-inline-block font-weight-bold mb-0">Analisis de Ruta</h5>
+              <div class="drop-zone">
+                <span class="drop-zone__prompt">Arrastre o de click aquí para adjuntar la imagen</span>
+                <input type="file" name="myFile" class="drop-zone__input" multiple="multiple" accept="image/*" id="file"
+                  onchange="loadFile(event)">
+              </div>
+              
+            
+              <img id="output" />
+            </div>
+            <input type="text" class="btn-primary" placeholder="Añada notas al caso" width="50%" height="100px">
+            <div class="card-body">
+              <div class="container">
+                <form id="formCase" action="/logeado_ayudante" method="post">
+                  <div class="row">
+                    <div class="col-lg-6 my-4">
+                      <div class="form-group mb-4">
+                        <label class="heat-slider heat-slider--v">
+                          <span class="heat-slider--label font-weight-bold">Número de Bicicleta:</span>
+                          <span class="heat-slider--input">
+                            <input id="bici" type="range" value="0" min="0" max="10" oninput="doThings(event)" />
+                          </span>
+                        </label>
+                        <output id="outbici">Por favor deslice para seleccionar...</output>
+                      </div>
+                      <div class="form-group mb-4">
+                        <label class="heat-slider heat-slider--v">
+                          <span class="heat-slider--label font-weight-bold">Número de Motos:</span>
+                          <span class="heat-slider--input">
+                            <input type="range" value="0" min="0" max="10" oninput="doThings1(event)" />
+                          </span>
+                        </label>
+                        <output id="outmoto">Por favor deslice para seleccionar...</output>
+                      </div>
+                      <div class="form-group mb-4">
+                        <label class="heat-slider heat-slider--v">
+                          <span class="heat-slider--label font-weight-bold">Número de Peatones:</span>
+                          <span class="heat-slider--input">
+                            <input type="range" value="0" min="0" max="10" oninput="doThings2(event)" />
+                          </span>
+                        </label>
+                        <output id="outpeaton">Por favor deslice para seleccionar...</output>
+                      </div>
+                      <div class="form-group mb-4">
+                        <label class="heat-sliderinv heat-sliderinv--v">
+                          <span class="heat-sliderinv--label font-weight-bold">Del 0 al 10 califique la condición
+                            de
+                            la via:</span>
+                          <span class="heat-sliderinv--input">
+                            <input type="range" value="0" min="0" max="10" oninput="doThings3(event)" />
+                          </span>
+                        </label>
+                        <output id="outvia">Por favor deslice para seleccionar...</output>
+                      </div>
+                      <div class="form-group mb-4">
+                        <label class="heat-slider heat-slider--v">
+                          <span class="heat-slider--label font-weight-bold">Del 0 al 10 que tan buena es la
+                            resistencia al deslizamiento de la vía:</span>
+                          <span class="heat-slider--input">
+                            <input type="range" value="0" min="0" max="10" oninput="doThings4(event)" />
+                          </span>
+                        </label>
+                        <output id="outdeslizamiento">Por favor deslice para seleccionar...</output>
+                      </div>
+                      <div class="form-group mb-0">
+                        <label for="sexo" class="font-weight-bold">¿Está la calzada dividida?</label>
+                      </div>
+                      <div class="form-group mb-4">
+                        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                          <label class="btn btn-primary active">
+                            <input type="radio" name="sexo" id="masculino" value="1" checked> Dividida
+                          </label>
+                          <label class="btn btn-primary">
+                            <input type="radio" name="sexo" id="femenino" value="2"> No Dividida
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-6 my-4">
+                      <div class="form-group mb-4">
+                        <label class="heat-slider heat-slider--v">
+                          <span class="heat-slider--label font-weight-bold">Seleccione el límite de Velocidad de
+                            la carretera:</span>
+                          <span class="heat-slider--input">
+                            <input type="range" value="0" min="0" max="100" step="10"
+                              oninput="doThings5(event)" />
+                          </span>
+                        </label>
+                        <output id="outvelocidad">Por favor deslice para seleccionar...</output>
+                      </div>
+                      <div class="form-group mb-4">
+                        <label class="heat-slider heat-slider--v">
+                          <span class="heat-slider--label font-weight-bold">Seleccione hora de salida tentativa de
+                            la
+                            ruta:</span>
+                          <span class="heat-slider--input">
+                            <input type="range" value="0" min="0" max="24" step="1" oninput="doThings6(event)" />
+                          </span>
+                        </label>
+                        <output id="outHora">Por favor deslice para seleccionar...</output>
+                      </div>
+                      <div class="form-group mb-4">
+                        <label class="heat-sliderinv heat-sliderinv--v">
+                          <span class="heat-sliderinv--label font-weight-bold">Del 0 al 10 califique la calidad
+                            del
+                            alumbrado público:</span>
+                          <span class="heat-sliderinv--input">
+                            <input type="range" value="0" min="0" max="10" oninput="doThings7(event)" />
+                          </span>
+                        </label>
+                        <output id="outalumbrado">Por favor deslice para seleccionar...</output>
+                      </div>
+                      <div class="form-group mb-4">
+                        <label class="heat-sliderinv heat-sliderinv--v">
+                          <span class="heat-sliderinv--label font-weight-bold">Del 0 al 10 califique la calidad
+                            del
+                            separador de la vía:</span>
+                          <span class="heat-sliderinv--input">
+                            <input type="range" value="0" min="0" max="10" step="1" oninput="doThings8(event)" />
+                          </span>
+                        </label>
+                        <output id="outseparador">Por favor deslice para seleccionar...</output>
+                      </div>
+                      <div class="form-group mb-4">
+                        <label class="heat-slider heat-slider--v">
+                          <span class="heat-slider--label font-weight-bold">Del 0 al 10 califique la severidad de
+                            las
+                            obras en la vía:</span>
+                          <span class="heat-slider--input">
+                            <input type="range" value="0" min="0" max="10" step="1" oninput="doThings9(event)" />
+                          </span>
+                        </label>
+                        <output id="outseveridad">Por favor deslice para seleccionar...</output>
+                      </div>
+                    </div>
+                  </div>
+                  <button type="submit" class="btn btn-primary mt-4 mb-4 w-25">Evaluar Ruta</button>
+                  <button onclick="addPanel()" class="btn btn-primary mt-4 mb-4 w-25"> Añadir segmento + </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</script>
 
 </html>
