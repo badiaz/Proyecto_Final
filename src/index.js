@@ -9,15 +9,46 @@ const passport = require('passport');
 const { json } = require('body-parser');
 const cookieParser = require('cookie-Parser');
 const PassportLocal = require('passport-local').Strategy;
+const multer = require('multer');
+const fecharuta = [];
+const spawn = require("child_process").spawn;
+
+
+
 app.use(bodyParser());
 app.set('view engine', 'ejs');
 app.use(express.json({ limit: '1mb' }));
 //para poder acceder
 app.use(express.static('public'));
 
+const storage = multer.diskStorage({
+    destination: path.join(__dirname, 'public/fotos-rutas'),
+    filename: (req, file, cb) => {
+        console.log(' papi pilla fec', fecharuta[0])
+        cb(null, file.originalname);
+    }
+});
+// multer
+app.use(multer({
+    storage,
+    dest: path.join(__dirname, 'public/fotos-rutas'),
+    fileFilter: function (req, file, cb) {
+
+        var filetypes = /jpeg|jpg|png/;
+        var mimetype = filetypes.test(file.mimetype);
+        var extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+
+        if (mimetype && extname) {
+            return cb(null, true);
+        }
+        cb("Error: File upload only supports the following filetypes - " + filetypes);
+    }
+}).single('fotos'));
+
 /////POSTGRE/////
 const { pool, Client } = require("pg");
 const { request } = require('https');
+const { exec } = require('child_process');
 const connectionString =
     "postgressql://Brayan:tiotaxi22@basededatostaxi.csgckedzjvw7.us-east-2.rds.amazonaws.com:5432/postgres";
 const client = new Client({
@@ -79,7 +110,7 @@ app.get('/mainestilo', (request, response) => {
 //Admin
 app.get('/admin', function (request, response) {
     console.log(request.session)
-   
+
     if (request.session.loggedin2 == true) {
         return response.render(path.join(__dirname + '/view/admin.ejs'));
     } else {
@@ -89,7 +120,7 @@ app.get('/admin', function (request, response) {
 
 //Ayudante (Registro caso)
 app.get('/registro_caso', function (request, response) {
-    
+
     if (request.session.loggedin1) {
         return response.render(path.join(__dirname + '/view/analisis_de_ruta.ejs'));
     } else {
@@ -99,7 +130,7 @@ app.get('/registro_caso', function (request, response) {
 
 //Ayudante (Obtener caso)
 app.get('/obtener_caso', function (request, response) {
-    
+
     if (request.session.loggedin1) {
         return response.render(path.join(__dirname + '/view/obtener_caso.ejs'));
     } else {
@@ -109,7 +140,7 @@ app.get('/obtener_caso', function (request, response) {
 
 //Medico (General)
 app.get('/general', function (request, response) {
-    
+
     if (request.session.loggedin) {
         return response.render(path.join(__dirname + '/view/general.ejs'));
     } else {
@@ -151,7 +182,7 @@ app.post('/estado', (req, res) => {
         id, fecha, estado) VALUES (
         '${id}'::bigint, '${fecha}'::date, ${estado}::bigint)
          returning *;`;
-   
+
     client
         .query(sql)
         .then(raw => {
@@ -291,20 +322,20 @@ app.post('/casos', (req, res) => {
         .query(sql1)
         .then(raw => {
             console.log(raw.rows)
-           res.json(raw.rows);
+            res.json(raw.rows);
         })
         .catch(e => console.log(e))
 });
 app.post('/casos2', (req, res) => {
     let sql = `SELECT  id,  direc, nombre, apellido from casos order by id `
     client
-    .query(sql)
-    .then(raw => {
-       res.json(raw.rows);
-       console.log(raw.rows);
-    })
-    
-    .catch(e => console.log(e))
+        .query(sql)
+        .then(raw => {
+            res.json(raw.rows);
+            console.log(raw.rows);
+        })
+
+        .catch(e => console.log(e))
 });
 
 app.post('/mapaplan', (req, res) => {
@@ -339,20 +370,85 @@ server.listen(15002, () => {
 });
 
 app.post('/resumencasos', (req, res) => {
-    let sql =`SELECT resultado,COUNT(resultado) FROM casos group by resultado`
+    let sql = `SELECT resultado,COUNT(resultado) FROM casos group by resultado`
     client
         .query(sql)
         .then(raw => res.json(raw.rows))
+});
+app.post('/resumenestados', (req, res) => {
+    let sql = `SELECT estado, COUNT(estado) FROM estado group by estado`
+    client
+        .query(sql)
+        .then(raw => res.json(raw.rows))
+});
+app.post('/resumencasospordia', (req, res) => {
+    let sql = 'SELECT COUNT(fechaex), resultado, fechaex FROM casos group by fechaex, resultado'
+    client
+        .query(sql)
+        .then(raw => res.json(raw.rows))
+});
+
+
+app.post('/inforuta', (req, res) => {
+    console.log(req.file)
+    console.log(req.body)
+    /*  let sql = `INSERT INTO inforuta(fecharuta, latitud, longitud, notas, fotos) VALUES('${req.body.fecharuta}','${req.body.latitud}',${req.body.longitud},${req.body.notas},'${req.file.filename}') RETURNING *`;
+     client.query(sql) */
+    res.status(204).send();
+});
+
+app.post('/analisis_tramo', (req, res) => {
+
+    let options = {
+        argumentos: ["1", "1", "1", "1", "1", "1", "1"]
+    }
+    pyshell.send("1", "1", "1", "1", "1", "1", "1");
+    pyshell.on('mensaje', function (mensaje) {
+        console.log(mensaje)
+    })
+    /* PythonShell.run('PruebaPf.py',options,function(err,results){
+      if(err) {
+          console.log(err)
+          console.log("error mi rey")
+      }  else{
+      console.log(results);
+        console.log("hasta aquí rey")
+    }}) */
+    res.status(204).send();
+});
+
+app.post('/Riesgo', (req, res) => {
+    
+    let bicicletas = req.body.bicicletas;
+        bicicletas = "0"+bicicletas;
+    let motos = req.body.motos;
+        motos = "0"+motos;
+    let peaton = req.body.peaton;
+        peaton ="0"+peaton;
+    let via = req.body.via;
+        via = "0"+via;
+    let deslizamiento = req.body.deslizamiento;
+        deslizamiento = "0"+deslizamiento;
+    let obrasvia = req.body.obrasvia;
+        obrasvia = "0"+obrasvia;
+    let velocidad = req.body.velocidad;
+       velocidad = "0"+velocidad;
+    let alumbrado = req.body.alumbrado;
+        alumbrado = "0"+alumbrado;
+    let separador = req.body.separador;
+       separador = "0"+separador;
+    let calzadadiv = req.body.calzadadiv;
+        calzadadiv = "0"+calzadadiv;
+    let hora = req.body.hora;
+        hora = "0"+hora;
+        
+    console.log(req.body)
+    var Process = spawn('python',["PruebaPf.py",bicicletas,motos,peaton,via,velocidad,alumbrado,hora]);
+    var calriesgo=[];
+    Process.stdout.on('data', (data) => {
+        console.log(data.toString('utf8'));
+        calriesgo[0] =data.toString('utf8')
     });
-    app.post('/resumenestados', (req, res) => {
-        let sql =`SELECT estado, COUNT(estado) FROM estado group by estado`
-        client
-            .query(sql)
-            .then(raw => res.json(raw.rows))
-        });
-    app.post('/resumencasospordia', (req, res) => {
-            let sql ='SELECT COUNT(fechaex), resultado, fechaex FROM casos group by fechaex, resultado'
-            client
-                .query(sql)
-                .then(raw => res.json(raw.rows))
-            });
+    res.status(204);
+    res.json(calriesgo[0]);
+})

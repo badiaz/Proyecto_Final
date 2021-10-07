@@ -88,37 +88,41 @@
                   </div>
                   <div class="card-body">
                     <div class="container">
-                      <form id="formCase" action="/logeado_ayudante" method="post">
+                      <form id="formCase" action="/inforuta" method="post" enctype="multipart/form-data">
                         <div class="row">
                           <div class="col-lg-6 my-4">
 
                             <div class="form-group mb-4">
                               <label for="fecha_nac" class="font-weight-bold">Fecha de ruta</label>
-                              <input type="date" class="form-control w-10" id="fechanac" name="fechanac"
+                              <input type="date" class="form-control w-10" id="fecharuta" name="fecharuta"
                                 onkeydown="return false" />
                             </div>
+                            
                             <div class="drop-zone">
                               <span class="drop-zone__prompt">Arrastre o de click aquí para adjuntar la imagen</span>
-                              <input type="file" name="myFile[]" class="drop-zone__input" accept="image/*" id="file"
+                              <input type="file" name="fotos" class="drop-zone__input" accept="image/*" id="file"
                                 multiple="multiple" onchange="loadFile(event)">
                             </div>
                             <img id="output" />
                           </div>
                           <div class="col-lg-6 my-4">
                             <div class="form-group mb-4">
-                              <label for="apellido" class="font-weight-bold">Dirección Incial</label>
-                              <input class="form-control bg-grey" id="direc" name="direc"
-                                placeholder="Ingrese la dirección inicial" autocomplete="off">
+                              <label for="apellido" class="font-weight-bold">Ubicación del Tramo</label>
+                              <div id="map"></div>
                             </div>
                             <div class="form-group mb-4">
-                              <label for="apellido" class="font-weight-bold">Dirección Final</label>
-                              <input class="form-control bg-grey" id="dirt" name="dirt"
-                                placeholder="Ingrese la dirección Final" autocomplete="off">
+                              <label for="latitude" class="font-weight-bold">Latitude:</label>
+                              <input id="txtLat" type="text" class="form-control bg-grey" readonly="readonly" value="10.9861045" name="latitud" width="50%" height="100px" >
                             </div>
+                            <div class="form-group mb-4">
+                              <label for="longitude" class="font-weight-bold">Longitude:</label>
+                              <input id="txtLng" type="text" class="form-control bg-grey" readonly="readonly" value="-74.80928094" name="longitud" width="50%" height="100px" >
+                            </div>
+
                             <div class="form-group mb-4">
                               <label for="apellido" class="font-weight-bold">Notas Adicionales</label>
-                              <input type="text" class="form-control bg-grey" placeholder="Añada notas al caso"
-                                width="50%" height="100px">
+                              <input type="text" class="form-control bg-grey" name="notas"
+                                placeholder="Añada notas al caso" width="50%" height="100px">
                             </div>
 
                           </div>
@@ -145,7 +149,7 @@
                   </div>
                   <div class="card-body">
                     <div class="container">
-                      <form id="formCase" action="/logeado_ayudante" method="post">
+                      <form id="formCase" action="/Riesgo" method="POST">
                         <div class="row">
                           <div class="col-lg-6 my-4">
                             <label for="flujo_carretara" class="font-weight-bold">Flujo de la Carretera</label>
@@ -154,7 +158,7 @@
                                 <label class="heat-slider heat-slider--v">
                                   <span class="heat-slider--label font-weight-bold">Número de Bicicleta:</span>
                                   <span class="heat-slider--input">
-                                    <input id="bici" type="range" value="0" min="0" max="10"
+                                    <input id="bici" name="bicicletas" type="range" value="0" min="0" max="10"
                                       oninput="doThings(event)" />
                                   </span>
                                 </label>
@@ -164,7 +168,7 @@
                                 <label class="heat-slider heat-slider--v">
                                   <span class="heat-slider--label font-weight-bold">Número de Motos:</span>
                                   <span class="heat-slider--input">
-                                    <input type="range" value="0" min="0" max="10" oninput="doThings1(event)" />
+                                    <input type="range" name="motos" value="0" min="0" max="10" oninput="doThings1(event)" />
                                   </span>
                                 </label>
                                 <output id="outmoto">Por favor deslice para seleccionar...</output>
@@ -173,7 +177,7 @@
                                 <label class="heat-slider heat-slider--v">
                                   <span class="heat-slider--label font-weight-bold">Número de Peatones:</span>
                                   <span class="heat-slider--input">
-                                    <input type="range" value="0" min="0" max="10" oninput="doThings2(event)" />
+                                    <input type="range" name="peaton" value="0" min="0" max="10" oninput="doThings2(event)" />
                                   </span>
                                 </label>
                                 <output id="outpeaton">Por favor deslice para seleccionar...</output>
@@ -189,7 +193,7 @@
                                     de
                                     la via:</span>
                                   <span class="heat-sliderinv--input">
-                                    <input type="range" value="0" min="0" max="10" oninput="doThings3(event)" />
+                                    <input type="range" name="via" value="0" min="0" max="10" oninput="doThings3(event)" />
                                   </span>
                                 </label>
                                 <output id="outvia">Por favor deslice para seleccionar...</output>
@@ -199,7 +203,7 @@
                                   <span class="heat-slider--label font-weight-bold">Del 0 al 10 que tan buena es la
                                     resistencia al deslizamiento de la vía:</span>
                                   <span class="heat-slider--input">
-                                    <input type="range" value="0" min="0" max="10" oninput="doThings4(event)" />
+                                    <input type="range" name="deslizamiento" value="0" min="0" max="10" oninput="doThings4(event)" />
                                   </span>
                                 </label>
                                 <output id="outdeslizamiento">Por favor deslice para seleccionar...</output>
@@ -211,7 +215,7 @@
                                     las
                                     obras en la vía:</span>
                                   <span class="heat-slider--input">
-                                    <input type="range" value="0" min="0" max="10" step="1"
+                                    <input type="range" name="obrasvia" value="0" min="0" max="10" step="1"
                                       oninput="doThings9(event)" />
                                   </span>
                                 </label>
@@ -228,7 +232,7 @@
                                   <span class="heat-slider--label font-weight-bold">Seleccione el límite de Velocidad de
                                     la carretera:</span>
                                   <span class="heat-slider--input">
-                                    <input type="range" value="0" min="0" max="100" step="10"
+                                    <input type="range" name="velocidad" value="0" min="0" max="100" step="10"
                                       oninput="doThings5(event)" />
                                   </span>
                                 </label>
@@ -241,7 +245,7 @@
                                     del
                                     alumbrado público:</span>
                                   <span class="heat-sliderinv--input">
-                                    <input type="range" value="0" min="0" max="10" oninput="doThings7(event)" />
+                                    <input type="range" name="alumbrado" value="0" min="0" max="10" oninput="doThings7(event)" />
                                   </span>
                                 </label>
                                 <output id="outalumbrado">Por favor deslice para seleccionar...</output>
@@ -252,7 +256,7 @@
                                     del
                                     separador de la vía:</span>
                                   <span class="heat-sliderinv--input">
-                                    <input type="range" value="0" min="0" max="10" step="1"
+                                    <input type="range" name="separador" value="0" min="0" max="10" step="1"
                                       oninput="doThings8(event)" />
                                   </span>
                                 </label>
@@ -265,10 +269,10 @@
                               <div class="form-group mb-4">
                                 <div class="btn-group btn-group-toggle" data-toggle="buttons">
                                   <label class="btn btn-primary active">
-                                    <input type="radio" name="sexo" id="masculino" value="1" checked> Dividida
+                                    <input type="radio" name="calzadadiv" id="masculino" value="1" checked> Dividida
                                   </label>
                                   <label class="btn btn-primary">
-                                    <input type="radio" name="sexo" id="femenino" value="2"> No Dividida
+                                    <input type="radio" name="calzadadiv" id="femenino" value="2"> No Dividida
                                   </label>
                                 </div>
                               </div>
@@ -279,7 +283,7 @@
                                     la
                                     ruta:</span>
                                   <span class="heat-slider--input">
-                                    <input type="range" value="0" min="0" max="24" step="1"
+                                    <input type="range" name="hora" value="0" min="0" max="24" step="1"
                                       oninput="doThings6(event)" />
                                   </span>
                                 </label>
@@ -289,7 +293,7 @@
                           </div>
                         </div>
 
-                        <button type="submit" class="btn btn-primary mt-4 mb-4 w-25">Evaluar Ruta</button>
+                        <button type="submit" onclick="riesgo()" class="btn btn-primary mt-4 mb-4 w-25">Evaluar Ruta</button>
                         <button onclick="addPanel()" class="btn btn-primary mt-4 mb-4 w-25"> Añadir segmento + </button>
                       </form>
 
@@ -309,11 +313,57 @@
 <div id="button-up">
   <a class="fas fa-chevron-up"></a>
 </div>
-
+<script async defer
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCEen29bixPCHvTa7DWIErzdWhPg8Zp60Y&callback=initMap"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script src="https://andreruffert.github.io/rangeslider.js/assets/rangeslider.js/dist/rangeslider.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.2/underscore-min.js"></script>
 
+
+
+<script>
+  //initMap();
+  var map;
+  var geocoder;
+  
+
+  function initMap() {
+    var myLatlng = new google.maps.LatLng(10.9861045,-74.80928094);
+    map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 12, center: { lat: 10.9861045, lng: -74.80928094 },
+      streetViewControl: false
+    });
+    geocoder = new google.maps.Geocoder();
+
+    var marker = new google.maps.Marker({
+        position: myLatlng,
+        draggable: true,
+        map: map
+    });
+
+    marker.setMap(map);
+    // adds a listener to the marker
+            // gets the coords when drag event ends
+            // then updates the input with the new coords
+            google.maps.event.addListener(marker, 'dragend', function (evt) {
+                $("#txtLat").val(evt.latLng.lat().toFixed(6));
+                $("#txtLng").val(evt.latLng.lng().toFixed(6));
+
+                map.panTo(evt.latLng);
+            });
+
+            // centers the map on markers coords
+            map.setCenter(marker.position);
+
+            // adds the marker on the map
+            marker.setMap(map);
+  }
+ 
+  
+  
+
+  
+</script>
 <!-- SLIDERSSS -->
 
 <script>
