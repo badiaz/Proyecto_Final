@@ -12,6 +12,7 @@ const PassportLocal = require('passport-local').Strategy;
 const multer = require('multer');
 const fecharuta = [];
 const spawn = require("child_process").spawn;
+const fs= require('fs');
 
 
 
@@ -444,11 +445,12 @@ app.post('/Riesgo', (req, res) => {
         
     console.log(req.body)
     var Process = spawn('python',["PruebaPf.py",bicicletas,motos,peaton,via,velocidad,alumbrado,hora]);
-    var calriesgo=[];
+    var calriesgo ;
     Process.stdout.on('data', (data) => {
-        console.log(data.toString('utf8'));
-        calriesgo[0] =data.toString('utf8')
+        var calriesgo = {riesgo: data.toString('utf8')}
+        console.log(calriesgo);
+        res.json(calriesgo);
+        
     });
-    res.status(204);
-    res.json(calriesgo[0]);
+        
 })
