@@ -10,6 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;600&display=swap" rel="stylesheet">
   <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
   <script src="https://kit.fontawesome.com/41bcea2ae3.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css">
 
   <title>Route section analysis</title>
 </head>
@@ -66,7 +67,9 @@
             <div class="row">
               <div class="col-lg-6 col-md-6">
                 <h1 class="font-weight-bold mb-0">Welcome User</h1>
-                <p class="lead text-muted">This tool performs a risk assessment associated with the transportation of hazardous chemical hazardous chemical material along a given route using a fuzzy logic system. <br><br> Below, you will be able to enter the required information:</p>
+                <p class="lead text-muted">This tool performs a risk assessment associated with the transportation of
+                  hazardous chemical hazardous chemical material along a given route using a fuzzy logic system.
+                  <br><br> Below, you will be able to enter the required information:</p>
               </div>
 
               <div class="col-lg-6 col-md-6 ">
@@ -122,24 +125,44 @@
 
                             <div class="form-group mb-4">
                               <label for="apellido" class="font-weight-bold">Additional Notes</label>
-                              <input type="text" class="form-control bg-grey" name="notas"
+                              <input id=notas type="text" class="form-control bg-grey" name="notas"
                                 placeholder="Add notes to the case" width="50%" height="100px">
                             </div>
 
                           </div>
                         </div>
 
-                        <button type="submit" class="btn btn-primary mt-4 mb-4 w-25"> Register section</button>
+                        <button onclick="fotos()" class="btn btn-primary mt-4 mb-4 w-25"> Register section</button>
                         <!-- <button type="button" onclick=limpiarform(); class="btn btn-primary mt-4 mb-4 w-25">Limpiar</button> -->
-                      </form>
+
                     </div>
+
+                    </form>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </section>
-
+        <section>
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-12 my-4">
+                <div class="card rounded-0">
+                  <div class="card-header bg-light">
+                    <h5 class="d-inline-block font-weight-bold mb-0">Images</h5>
+                  </div>
+                  <div class="card-body">
+                    <div class="container">
+                      <img id='imagen' src="../public/fotos-rutas/camion.jpeg"><br>
+                      <input type="button" id="anterior" value= "<<">
+                      <input type="button" id="siguiente" value=">>">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
         <section id="targetElement">
           <div class="container">
             <div class="row">
@@ -150,142 +173,151 @@
                   </div>
                   <div class="card-body">
                     <div class="container">
-                      
-                        <div class="row">
-                          <div class="col-lg-6 my-4">
-                            <label for="flujo_carretara" class="font-weight-bold">Vehicular and pedestrian flow</label>
-                            <div class="Divisor_variables">
-                              <div class="form-group mb-4">
-                                <label class="heat-slider heat-slider--v">
-                                  <span class="heat-slider--label font-weight-bold">Number of Bicycles:</span>
-                                  <span class="heat-slider--input">
-                                    <input id="bicicletas" name="bicicletas" type="range" value="0" min="0" max="10"
-                                      oninput="doThings(event)" />
-                                  </span>
-                                </label>
-                                <output id="outbici">Please scroll to select...</output>
-                              </div>
-                              <div class="form-group mb-4">
-                                <label class="heat-slider heat-slider--v">
-                                  <span class="heat-slider--label font-weight-bold">Number of motorcycles:</span>
-                                  <span class="heat-slider--input">
-                                    <input id="motos" type="range" name="motos" value="0" min="0" max="10"
-                                      oninput="doThings1(event)" />
-                                  </span>
-                                </label>
-                                <output id="outmoto">Please scroll to select...</output>
-                              </div>
-                              <div class="form-group mb-4">
-                                <label class="heat-slider heat-slider--v">
-                                  <span class="heat-slider--label font-weight-bold">Number of Pedestrians:</span>
-                                  <span class="heat-slider--input">
-                                    <input id="peaton" type="range" name="peaton" value="0" min="0" max="10"
-                                      oninput="doThings2(event)" />
-                                  </span>
-                                </label>
-                                <output id="outpeaton">Please scroll to select...</output>
-                              </div>
+
+                      <div class="row">
+                        <div class="col-lg-6 my-4">
+                          <label for="flujo_carretara" class="font-weight-bold">Vehicular and pedestrian flow</label>
+                          <div class="Divisor_variables">
+                            <div class="form-group mb-4">
+                              <label class="heat-slider heat-slider--v">
+                                <span class="heat-slider--label font-weight-bold">Number of Bicycles:</span>
+                                <span class="heat-slider--input">
+                                  <input id="bicicletas" name="bicicletas" type="range" value="0" min="0" max="10"
+                                    oninput="doThings(event)" />
+                                </span>
+                              </label>
+                              <output id="outbici">Please scroll to select...</output>
                             </div>
-                            <br><br><br>
-                            <label for="flujo_carretara" class="font-weight-bold">Conditions of the road section:</label>
-                            <div class="Divisor_variables">
-                              <div class="form-group mb-4">
-                                <label class="heat-sliderinv heat-sliderinv--v">
-                                  <span class="heat-sliderinv--label font-weight-bold">On a scale of rate the condition of the road:</span>
-                                  <span class="heat-sliderinv--input">
-                                    <input id="via" type="range" name="via" value="0" min="0" max="10"
-                                      oninput="doThings3(event)" />
-                                  </span>
-                                </label>
-                                <output id="outvia">Please scroll to select...</output>
-                              </div>
-                              <div class="form-group mb-4">
-                                <label class="heat-slider heat-slider--v">
-                                  <span class="heat-slider--label font-weight-bold">On a scale of, how good is the skid resistance of the road:</span>
-                                  <span class="heat-slider--input">
-                                    <input id="deslizamiento" type="range" name="deslizamiento" value="0" min="0"
-                                      max="10" oninput="doThings4(event)" />
-                                  </span>
-                                </label>
-                                <output id="outdeslizamiento">Please scroll to select...</output>
-                              </div>
-                              <div class="form-group mb-4">
-                                <label class="heat-slider heat-slider--v">
-                                  <span class="heat-slider--label font-weight-bold">On a scale of 0 to 10, rate the severity of the roadworks:</span>
-                                  <span class="heat-slider--input">
-                                    <input id="obrasvia" type="range" name="obrasvia" value="0" min="0" max="10"
-                                      step="1" oninput="doThings9(event)" />
-                                  </span>
-                                </label>
-                                <output id="outseveridad">Please scroll to select...</output>
-                              </div>
+                            <div class="form-group mb-4">
+                              <label class="heat-slider heat-slider--v">
+                                <span class="heat-slider--label font-weight-bold">Number of motorcycles:</span>
+                                <span class="heat-slider--input">
+                                  <input id="motos" type="range" name="motos" value="0" min="0" max="10"
+                                    oninput="doThings1(event)" />
+                                </span>
+                              </label>
+                              <output id="outmoto">Please scroll to select...</output>
+                            </div>
+                            <div class="form-group mb-4">
+                              <label class="heat-slider heat-slider--v">
+                                <span class="heat-slider--label font-weight-bold">Number of Pedestrians:</span>
+                                <span class="heat-slider--input">
+                                  <input id="peaton" type="range" name="peaton" value="0" min="0" max="10"
+                                    oninput="doThings2(event)" />
+                                </span>
+                              </label>
+                              <output id="outpeaton">Please scroll to select...</output>
                             </div>
                           </div>
-                          <div class="col-lg-6 my-4">
-                            <label for="flujo_carretara" class="font-weight-bold">Elements and signaling of the road</label>
-                            <div class="Divisor_variables">
-                              <div class="form-group mb-4">
-                                <label class="heat-slider heat-slider--v">
-                                  <span class="heat-slider--label font-weight-bold">Select the Speed limit of the road the road:</span>
-                                  <span class="heat-slider--input">
-                                    <input id="velocidad" type="range" name="velocidad" value="0" min="0" max="100"
-                                      step="10" oninput="doThings5(event)" />
-                                  </span>
-                                </label>
-                                <output id="outvelocidad">Please scroll to select...</output>
-                              </div>
-
-                              <div class="form-group mb-4">
-                                <label class="heat-sliderinv heat-sliderinv--v">
-                                  <span class="heat-sliderinv--label font-weight-bold">On a scale of rate the quality of street lighting:</span>
-                                  <span class="heat-sliderinv--input">
-                                    <input id="alumbrado" type="range" name="alumbrado" value="0" min="0" max="10"
-                                      oninput="doThings7(event)" />
-                                  </span>
-                                </label>
-                                <output id="outalumbrado">Please scroll to select...</output>
-                              </div>
-                              <div class="form-group mb-4">
-                                <label class="heat-sliderinv heat-sliderinv--v">
-                                  <span class="heat-sliderinv--label font-weight-bold">On a scale of 0 to 10, rate the quality of road median (separator):</span>
-                                  <span class="heat-sliderinv--input">
-                                    <input id="separador" type="range" name="separador" value="0" min="0" max="10"
-                                      step="1" oninput="doThings8(event)" />
-                                  </span>
-                                </label>
-                                <output id="outseparador">Please scroll to select...</output>
-                              </div>
-
-                              <div class="form-group mb-4">
-                                <label for="sexo" class="font-weight-bold">Does the road have centreline rumble strips?</label>
-                              </div>
-                              <div class="form-group mb-4">
-                                <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                                  <label class="btn btn-primary active">
-                                    <input type="radio" name="calzadadiv" id="calzadadiv1" value="1" checked> Present
-                                  </label>
-                                  <label class="btn btn-primary">
-                                    <input type="radio" name="calzadadiv" id="calzadadiv2" value="2"> Not Present
-                                  </label>
-                                </div>
-                              </div>
-                              <div class="form-group mb-4">
-                                <label class="heat-slider heat-slider--v">
-                                  <span class="heat-slider--label font-weight-bold">Select the tentative departure time:</span>
-                                  <span class="heat-slider--input">
-                                    <input id="hora" type="range" name="hora" value="0" min="0" max="24" step="1"
-                                      oninput="doThings6(event)" />
-                                  </span>
-                                </label>
-                                <output id="outHora">Please scroll to select...</output>
-                              </div>
+                          <br><br><br>
+                          <label for="flujo_carretara" class="font-weight-bold">Conditions of the road section:</label>
+                          <div class="Divisor_variables">
+                            <div class="form-group mb-4">
+                              <label class="heat-sliderinv heat-sliderinv--v">
+                                <span class="heat-sliderinv--label font-weight-bold">On a scale of rate the condition of
+                                  the road:</span>
+                                <span class="heat-sliderinv--input">
+                                  <input id="via" type="range" name="via" value="0" min="0" max="10"
+                                    oninput="doThings3(event)" />
+                                </span>
+                              </label>
+                              <output id="outvia">Please scroll to select...</output>
+                            </div>
+                            <div class="form-group mb-4">
+                              <label class="heat-slider heat-slider--v">
+                                <span class="heat-slider--label font-weight-bold">On a scale of, how good is the skid
+                                  resistance of the road:</span>
+                                <span class="heat-slider--input">
+                                  <input id="deslizamiento" type="range" name="deslizamiento" value="0" min="0" max="10"
+                                    oninput="doThings4(event)" />
+                                </span>
+                              </label>
+                              <output id="outdeslizamiento">Please scroll to select...</output>
+                            </div>
+                            <div class="form-group mb-4">
+                              <label class="heat-slider heat-slider--v">
+                                <span class="heat-slider--label font-weight-bold">On a scale of 0 to 10, rate the
+                                  severity of the roadworks:</span>
+                                <span class="heat-slider--input">
+                                  <input id="obrasvia" type="range" name="obrasvia" value="0" min="0" max="10" step="1"
+                                    oninput="doThings9(event)" />
+                                </span>
+                              </label>
+                              <output id="outseveridad">Please scroll to select...</output>
                             </div>
                           </div>
                         </div>
+                        <div class="col-lg-6 my-4">
+                          <label for="flujo_carretara" class="font-weight-bold">Elements and signaling of the
+                            road</label>
+                          <div class="Divisor_variables">
+                            <div class="form-group mb-4">
+                              <label class="heat-slider heat-slider--v">
+                                <span class="heat-slider--label font-weight-bold">Select the Speed limit of the road the
+                                  road:</span>
+                                <span class="heat-slider--input">
+                                  <input id="velocidad" type="range" name="velocidad" value="0" min="0" max="100"
+                                    step="10" oninput="doThings5(event)" />
+                                </span>
+                              </label>
+                              <output id="outvelocidad">Please scroll to select...</output>
+                            </div>
 
-                        <button  onclick="riesgo()" class="btn btn-primary mt-4 mb-4 w-25">Assess route section</button>
-                        <!-- <button onclick="addPanel()" class="btn btn-primary mt-4 mb-4 w-25"> Añadir segmento + </button> -->
-                      
+                            <div class="form-group mb-4">
+                              <label class="heat-sliderinv heat-sliderinv--v">
+                                <span class="heat-sliderinv--label font-weight-bold">On a scale of rate the quality of
+                                  street lighting:</span>
+                                <span class="heat-sliderinv--input">
+                                  <input id="alumbrado" type="range" name="alumbrado" value="0" min="0" max="10"
+                                    oninput="doThings7(event)" />
+                                </span>
+                              </label>
+                              <output id="outalumbrado">Please scroll to select...</output>
+                            </div>
+                            <div class="form-group mb-4">
+                              <label class="heat-sliderinv heat-sliderinv--v">
+                                <span class="heat-sliderinv--label font-weight-bold">On a scale of 0 to 10, rate the
+                                  quality of road median (separator):</span>
+                                <span class="heat-sliderinv--input">
+                                  <input id="separador" type="range" name="separador" value="0" min="0" max="10"
+                                    step="1" oninput="doThings8(event)" />
+                                </span>
+                              </label>
+                              <output id="outseparador">Please scroll to select...</output>
+                            </div>
+
+                            <div class="form-group mb-4">
+                              <label for="sexo" class="font-weight-bold">Does the road have centreline rumble
+                                strips?</label>
+                            </div>
+                            <div class="form-group mb-4">
+                              <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                <label class="btn btn-primary active">
+                                  <input type="radio" name="calzadadiv" id="calzadadiv1" value="1" checked> Present
+                                </label>
+                                <label class="btn btn-primary">
+                                  <input type="radio" name="calzadadiv" id="calzadadiv2" value="2"> Not Present
+                                </label>
+                              </div>
+                            </div>
+                            <div class="form-group mb-4">
+                              <label class="heat-slider heat-slider--v">
+                                <span class="heat-slider--label font-weight-bold">Select the tentative departure
+                                  time:</span>
+                                <span class="heat-slider--input">
+                                  <input id="hora" type="range" name="hora" value="0" min="0" max="24" step="1"
+                                    oninput="doThings6(event)" />
+                                </span>
+                              </label>
+                              <output id="outHora">Please scroll to select...</output>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <button onclick="riesgo()" class="btn btn-primary mt-4 mb-4 w-25">Assess route section</button>
+                      <!-- <button onclick="addPanel()" class="btn btn-primary mt-4 mb-4 w-25"> Añadir segmento + </button> -->
+
 
 
                     </div>
@@ -300,19 +332,89 @@
     </div>
   </div>
 </body>
-<div id="button-up">
-  <a class="fas fa-chevron-up"></a>
-</div>
+
 <script async defer
   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCEen29bixPCHvTa7DWIErzdWhPg8Zp60Y&callback=initMap"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script src="https://andreruffert.github.io/rangeslider.js/assets/rangeslider.js/dist/rangeslider.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.2/underscore-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
+<script>
+  //paso 1 --> crear el array de imagenes
+  var arrayImagenes = ["camionsf.png" , "camionsf1.png", "logo.png"]
+
+  //que imagen mostramos
+  var imagenActual = 0;
+
+  //Cada 2 segundos se ejecute esta funcion
+  var temporizador;
+  /* temporizador = setInterval(cambiarImagen, 3000) */
+
+  //paso 2: listeners de los botones de anterior y siguiente
+  document.getElementById("anterior").addEventListener("click", cambiarImagen);
+  document.getElementById("siguiente").addEventListener("click", cambiarImagen);
+  document.getElementById('imagen').addEventListener('mouseover', pararTemporizador)
+  document.getElementById('imagen').addEventListener('mouseout', iniciarTemporizador)
+
+  //paso 3: Definir la función
+  function cambiarImagen() {
+      var boton = this.id;
+      if(boton!=undefined) {
+          clearInterval(temporizador);
+          temporizador=setInterval(cambiarImagen, 3000)
+      }
+      if(boton == 'anterior') {
+          imagenActual --;
+          if(imagenActual < 0) {
+              imagenActual = arrayImagenes.length -1; 
+          } 
+      } else {
+          imagenActual ++;
+          if(imagenActual == arrayImagenes.length) {
+              imagenActual = 0;
+          } 
+      }
+      var imagenAMostrar = arrayImagenes [imagenActual];
+      document.getElementById('imagen').src = "../public/fotos-rutas/" + imagenAMostrar;
+  }
+
+  function pararTemporizador() {
+      clearInterval(temporizador);
+  }
+
+  function iniciarTemporizador () {
+      temporizador=setInterval(cambiarImagen, 3000)
+
+  }
+</script>
+
 
 <script>
- 
+
+  async function fotos() {
+    var fotos={};
+    
+    const options = {
+      method: "POST",
+      body: JSON.stringify(fotos),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    }
+
+    const response = await fetch('/inforuta', options);
+
+    const result = await response.json();
+    console.log(result);
+
+  };
+
+</script>
+
+<script>
+
   async function riesgo() {
-    document.getElementById('chartdiv').scrollIntoView({block: "end", behavior: "smooth"});
+    document.getElementById('chartdiv').scrollIntoView({ block: "end", behavior: "smooth" });
     const datos = {
       bicicletas: document.getElementById("bicicletas").value,
       motos: document.getElementById("motos").value,
@@ -336,18 +438,17 @@
     }
 
     const response = await fetch('/Riesgo', options);
-    
+
     const result = await response.json();
     console.log(result);
 
     var medidor = result.riesgo;
-    medidor = medidor.substring(0,medidor.length-8)
-    valormedidor = parseFloat(medidor)*10;
+    medidor = medidor.substring(0, medidor.length - 8)
+    valormedidor = parseFloat(medidor) * 10;
     console.log(valormedidor);
-    
+
 
   };
-
 
 </script>
 
@@ -611,7 +712,7 @@
 <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
 <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
 <script>
-  let valormedidor=0;
+  let valormedidor = 0;
   am4core.ready(function () {
 
     // Themes begin
@@ -768,4 +869,5 @@
 
   }
 </script>
+
 </html>

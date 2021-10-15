@@ -25,8 +25,7 @@ app.use(express.static('public'));
 const storage = multer.diskStorage({
     destination: path.join(__dirname, 'public/fotos-rutas'),
     filename: (req, file, cb) => {
-        console.log(' papi pilla fec', fecharuta[0])
-        cb(null, file.originalname);
+         cb(null, file.originalname);
     }
 });
 // multer
@@ -44,7 +43,7 @@ app.use(multer({
         }
         cb("Error: File upload only supports the following filetypes - " + filetypes);
     }
-}).single('fotos'));
+}).array('fotos'));
 
 /////POSTGRE/////
 const { pool, Client } = require("pg");
@@ -391,31 +390,31 @@ app.post('/resumencasospordia', (req, res) => {
 
 
 app.post('/inforuta', (req, res) => {
-    console.log(req.file)
-    console.log(req.body)
-    /*  let sql = `INSERT INTO inforuta(fecharuta, latitud, longitud, notas, fotos) VALUES('${req.body.fecharuta}','${req.body.latitud}',${req.body.longitud},${req.body.notas},'${req.file.filename}') RETURNING *`;
-     client.query(sql) */
-    res.status(204).send();
-});
-
-app.post('/analisis_tramo', (req, res) => {
-
-    let options = {
-        argumentos: ["1", "1", "1", "1", "1", "1", "1"]
-    }
-    pyshell.send("1", "1", "1", "1", "1", "1", "1");
-    pyshell.on('mensaje', function (mensaje) {
-        console.log(mensaje)
-    })
-    /* PythonShell.run('PruebaPf.py',options,function(err,results){
-      if(err) {
-          console.log(err)
-          console.log("error mi rey")
-      }  else{
-      console.log(results);
-        console.log("hasta aquí rey")
-    }}) */
-    res.status(204).send();
+    
+    
+    var filelenght = req.files.length;
+    let files= req.files;
+    let fotosfile ;
+    let fotosfile1 ;
+   
+    console.log(files)
+    var i = 0;
+      for ( i ; i< filelenght; i++ ){
+        fotosfile = files[i].originalname;
+        fotosfile1 = fotosfile1 +","+ fotosfile; 
+        console.log(fotosfile1) 
+        }  
+    
+    console.log(filelenght) 
+    var fotosfile2 = fotosfile1.replace('undefined,','')
+    console.log(fotosfile2) 
+    var fotosfile3 = fotosfile2.split(',')
+    fotosfile3 = {fotos: fotosfile3}
+    console.log(fotosfile3) 
+     let sql = `INSERT INTO public.inforuta(id,fecharuta, latitud, longitud, notas, fotos) VALUES(DEFAULT,'${req.body.fecharuta}','${req.body.latitud}','${req.body.longitud}','${req.body.notas}','${fotosfile2}') RETURNING *`;
+     client.query(sql) 
+    
+     res.json(fotosfile3)
 });
 
 app.post('/Riesgo', (req, res) => {
