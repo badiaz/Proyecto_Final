@@ -11,7 +11,7 @@
   <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
   <script src="https://kit.fontawesome.com/41bcea2ae3.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css">
-
+  
   <title>Route section analysis</title>
 </head>
 
@@ -80,7 +80,7 @@
 
           </div>
         </section>
-        <section>
+        <section id="registro">
           <div class="container">
             <div class="row">
               <div class="col-lg-12 my-4">
@@ -90,7 +90,7 @@
                   </div>
                   <div class="card-body">
                     <div class="container">
-                      <form id="formCase" action="/inforuta" method="post" enctype="multipart/form-data">
+                      <form id="formCase1"  enctype="multipart/form-data">
                         <div class="row">
                           <div class="col-lg-6 my-4">
 
@@ -124,7 +124,7 @@
                             </div>
 
                             <div class="form-group mb-4">
-                              <label for="apellido" class="font-weight-bold">Additional Notes</label>
+                              <label for="notas" class="font-weight-bold">Additional Notes</label>
                               <input id=notas type="text" class="form-control bg-grey" name="notas"
                                 placeholder="Add notes to the case" width="50%" height="100px">
                             </div>
@@ -132,8 +132,8 @@
                           </div>
                         </div>
 
-                        <button onclick="fotos()" class="btn btn-primary mt-4 mb-4 w-25"> Register section</button>
-                        <!-- <button type="button" onclick=limpiarform(); class="btn btn-primary mt-4 mb-4 w-25">Limpiar</button> -->
+                        <button type="submit"  class="btn btn-primary mt-4 mb-4 w-25"> Register section</button>
+                        <button type="button" onclick="analisis()" class="btn btn-primary mt-4 mb-4 w-25">Ir</button> 
 
                     </div>
 
@@ -144,7 +144,7 @@
             </div>
           </div>
         </section>
-        <section>
+        <section id="imagenes" style="display: none">
           <div class="container">
             <div class="row">
               <div class="col-lg-12 my-4">
@@ -154,16 +154,17 @@
                   </div>
                   <div class="card-body">
                     <div class="container">
-                      <img id='imagen' src="../public/fotos-rutas/camion.jpeg"><br>
-                      <input type="button" id="anterior" value= "<<">
-                      <input type="button" id="siguiente" value=">>">
+                      <span id="mostrarimagenes"></span>
+                      <img id='imagen' src="/fotos-rutas/" style="width: 100%; max-width:400px;"><br>
+                      <input class="btn btn-primary mt-4 mb-4 w-25" type="button" id="anterior" value= "<<">
+                      <input class="btn btn-primary mt-4 mb-4 w-25" type="button" id="siguiente" value=">>">
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </section>
-        <section id="targetElement">
+        <section id="analisis" style="display: none">
           <div class="container">
             <div class="row">
               <div class="col-lg-12 my-4">
@@ -315,7 +316,7 @@
                         </div>
                       </div>
 
-                      <button onclick="riesgo()" class="btn btn-primary mt-4 mb-4 w-25">Assess route section</button>
+                      <button type="button" onclick="riesgo()" class="btn btn-primary mt-4 mb-4 w-25">Assess route section</button>
                       <!-- <button onclick="addPanel()" class="btn btn-primary mt-4 mb-4 w-25"> Añadir segmento + </button> -->
 
 
@@ -339,10 +340,68 @@
 <script src="https://andreruffert.github.io/rangeslider.js/assets/rangeslider.js/dist/rangeslider.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.2/underscore-min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
+
+
+<script>
+function analisis(ocultar) {
+  $('#imagenes').show(200);
+  $('#analisis').show(200);
+  $('#registro').hide(1000);
+  mostrarfotos();
+}
+</script>
+
+
+
+
+
+
+
+<script>
+  let arrayfotos;
+  /* async function ldfotos() {
+    var datos= new{
+    fecharuta: document.getElementById("fecharuta").value,
+    files: document.getElementsById("fotos").value,
+    latitude: document.getElementById("txtLat").value,
+    longitude: document.getElementById("txtLng").value,
+    notas: document.getElementById("notas").value
+
+    };
+    
+    const options = {
+      method: "POST",
+      body:new FormData(datos),
+      headers: {
+        "Content-Type": "multipart/form-data; boundary=MyBoundary"
+      }
+    }
+
+    const response = await fetch('/inforuta', options);
+
+    const result = await response.json();
+    console.log(result);
+
+  }; */
+
+  formCase1.onsubmit = async (e) => {
+    e.preventDefault();
+
+    let response = await fetch('/inforuta', {
+      method: 'POST',
+      body: new FormData(formCase1)
+    });
+
+    let result = await response.json();
+    console.log(result.fotos)
+    arrayfotos = result.fotos;
+  };
+</script>
 <script>
   //paso 1 --> crear el array de imagenes
-  var arrayImagenes = ["camionsf.png" , "camionsf1.png", "logo.png"]
-
+  function mostrarfotos(){
+  var arrayImagenes = arrayfotos;
+  console.log('este es el array  '+arrayImagenes)
   //que imagen mostramos
   var imagenActual = 0;
 
@@ -375,7 +434,7 @@
           } 
       }
       var imagenAMostrar = arrayImagenes [imagenActual];
-      document.getElementById('imagen').src = "../public/fotos-rutas/" + imagenAMostrar;
+      document.getElementById('imagen').src = "/fotos-rutas/" + imagenAMostrar;
   }
 
   function pararTemporizador() {
@@ -386,31 +445,8 @@
       temporizador=setInterval(cambiarImagen, 3000)
 
   }
+}
 </script>
-
-
-<script>
-
-  async function fotos() {
-    var fotos={};
-    
-    const options = {
-      method: "POST",
-      body: JSON.stringify(fotos),
-      headers: {
-        "Content-Type": "application/json"
-      }
-    }
-
-    const response = await fetch('/inforuta', options);
-
-    const result = await response.json();
-    console.log(result);
-
-  };
-
-</script>
-
 <script>
 
   async function riesgo() {

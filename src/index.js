@@ -7,13 +7,13 @@ const session = require('express-session');
 const path = require('path');
 const passport = require('passport');
 const { json } = require('body-parser');
-const cookieParser = require('cookie-Parser');
+const cookieParser = require('cookie-parser');
 const PassportLocal = require('passport-local').Strategy;
 const multer = require('multer');
 const fecharuta = [];
 const spawn = require("child_process").spawn;
 const fs= require('fs');
-
+var fotosfile3;
 
 
 app.use(bodyParser());
@@ -85,12 +85,12 @@ app.get('/', (request, response) => {
     request.session.loggedin = false;
     request.session.loggedin1 = false;
     request.session.loggedin2 = false;
-    response.render(path.join(__dirname + '/view/index.ejs'));
+    response.render(path.join(__dirname + '/index.ejs'));
 });
 
 //Login
 app.get('/login', (request, response) => {
-    response.render(path.join(__dirname + '/view/login.ejs'));
+    response.render(path.join(__dirname + '/login.ejs'));
 });
 
 //get css
@@ -112,9 +112,9 @@ app.get('/admin', function (request, response) {
     console.log(request.session)
 
     if (request.session.loggedin2 == true) {
-        return response.render(path.join(__dirname + '/view/admin.ejs'));
+        return response.render(path.join(__dirname + '/admin.ejs'));
     } else {
-        return response.render(path.join(__dirname + '/view/login.ejs'));
+        return response.render(path.join(__dirname + '/login.ejs'));
     }
 });
 
@@ -122,9 +122,9 @@ app.get('/admin', function (request, response) {
 app.get('/registro_caso', function (request, response) {
 
     if (request.session.loggedin1) {
-        return response.render(path.join(__dirname + '/view/analisis_de_ruta.ejs'));
+        return response.render(path.join(__dirname + '/analisis_de_ruta.ejs'));
     } else {
-        return response.render(path.join(__dirname + '/view/login.ejs'));
+        return response.render(path.join(__dirname + '/login.ejs'));
     }
 });
 
@@ -132,9 +132,9 @@ app.get('/registro_caso', function (request, response) {
 app.get('/obtener_caso', function (request, response) {
 
     if (request.session.loggedin1) {
-        return response.render(path.join(__dirname + '/view/obtener_caso.ejs'));
+        return response.render(path.join(__dirname + '/obtener_caso.ejs'));
     } else {
-        return response.render(path.join(__dirname + '/view/login.ejs'));
+        return response.render(path.join(__dirname + '/login.ejs'));
     }
 });
 
@@ -142,9 +142,9 @@ app.get('/obtener_caso', function (request, response) {
 app.get('/general', function (request, response) {
 
     if (request.session.loggedin) {
-        return response.render(path.join(__dirname + '/view/general.ejs'));
+        return response.render(path.join(__dirname + '/general.ejs'));
     } else {
-        return response.render(path.join(__dirname + '/view/login.ejs'));
+        return response.render(path.join(__dirname + '/login.ejs'));
     }
 });
 
@@ -152,9 +152,9 @@ app.get('/general', function (request, response) {
 app.get('/busqueda', function (request, response) {
     request.session.loggedin = true;
     if (request.session.loggedin) {
-        return response.render(path.join(__dirname + '/view/busqueda.ejs'));
+        return response.render(path.join(__dirname + '/busqueda.ejs'));
     } else {
-        return response.render(path.join(__dirname + '/view/login.ejs'));
+        return response.render(path.join(__dirname + '/login.ejs'));
     }
 });
 
@@ -391,7 +391,7 @@ app.post('/resumencasospordia', (req, res) => {
 
 app.post('/inforuta', (req, res) => {
     
-    
+    console.log(req.body)
     var filelenght = req.files.length;
     let files= req.files;
     let fotosfile ;
@@ -408,13 +408,14 @@ app.post('/inforuta', (req, res) => {
     console.log(filelenght) 
     var fotosfile2 = fotosfile1.replace('undefined,','')
     console.log(fotosfile2) 
-    var fotosfile3 = fotosfile2.split(',')
-    fotosfile3 = {fotos: fotosfile3}
+    fotosfile3 = fotosfile2.split(',')
+    fotosfile3 = {fotos: fotosfile3} 
     console.log(fotosfile3) 
      let sql = `INSERT INTO public.inforuta(id,fecharuta, latitud, longitud, notas, fotos) VALUES(DEFAULT,'${req.body.fecharuta}','${req.body.latitud}','${req.body.longitud}','${req.body.notas}','${fotosfile2}') RETURNING *`;
      client.query(sql) 
-    
-     res.json(fotosfile3)
+     res.json(fotosfile3);
+     res.status(204);
+     /* document.getElementById('mostrarimagenes').innerHTML('<img src="/fotos-rutas/'+fotosfile2[0]+'">'); */
 });
 
 app.post('/Riesgo', (req, res) => {
@@ -453,3 +454,7 @@ app.post('/Riesgo', (req, res) => {
     });
         
 })
+
+app.post('/foto', (req, res) => {
+    
+});
