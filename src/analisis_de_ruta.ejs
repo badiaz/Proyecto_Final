@@ -11,7 +11,8 @@
   <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
   <script src="https://kit.fontawesome.com/41bcea2ae3.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css">
-  
+  <!--SWAL-->
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <title>Route section analysis</title>
 </head>
 
@@ -69,7 +70,8 @@
                 <h1 class="font-weight-bold mb-0">Welcome User</h1>
                 <p class="lead text-muted">This tool performs a risk assessment associated with the transportation of
                   hazardous chemical hazardous chemical material along a given route using a fuzzy logic system.
-                  <br><br> Below, you will be able to enter the required information:</p>
+                  <br><br> Below, you will be able to enter the required information:
+                </p>
               </div>
 
               <div class="col-lg-6 col-md-6 ">
@@ -90,7 +92,7 @@
                   </div>
                   <div class="card-body">
                     <div class="container">
-                      <form id="formCase1"  enctype="multipart/form-data">
+                      <form id="formCase1" enctype="multipart/form-data">
                         <div class="row">
                           <div class="col-lg-6 my-4">
 
@@ -100,12 +102,42 @@
                                 onkeydown="return false" />
                             </div>
 
-                            <div class="drop-zone">
+                            <!-- <div class="drop-zone">
                               <span class="drop-zone__prompt">Drag or click here to attach an image</span>
                               <input type="file" name="fotos" class="drop-zone__input" accept="image/*" id="file"
-                                multiple="multiple" onchange="loadFile(event)">
+                                multiple="multiple">
                             </div>
-                            <img id="output" />
+                            <img id="output" /> -->
+                            <div id="upload" class="upload">
+                              <div class="upload-files">
+                                <header>
+                                  <p>
+                                    <i class="fa fa-cloud-upload" aria-hidden="true"></i>
+                                    <span class="up">up</span>
+                                    <span class="load">load</span>
+                                  </p>
+                                </header>
+                                <div class="body" id="drop">
+                                  <i class="fa fa-file-text-o pointer-none" aria-hidden="true"></i>
+                                  <p class="pointer-none"><b>Drag and drop</b> your images here <br /> or <a href=""
+                                      id="triggerFile">browse</a> to begin the upload</p>
+                                  <input type="file" name="fotos" accept="image/*" id="file" multiple="multiple" />
+                                </div>
+                                <footer>
+                                  <div class="divider">
+                                    <span>
+                                      <AR>FILES</AR>
+                                    </span>
+                                  </div>
+                                  <div class="list-files">
+                                    <!--   template   -->
+                                    <button type="button" class="importar">UPDATE FILES</button>
+                                  </div>
+
+                                </footer>
+                              </div>
+                            </div>
+
                           </div>
                           <div class="col-lg-6 my-4">
                             <div class="form-group mb-4">
@@ -132,8 +164,10 @@
                           </div>
                         </div>
 
-                        <button type="submit"  class="btn btn-primary mt-4 mb-4 w-25"> Register section</button>
-                        <button type="button" onclick="analisis()" class="btn btn-primary mt-4 mb-4 w-25">Ir</button> 
+                        <button type="submit"  class="btn btn-primary mt-4 mb-4 w-25"> Register
+                          section</button>
+
+
 
                     </div>
 
@@ -144,7 +178,7 @@
             </div>
           </div>
         </section>
-        <section id="imagenes" style="display: none">
+        <section id="imagenes" class="imagenes" style="display: none">
           <div class="container">
             <div class="row">
               <div class="col-lg-12 my-4">
@@ -155,16 +189,16 @@
                   <div class="card-body">
                     <div class="container">
                       <span id="mostrarimagenes"></span>
-                      <img id='imagen' src="/fotos-rutas/" style="width: 100%; max-width:400px;"><br>
-                      <input class="btn btn-primary mt-4 mb-4 w-25" type="button" id="anterior" value= "<<">
+                      <img id='imagen' src='/fotos-rutas/'><br>
+                      <input class="btn btn-primary mt-4 mb-4 w-25" type="button" id="anterior" value="<<">
                       <input class="btn btn-primary mt-4 mb-4 w-25" type="button" id="siguiente" value=">>">
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
         </section>
-        <section id="analisis" style="display: none">
+        <section id="analisis" class="analisis" style="display: none">
           <div class="container">
             <div class="row">
               <div class="col-lg-12 my-4">
@@ -316,7 +350,8 @@
                         </div>
                       </div>
 
-                      <button type="button" onclick="riesgo()" class="btn btn-primary mt-4 mb-4 w-25">Assess route section</button>
+                      <button type="button" onclick="riesgo()" class="btn btn-primary mt-4 mb-4 w-25">Assess route
+                        section</button>
                       <!-- <button onclick="addPanel()" class="btn btn-primary mt-4 mb-4 w-25"> Añadir segmento + </button> -->
 
 
@@ -343,109 +378,204 @@
 
 
 <script>
-function analisis(ocultar) {
-  $('#imagenes').show(200);
-  $('#analisis').show(200);
-  $('#registro').hide(1000);
-  mostrarfotos();
-}
+  function analisis() {
+
+    document.getElementById('imagenes').style.display = 'block';
+    document.getElementById('analisis').style.display = 'block';
+    document.getElementById('registro').style.display = 'none';
+    document.getElementById('imagenes').scrollIntoView({ block: "end", behavior: "smooth" });
+    swal('Route Section Register successful')
+  }
 </script>
 
 
+<script>
+  //initMap();
+  var map;
+  var geocoder;
 
+
+  function initMap() {
+    var myLatlng = new google.maps.LatLng(10.9861045, -74.80928094);
+    map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 12, center: { lat: 10.9861045, lng: -74.80928094 },
+      streetViewControl: false
+    });
+    geocoder = new google.maps.Geocoder();
+
+    var marker = new google.maps.Marker({
+      position: myLatlng,
+      draggable: true,
+      map: map
+    });
+
+    marker.setMap(map);
+    // adds a listener to the marker
+    // gets the coords when drag event ends
+    // then updates the input with the new coords
+    google.maps.event.addListener(marker, 'dragend', function (evt) {
+      $("#txtLat").val(evt.latLng.lat().toFixed(6));
+      $("#txtLng").val(evt.latLng.lng().toFixed(6));
+
+      map.panTo(evt.latLng);
+    });
+
+    // centers the map on markers coords
+    map.setCenter(marker.position);
+
+    // adds the marker on the map
+    marker.setMap(map);
+  }
+</script>
+<!-- input -->
+<script>
+  //DOM
+  const $ = document.querySelector.bind(document);
+
+  //APP
+  let App = {};
+  App.init = (function () {
+    //Init
+    function handleFileSelect(evt) {
+      const files = evt.target.files; // FileList object
+
+      //files template
+      let template = `${Object.keys(files)
+        .map(file => `<div class="file file--${file}">
+     <div class="name"><span>${files[file].name}</span></div>
+     <div class="progress active"></div>
+     <div class="done">
+	<a href="" target="_blank">
+      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 1000 1000">
+		<g><path id="path" d="M500,10C229.4,10,10,229.4,10,500c0,270.6,219.4,490,490,490c270.6,0,490-219.4,490-490C990,229.4,770.6,10,500,10z M500,967.7C241.7,967.7,32.3,758.3,32.3,500C32.3,241.7,241.7,32.3,500,32.3c258.3,0,467.7,209.4,467.7,467.7C967.7,758.3,758.3,967.7,500,967.7z M748.4,325L448,623.1L301.6,477.9c-4.4-4.3-11.4-4.3-15.8,0c-4.4,4.3-4.4,11.3,0,15.6l151.2,150c0.5,1.3,1.4,2.6,2.5,3.7c4.4,4.3,11.4,4.3,15.8,0l308.9-306.5c4.4-4.3,4.4-11.3,0-15.6C759.8,320.7,752.7,320.7,748.4,325z"</g>
+		</svg>
+						</a>
+     </div>
+    </div>`)
+        .join("")}`;
+
+      $("#drop").classList.add("hidden");
+      $("footer").classList.add("hasFiles");
+      /* $(".importar").classList.add("active"); */
+      setTimeout(() => {
+        $(".list-files").innerHTML = template;
+      }, 1000);
+
+      Object.keys(files).forEach(file => {
+        let load = 2000 + (file * 2000); // fake load
+        setTimeout(() => {
+          $(`.file--${file}`).querySelector(".progress").classList.remove("active");
+          $(`.file--${file}`).querySelector(".done").classList.add("anim");
+        }, load);
+      });
+    }
+
+    // trigger input
+    $("#triggerFile").addEventListener("click", evt => {
+      evt.preventDefault();
+      $("input[type=file]").click();
+    });
+
+    // drop events
+    $("#drop").ondragleave = evt => {
+      $("#drop").classList.remove("active");
+      evt.preventDefault();
+    };
+    $("#drop").ondragover = $("#drop").ondragenter = evt => {
+      $("#drop").classList.add("active");
+      evt.preventDefault();
+    };
+    $("#drop").ondrop = evt => {
+      $("input[type=file]").files = evt.dataTransfer.files;
+      $("footer").classList.add("hasFiles");
+      $("#drop").classList.remove("active");
+      evt.preventDefault();
+    };
+
+    //upload more
+    $(".importar").addEventListener("click", () => {
+      $(".list-files").innerHTML = "";
+      $("footer").classList.remove("hasFiles");
+      $(".importar").classList.remove("active");
+      setTimeout(() => {
+        $("#drop").classList.remove("hidden");
+      }, 500);
+    });
+
+    // input change
+    $("input[type=file]").addEventListener("change", handleFileSelect);
+  })();
+</script>
 
 
 
 
 <script>
   let arrayfotos;
-  /* async function ldfotos() {
-    var datos= new{
-    fecharuta: document.getElementById("fecharuta").value,
-    files: document.getElementsById("fotos").value,
-    latitude: document.getElementById("txtLat").value,
-    longitude: document.getElementById("txtLng").value,
-    notas: document.getElementById("notas").value
-
-    };
-    
-    const options = {
-      method: "POST",
-      body:new FormData(datos),
-      headers: {
-        "Content-Type": "multipart/form-data; boundary=MyBoundary"
-      }
-    }
-
-    const response = await fetch('/inforuta', options);
-
-    const result = await response.json();
-    console.log(result);
-
-  }; */
 
   formCase1.onsubmit = async (e) => {
+
     e.preventDefault();
 
-    let response = await fetch('/inforuta', {
-      method: 'POST',
-      body: new FormData(formCase1)
-    });
+    var input = document.getElementsByName('fotos');
+    console.log(input[0].files)
+    if (input[0].files.length == 0) {
+      swal('Please update images')
+    } else {
+      analisis();
+      let response = await fetch('/inforuta', {
+        method: 'POST',
+        body: new FormData(formCase1)
+      });
+      let result = await response.json();
+      console.log(result.fotos)
+      arrayfotos = result.fotos;
 
-    let result = await response.json();
-    console.log(result.fotos)
-    arrayfotos = result.fotos;
+      mostrarfotos();
+
+    }
+
+
   };
 </script>
 <script>
   //paso 1 --> crear el array de imagenes
-  function mostrarfotos(){
-  var arrayImagenes = arrayfotos;
-  console.log('este es el array  '+arrayImagenes)
-  //que imagen mostramos
-  var imagenActual = 0;
+  function mostrarfotos() {
 
-  //Cada 2 segundos se ejecute esta funcion
-  var temporizador;
-  /* temporizador = setInterval(cambiarImagen, 3000) */
+    let arrayImagenes = arrayfotos;
 
-  //paso 2: listeners de los botones de anterior y siguiente
-  document.getElementById("anterior").addEventListener("click", cambiarImagen);
-  document.getElementById("siguiente").addEventListener("click", cambiarImagen);
-  document.getElementById('imagen').addEventListener('mouseover', pararTemporizador)
-  document.getElementById('imagen').addEventListener('mouseout', iniciarTemporizador)
+    console.log('este es el array  ' + arrayImagenes)
+    //que imagen mostramos
+    var imagenActual = 0;
 
-  //paso 3: Definir la función
-  function cambiarImagen() {
+    //Cada 2 segundos se ejecute esta funcion
+    var temporizador;
+    /* temporizador = setInterval(cambiarImagen, 3000) */
+
+    //paso 2: listeners de los botones de anterior y siguiente
+    document.getElementById("anterior").addEventListener("click", cambiarImagen);
+    document.getElementById("siguiente").addEventListener("click", cambiarImagen);
+    document.getElementById("siguiente").click();
+
+    //paso 3: Definir la función
+    function cambiarImagen() {
       var boton = this.id;
-      if(boton!=undefined) {
-          clearInterval(temporizador);
-          temporizador=setInterval(cambiarImagen, 3000)
-      }
-      if(boton == 'anterior') {
-          imagenActual --;
-          if(imagenActual < 0) {
-              imagenActual = arrayImagenes.length -1; 
-          } 
+      if (boton == 'anterior') {
+        imagenActual--;
+        if (imagenActual < 0) {
+          imagenActual = arrayImagenes.length - 1;
+        }
       } else {
-          imagenActual ++;
-          if(imagenActual == arrayImagenes.length) {
-              imagenActual = 0;
-          } 
+        imagenActual++;
+        if (imagenActual == arrayImagenes.length) {
+          imagenActual = 0;
+        }
       }
-      var imagenAMostrar = arrayImagenes [imagenActual];
+      var imagenAMostrar = arrayImagenes[imagenActual];
       document.getElementById('imagen').src = "/fotos-rutas/" + imagenAMostrar;
-  }
-
-  function pararTemporizador() {
-      clearInterval(temporizador);
-  }
-
-  function iniciarTemporizador () {
-      temporizador=setInterval(cambiarImagen, 3000)
+    }
 
   }
-}
 </script>
 <script>
 
@@ -488,49 +618,7 @@ function analisis(ocultar) {
 
 </script>
 
-<script>
-  //initMap();
-  var map;
-  var geocoder;
 
-
-  function initMap() {
-    var myLatlng = new google.maps.LatLng(10.9861045, -74.80928094);
-    map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 12, center: { lat: 10.9861045, lng: -74.80928094 },
-      streetViewControl: false
-    });
-    geocoder = new google.maps.Geocoder();
-
-    var marker = new google.maps.Marker({
-      position: myLatlng,
-      draggable: true,
-      map: map
-    });
-
-    marker.setMap(map);
-    // adds a listener to the marker
-    // gets the coords when drag event ends
-    // then updates the input with the new coords
-    google.maps.event.addListener(marker, 'dragend', function (evt) {
-      $("#txtLat").val(evt.latLng.lat().toFixed(6));
-      $("#txtLng").val(evt.latLng.lng().toFixed(6));
-
-      map.panTo(evt.latLng);
-    });
-
-    // centers the map on markers coords
-    map.setCenter(marker.position);
-
-    // adds the marker on the map
-    marker.setMap(map);
-  }
-
-
-
-
-
-</script>
 <!-- SLIDERSSS -->
 
 <script>
@@ -904,6 +992,27 @@ function analisis(ocultar) {
     i++;
 
   }
+</script>
+<script>
+  //Obtener fecha de hoy
+
+  let today = new Date();
+  let dd = today.getDate();
+  let mm = today.getMonth() + 1; //enero es 0!
+  let yyyy = today.getFullYear();
+
+  if (dd < 10) {
+    dd = "0" + dd;
+  }
+  if (mm < 10) {
+    mm = "0" + mm;
+  }
+
+  today = yyyy + "-" + mm + "-" + dd;
+
+  //Inicialziar el calendario con la fecha de hoy
+  document.getElementById("fecharuta").value = today;
+  document.getElementById("fecharuta").max = today;
 </script>
 
 </html>
