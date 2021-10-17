@@ -376,7 +376,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.2/underscore-min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
 
-
+<script>
+  let arraystring;
+</script>
 <script>
   function analisis() {
 
@@ -530,7 +532,8 @@
       let result = await response.json();
       console.log(result.fotos)
       arrayfotos = result.fotos;
-
+      arraystring = arrayfotos.join(',')
+      console.log(arraystring)
       mostrarfotos();
 
     }
@@ -592,7 +595,12 @@
       alumbrado: document.getElementById("alumbrado").value,
       separador: document.getElementById("separador").value,
       calzadadiv: document.getElementById("calzadadiv1").value,
-      hora: document.getElementById("hora").value
+      hora: document.getElementById("hora").value,
+      fecharuta: document.getElementById("fecharuta").value,
+      latitud: document.getElementById("txtLat").value,
+      longitud: document.getElementById("txtLng").value,
+      notas: document.getElementById("notas").value,
+      fotos: arraystring
     }
     console.log(datos);
     const options = {
@@ -740,81 +748,7 @@
     }
   };
 </script>
-<script>
-  document.querySelectorAll(".drop-zone__input").forEach((inputElement) => {
-    const dropZoneElement = inputElement.closest(".drop-zone");
 
-    dropZoneElement.addEventListener("click", (e) => {
-      inputElement.click();
-    });
-
-    inputElement.addEventListener("change", (e) => {
-      if (inputElement.files.length) {
-        updateThumbnail(dropZoneElement, inputElement.files[0]);
-      }
-    });
-
-    dropZoneElement.addEventListener("dragover", (e) => {
-      e.preventDefault();
-      dropZoneElement.classList.add("drop-zone--over");
-    });
-
-    ["dragleave", "dragend"].forEach((type) => {
-      dropZoneElement.addEventListener(type, (e) => {
-        dropZoneElement.classList.remove("drop-zone--over");
-      });
-    });
-
-    dropZoneElement.addEventListener("drop", (e) => {
-      e.preventDefault();
-
-      if (e.dataTransfer.files.length) {
-        inputElement.files = e.dataTransfer.files;
-        updateThumbnail(dropZoneElement, e.dataTransfer.files[0]);
-      }
-
-      dropZoneElement.classList.remove("drop-zone--over");
-    });
-  });
-
-  /**
-   * Updates the thumbnail on a drop zone element.
-   *
-   * @param {HTMLElement} dropZoneElement
-   * @param {File} file
-   */
-  function updateThumbnail(dropZoneElement, file) {
-    let thumbnailElement = dropZoneElement.querySelector(".drop-zone__thumb");
-
-    // First time - remove the prompt
-    if (dropZoneElement.querySelector(".drop-zone__prompt")) {
-      dropZoneElement.querySelector(".drop-zone__prompt").remove();
-    }
-
-    // First time - there is no thumbnail element, so lets create it
-    if (!thumbnailElement) {
-      thumbnailElement = document.createElement("div");
-      thumbnailElement.classList.add("drop-zone__thumb");
-      dropZoneElement.appendChild(thumbnailElement);
-    }
-
-    thumbnailElement.dataset.label = file.name;
-
-    // Show thumbnail for image files
-    if (file.type.startsWith("image/")) {
-      const reader = new FileReader();
-
-      reader.readAsDataURL(file);
-      reader.onload = () => {
-        thumbnailElement.style.backgroundImage = `url('${reader.result}')`;
-      };
-    } else {
-      thumbnailElement.style.backgroundImage = null;
-    }
-  }
-
-
-</script>
 
 <script>
   function limpiarform() {

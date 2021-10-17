@@ -411,8 +411,7 @@ app.post('/inforuta', (req, res) => {
     fotosfile3 = fotosfile2.split(',')
     fotosfile3 = {fotos: fotosfile3} 
     console.log(fotosfile3) 
-     let sql = `INSERT INTO public.inforuta(id,fecharuta, latitud, longitud, notas, fotos) VALUES(DEFAULT,'${req.body.fecharuta}','${req.body.latitud}','${req.body.longitud}','${req.body.notas}','${fotosfile2}') RETURNING *`;
-     client.query(sql) 
+     
      res.json(fotosfile3);
      res.status(204);
      /* document.getElementById('mostrarimagenes').innerHTML('<img src="/fotos-rutas/'+fotosfile2[0]+'">'); */
@@ -445,12 +444,18 @@ app.post('/Riesgo', (req, res) => {
         
     console.log(req.body)
     var Process = spawn('python',["PruebaPf.py",bicicletas,motos,peaton,via,velocidad,alumbrado,hora]);
-    var calriesgo ;
+    
     Process.stdout.on('data', (data) => {
         var calriesgo = {riesgo: data.toString('utf8')}
         console.log(calriesgo);
         res.json(calriesgo);
-        
+        var medidor = data.toString('utf8');
+        medidor = medidor.substring(0, medidor.length - 8)
+        var valormedidor = parseFloat(medidor) * 10;
+        console.log('papi mira ve  '+valormedidor);
+          let sql = `INSERT INTO public.inforuta(id,fecharuta, latitud, longitud, notas, fotos, riesgo) VALUES(DEFAULT,'${req.body.fecharuta}','${req.body.latitud}','${req.body.longitud}','${req.body.notas}','${req.body.fotos}','${valormedidor}') RETURNING *`;
+        client.query(sql)  
+ 
     });
         
 })
