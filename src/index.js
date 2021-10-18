@@ -338,22 +338,7 @@ app.post('/casos2', (req, res) => {
         .catch(e => console.log(e))
 });
 
-app.post('/mapaplan', (req, res) => {
-    var nombre = req.body.con;
-    console.log(nombre);
-    let sql = `SELECT * FROM casos WHERE cedula = ${req.body.con} or id = ${req.body.con}`;
-    client.query(sql)
-        .then(raw => {
-            console.log("estas son, crack. Pilla: ")
-            console.log(raw.rows[0])
-            res.json(raw.rows[0]);
 
-        })
-        .catch(e => console.log(e))
-
-
-
-});
 
 app.post('/mapaplan2', (req, res) => {
     var idcaso = req.body.con;
@@ -460,6 +445,25 @@ app.post('/Riesgo', (req, res) => {
         
 })
 
-app.post('/foto', (req, res) => {
-    
+app.post('/consultaID', (req, res) => {
+    var nombre = req.body.con;
+    console.log(nombre);
+    let sql = `SELECT * FROM inforuta WHERE id = ${req.body.con}`;
+    client.query(sql)
+        .then(raw => {
+            console.log("estas son, crack. Pilla: ")
+            console.log(raw.rows[0])
+            if(raw.rows[0] == undefined) {
+             var resultado = {id: 0}
+             res.json(resultado)
+            }else{
+             res.json(raw.rows[0]);
+            }
+            
+
+        })
+        .catch(e => console.log(e))
+
+
+
 });

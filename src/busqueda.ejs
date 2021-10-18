@@ -17,13 +17,17 @@
     <!-- Sidebar -->
     <div id="sidebar-container" class="bg-primary">
       <div class="logo">
-        <h4 class="text-light font-weight-bold mb-0"><img src="https://i.postimg.cc/WpdksRTY/ICON.png" alt=""></h4>
+        <img src="https://i.postimg.cc/wTC1XTN5/logo-sin-fondo.png" alt="Logo" />
+        <h3>RISK TOOL</h3>
       </div>
       <div class="menu">
+        <a href="/registro_caso" class="d-block text-light p-3 border-0"><i class="icon ion-md-map lead mr-2"></i>
+          Route section analysis</a>
         <a href="/general" class="d-block text-light p-3 border-0"><i class="icon ion-md-apps lead mr-2"></i>
           Mapa General</a>
         <a href="/busqueda" class="d-block text-light p-3 border-0"><i class="icon ion-md-search lead mr-2"></i>
           Busqueda</a>
+
       </div>
     </div>
     <!-- Fin sidebar -->
@@ -62,8 +66,8 @@
           <div class="container-fluid">
             <div class="row">
               <div class="col-lg-9 col-md-8">
-                <h1 class="font-weight-bold mb-0">Bienvenido Doctor</h1>
-                <p class="lead text-muted">Revisa la última información sobre los pacientes</p>
+                <h1 class="font-weight-bold mb-0">Welcome User</h1>
+                <p class="lead text-muted">Check out the latest information on route section analysis.</p>
               </div>
               <div class="col-lg-3 col-md-4 d-flex">
                 <!-- <button class="btn btn-primary w-100 align-self-center">Descargar reporte de hoy</button> -->
@@ -79,7 +83,7 @@
               <div class="col-lg-4 my-4">
                 <div class="card rounded-0">
                   <div class="card-header bg-light">
-                    <h5 class="font-weight-bold mb-0">Información del paciente</h5>
+                    <h5 class="font-weight-bold mb-0"> Route section information</h5>
                   </div>
                   <div class="card-body pt-2">
                     <div class="d-flex border-bottom py-2">
@@ -87,44 +91,18 @@
                         <h2 class="align-self-center mb-0"><i class="icon ion-md-pricetag"></i></h2>
                       </div>
                       <div class="align-self-center">
-                        <h6 class="d-inline-block mb-0 font-weight-bold">ID del caso</h6>
+                        <h6 class="d-inline-block mb-0 font-weight-bold">Section ID</h6>
                         <h6 class="mb-0" id="id"></h6>
                       </div>
                     </div>
-                    <div class="d-flex border-bottom py-2">
-                      <div class="d-flex mr-3">
-                        <h2 class="align-self-center mb-0"><i class="icon ion-md-person"></i></h2>
-                      </div>
-                      <div class="align-self-center">
-                        <h6 class="d-inline-block mb-0 font-weight-bold">Nombre completo</h6>
-                        <h6 class="mb-0" id="nombre"></h6>
-                      </div>
-                    </div>
-                    <div class="d-flex border-bottom py-2">
-                      <div class="d-flex mr-3">
-                        <h2 class="align-self-center mb-0"><i class="icon ion-md-card"></i></h2>
-                      </div>
-                      <div class="align-self-center">
-                        <h6 class="d-inline-block mb-0 font-weight-bold">Cedúla</h6>
-                        <h6 class="mb-0" id="cedula"></h6>
-                      </div>
-                    </div>
-                    <div class="d-flex border-bottom py-2">
-                      <div class="d-flex mr-3">
-                        <h2 class="align-self-center mb-0"><i class="icon ion-md-person"></i></h2>
-                      </div>
-                      <div class="align-self-center">
-                        <h6 class="d-inline-block mb-0 font-weight-bold">Sexo</h6>
-                        <h6 class="mb-0" id="sexo"></h6>
-                      </div>
-                    </div>
+
                     <div class="d-flex border-bottom py-2">
                       <div class="d-flex mr-3">
                         <h2 class="align-self-center mb-0"><i class="icon ion-md-calendar"></i></h2>
                       </div>
                       <div class="align-self-center">
-                        <h6 class="d-inline-block mb-0 font-weight-bold">Fecha de nacimiento</h6>
-                        <h6 class="mb-0" id="fechanac"></h6>
+                        <h6 class="d-inline-block mb-0 font-weight-bold">Date of analysis</h6>
+                        <h6 class="mb-0" id="fecharuta"></h6>
                       </div>
                     </div>
                     <div class="d-flex border-bottom py-2">
@@ -132,8 +110,8 @@
                         <h2 class="align-self-center mb-0"><i class="icon ion-md-map" width="25px"></i></h2>
                       </div>
                       <div class="align-self-center">
-                        <h6 class="d-inline-block mb-0 font-weight-bold">Dirección del domicilio</h6>
-                        <h6 class="mb-0" id="direc"></h6>
+                        <h6 class="d-inline-block mb-0 font-weight-bold">Latitude</h6>
+                        <h6 class="mb-0" id="txtLat"></h6>
                       </div>
                     </div>
                     <div class="d-flex border-bottom py-2">
@@ -141,8 +119,8 @@
                         <h2 class="align-self-center mb-0"><i class="icon ion-md-map" width="25px"></i></h2>
                       </div>
                       <div class="align-self-center">
-                        <h6 class="d-inline-block mb-0 font-weight-bold">Dirección de trabajo</h6>
-                        <h6 class="mb-0" id="dirt"></h6>
+                        <h6 class="d-inline-block mb-0 font-weight-bold">Longitude</h6>
+                        <h6 class="mb-0" id="txtLng"></h6>
                       </div>
                     </div>
                     <div class="d-flex border-bottom py-2">
@@ -150,17 +128,17 @@
                         <h2 class="align-self-center mb-0"><i class="icon ion-md-document"></i></h2>
                       </div>
                       <div class="align-self-center">
-                        <h6 class="d-inline-block mb-0 font-weight-bold">Resultado de examen</h6>
-                        <h6 class="mb-0" id="resultado"></h6>
+                        <h6 class="d-inline-block mb-0 font-weight-bold">Risk level</h6>
+                        <h6 class="mb-0" id="riesgo"></h6>
                       </div>
                     </div>
                     <div class="d-flex border-bottom py-2">
                       <div class="d-flex mr-3">
-                        <h2 class="align-self-center mb-0"><i class="icon ion-md-calendar"></i></h2>
+                        <h2 class="align-self-center mb-0"><i class="icon ion-md-book"></i></h2>
                       </div>
                       <div class="align-self-center">
-                        <h6 class="d-inline-block mb-0 font-weight-bold">Fecha de prueba</h6>
-                        <h6 class="mb-0" id="fechaex"></h6>
+                        <h6 class="d-inline-block mb-0 font-weight-bold">Additional Notes</h6>
+                        <h6 class="mb-0" id="notas"></h6>
                       </div>
                     </div>
                   </div>
@@ -170,12 +148,12 @@
                 <div class="card rounded-0">
                   <div class="card-header bg-light">
                     <h5 class="font-weight-bold mb-4">Mapa de la ubicación del caso</h5>
-                    <h6 class="mb-3">Ingrese la cédula del paciente o el ID del caso</h6>
+                    <h6 class="mb-3">Enter the ID of the route section to be consulted.</h6>
                     <form id="formSearch">
                       <div class="input-group mb-3">
-                        <input type="text" id="inputSearch" class="form-control w-10" placeholder="Click para editar">
+                        <input type="text" id="inputSearch" class="form-control w-10" placeholder="ID">
                         <div class="input-group-append">
-                          <button class="btn btn-primary" type="button" onclick=search()>Buscar</button>
+                          <button class="btn btn-primary" type="button" onclick=search()>Search</button>
                         </div>
                       </div>
                     </form>
@@ -219,8 +197,10 @@
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-  <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCEen29bixPCHvTa7DWIErzdWhPg8Zp60Y&callback=initMap"></script>
+
+  <script async
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCEen29bixPCHvTa7DWIErzdWhPg8Zp60Y&libraries=visualization&callback=initMap">
+    </script>
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
     integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
     crossorigin="anonymous"></script>
@@ -234,21 +214,24 @@
     integrity="sha256-R4pqcOYV8lt7snxMQO/HSbVCFRPMdrhAFMH+vr9giYI=" crossorigin="anonymous"></script>
   <script>
     //initMap();
-    var map;
+    let map;
     var geocoder;
+    let intensidadriesgo;
+    let Lat;
+    let Lng;
 
     function initMap() {
       map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 12, center: { lat: 10.9861045, lng: -74.80928094 },
+        zoom: 13, center: { lat: 10.9861045, lng: -74.80928094 },
         streetViewControl: false
       });
-      geocoder = new google.maps.Geocoder();
-    }
 
+    }
+    
     async function search() {
 
       if (document.getElementById('inputSearch').value != "") {
-        initMap();
+
         var input = document.getElementById('inputSearch').value;
         const consulta = { con: input };
         const options1 = {
@@ -259,100 +242,113 @@
           }
         };
 
-        const response1 = await fetch('/mapaplan', options1);
+        const response1 = await fetch('/consultaID', options1);
         result = await response1.json();
         console.log(result);
 
-        if (result.cedula > 0) {
+        if (result.id > 0) {
           console.log('papi entre a len')
           //Simplify addresses
-          var nac = result.fechanac.split("T")
-          var examen = result.fechaex.split("T")
-          var fechanac = nac[0];
-          var fechaex = examen[0];
-          console.log(fechaex)
+          var rut = result.fecharuta.split("T")
+          var fecharuta = rut[0];
+
           document.getElementById("id").innerHTML = result.id;
-          document.getElementById("nombre").innerHTML = result.nombre + " " + result.apellido;
-          document.getElementById("cedula").innerHTML = result.cedula;
-          if (result.sexo == 1) { document.getElementById("sexo").innerHTML = 'Masculino'; }
-          else { document.getElementById("sexo").innerHTML = 'Femenino'; }
-          document.getElementById("fechanac").innerHTML = fechanac;
-          document.getElementById("direc").innerHTML = result.direc;
-          document.getElementById("dirt").innerHTML = result.dirt;
-          if (result.resultado == 0) { result.resultado = 'Negativo'; estado = 'Sano'; }
-          else if (result.resultado == 1) { result.resultado = 'Negativo'; estado = 'Curado'; }
-          else if (result.resultado == 2) { result.resultado = 'Positivo'; estado = 'Tratamiento en casa'; }
-          else if (result.resultado == 3) { result.resultado = 'Positivo'; estado = 'Tratamiento en hospital'; }
-          else if (result.resultado == 4) { result.resultado = 'Positivo'; estado = 'UCI'; }
-          else if (result.resultado == 5) { result.resultado = '-'; estado = 'Fallecido'; }
-          document.getElementById("resultado").innerHTML = estado;
-          document.getElementById("fechaex").innerHTML = fechaex;
-
-          var address = result.direc + ' barranquilla';
-          var address1 = result.dirt + ' barranquilla';
-
-          geocoder.geocode({ 'address': address }, function (results1, status) {
-            if (status == google.maps.GeocoderStatus.OK) {
-              map.setCenter(results1[0].geometry.location);
-              var marker = new google.maps.Marker({
-                map: map,
-                icon: "https://i.postimg.cc/Y2JH3F7f/jeringagreen.png",
-                animation: google.maps.Animation.DROP,
-                position: results1[0].geometry.location
-              });
-            } else {
-              alert('Geocode was not successful for the following reason: ' + status);
-            }
-          });
-
-          geocoder.geocode({ 'address': address1 }, function (results2, status) {
-            if (status == google.maps.GeocoderStatus.OK) {
-              map.setCenter(results2[0].geometry.location);
-              var marker = new google.maps.Marker({
-                map: map,
-                icon: "https://i.postimg.cc/ry91G1x7/jeringared.png",
-                animation: google.maps.Animation.DROP,
-                position: results2[0].geometry.location
-              });
-            } else {
-              alert('Geocode was not successful for the following reason: ' + status);
-            }
-          });
-
-          var id = result.id;
-          const consulta2 = { con: id };
-          const options2 = {
-            method: "POST",
-            body: JSON.stringify(consulta2),
-            headers: {
-              "Content-Type": "application/json"
-            }
-          };
-
-          const response2 = await fetch('/tabla', options2);
-          result1 = await response2.json();
-          for (i = 0; i < result1.length; i++) {
-            if (result1[i].estado == 0) { result1[i].estado = 'Sano'; }
-            else if (result1[i].estado == 1) { result1[i].estado = 'Curado'; }
-            else if (result1[i].estado == 2) { result1[i].estado = 'Tratamiento en casa'; }
-            else if (result1[i].estado == 3) { result1[i].estado = 'Tratamiento en hospital'; }
-            else if (result1[i].estado == 4) { result1[i].estado = 'UCI'; }
-            else if (result1[i].estado == 5) { result1[i].estado = 'Fallecido'; }
-
-            console.log(result1[i].estado)
+          document.getElementById("fecharuta").innerHTML = fecharuta
+          document.getElementById("txtLat").innerHTML = result.latitud;
+          document.getElementById("txtLng").innerHTML = result.longitud;
+          document.getElementById("riesgo").innerHTML = result.riesgo + '%';
+          document.getElementById("notas").innerHTML = result.notas;
+          intensidadriesgo = result.riesgo;
+          Lat = result.latitud;
+          Lat = parseFloat(Lat);
+          Lng = result.longitud;
+          Lng = parseFloat(Lng);
+          if (intensidadriesgo <= 30) {
+            intensidadriesgo = 0.3;
+          } else if (intensidadriesgo > 30 && intensidadriesgo <= 70) {
+            intensidadriesgo = 0.5;
+          } else if (intensidadriesgo > 70 && intensidadriesgo <= 100) {
+            intensidadriesgo = 1;
           }
+          console.log(intensidadriesgo)
+          initHeatMap();
           
-          var table = document.getElementById('table');
-          table.innerHTML = "";
-          result1.forEach(function (object) {
-            var tr = document.createElement('tr');
-            var fecha1 = object.fecha.split("T")
-            var fecha2 = fecha1[0];
-            tr.innerHTML = '<th>' + fecha2 + '</th>' + '<td>' + object.estado + '</td>';
-            table.appendChild(tr);
-          });
+          
+          
+
+          /* 
+                    var address = result.direc + ' barranquilla';
+                    var address1 = result.dirt + ' barranquilla';
+          
+                    geocoder.geocode({ 'address': address }, function (results1, status) {
+                      if (status == google.maps.GeocoderStatus.OK) {
+                        map.setCenter(results1[0].geometry.location);
+                        var marker = new google.maps.Marker({
+                          map: map,
+                          icon: "https://i.postimg.cc/Y2JH3F7f/jeringagreen.png",
+                          animation: google.maps.Animation.DROP,
+                          position: results1[0].geometry.location
+                        });
+                      } else {
+                        alert('Geocode was not successful for the following reason: ' + status);
+                      }
+                    });
+          
+                    geocoder.geocode({ 'address': address1 }, function (results2, status) {
+                      if (status == google.maps.GeocoderStatus.OK) {
+                        map.setCenter(results2[0].geometry.location);
+                        var marker = new google.maps.Marker({
+                          map: map,
+                          icon: "https://i.postimg.cc/ry91G1x7/jeringared.png",
+                          animation: google.maps.Animation.DROP,
+                          position: results2[0].geometry.location
+                        });
+                      } else {
+                        alert('Geocode was not successful for the following reason: ' + status);
+                      }
+                    });
+          
+                    var id = result.id;
+                    const consulta2 = { con: id };
+                    const options2 = {
+                      method: "POST",
+                      body: JSON.stringify(consulta2),
+                      headers: {
+                        "Content-Type": "application/json"
+                      }
+                    };
+          
+                    const response2 = await fetch('/tabla', options2);
+                    result1 = await response2.json();
+                    for (i = 0; i < result1.length; i++) {
+                      if (result1[i].estado == 0) { result1[i].estado = 'Sano'; }
+                      else if (result1[i].estado == 1) { result1[i].estado = 'Curado'; }
+                      else if (result1[i].estado == 2) { result1[i].estado = 'Tratamiento en casa'; }
+                      else if (result1[i].estado == 3) { result1[i].estado = 'Tratamiento en hospital'; }
+                      else if (result1[i].estado == 4) { result1[i].estado = 'UCI'; }
+                      else if (result1[i].estado == 5) { result1[i].estado = 'Fallecido'; }
+          
+                      console.log(result1[i].estado)
+                    }
+                    
+                    var table = document.getElementById('table');
+                    table.innerHTML = "";
+                    result1.forEach(function (object) {
+                      var tr = document.createElement('tr');
+                      var fecha1 = object.fecha.split("T")
+                      var fecha2 = fecha1[0];
+                      tr.innerHTML = '<th>' + fecha2 + '</th>' + '<td>' + object.estado + '</td>';
+                      table.appendChild(tr);
+                    }); */
 
         } else {
+          document.getElementById('inputSearch').value = ''
+          document.getElementById("id").innerHTML = ''
+          document.getElementById("fecharuta").innerHTML = ''
+          document.getElementById("txtLat").innerHTML = ''
+          document.getElementById("txtLng").innerHTML = ''
+          document.getElementById("riesgo").innerHTML = ''
+          document.getElementById("notas").innerHTML = ''
           swal({
             title: "ERROR!",
             text: "No hay registros del caso ingresado",
@@ -367,6 +363,20 @@
         });
       }
     }
+
+    function initHeatMap() {
+      console.log(intensidadriesgo)
+            console.log('pai entré a la fun')
+            var heatMapData = [ {location: new google.maps.LatLng(Lat,Lng), weight:intensidadriesgo}];
+            var heatmap = new google.maps.visualization.HeatmapLayer({
+            data: heatMapData,
+            map: map
+          });
+
+          map.setCenter({lat:Lat, lng: Lng});
+          map.setZoom(15);
+          heatmap.setMap(map); 
+          }
 
   </script>
 </body>
