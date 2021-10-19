@@ -28,7 +28,7 @@
         <a href="/registro_caso" class="d-block text-light p-3 border-0"><i class="icon ion-md-map lead mr-2"></i>
           Route section analysis</a>
         <a href="/general" class="d-block text-light p-3 border-0"><i class="icon ion-md-map lead mr-2"></i>
-            General map</a>
+          General map</a>
         <a href="/busqueda" class="d-block text-light p-3 border-0"><i class="icon ion-md-search lead mr-2"></i>
           Search by ID</a>
       </div>
@@ -166,7 +166,7 @@
                           </div>
                         </div>
 
-                        <button type="submit"  class="btn btn-primary mt-4 mb-4 w-25"> Register
+                        <button type="submit" class="btn btn-primary mt-4 mb-4 w-25"> Register
                           section</button>
 
 
@@ -380,6 +380,19 @@
 
 <script>
   let arraystring;
+  let idglobal
+  window.addEventListener('beforeunload', function cerrar(e) {
+
+    e.preventDefault();
+    e.returnValue = '';
+
+  })
+
+  function quitarlistener() {
+    window.addEventListener('beforeunload', function cerrar(e) {
+
+    })
+  }
 </script>
 <script>
   function analisis() {
@@ -388,7 +401,14 @@
     document.getElementById('analisis').style.display = 'block';
     document.getElementById('registro').style.display = 'none';
     document.getElementById('imagenes').scrollIntoView({ block: "end", behavior: "smooth" });
-    swal('Route Section Register successful')
+    setTimeout(() => {
+      swal({
+        title: "Route Section Images Uploaded Successfully",
+        text: "Route Section ID:  " + idglobal + " \n \n Please complete the following information to property register the case.",
+        icon: "success",
+      });
+    }, 1500)
+
   }
 </script>
 
@@ -460,7 +480,7 @@
 
       $("#drop").classList.add("hidden");
       $("footer").classList.add("hasFiles");
-      /* $(".importar").classList.add("active"); */
+      $(".importar").classList.add("active");
       setTimeout(() => {
         $(".list-files").innerHTML = template;
       }, 1000);
@@ -490,7 +510,40 @@
       evt.preventDefault();
     };
     $("#drop").ondrop = evt => {
+      console.log(evt.dataTransfer.files)
       $("input[type=file]").files = evt.dataTransfer.files;
+      const files = evt.dataTransfer.files; // FileList object
+
+      //files template
+      let template = `${Object.keys(files)
+        .map(file => `<div class="file file--${file}">
+     <div class="name"><span>${files[file].name}</span></div>
+     <div class="progress active"></div>
+     <div class="done">
+	<a href="" target="_blank">
+      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 1000 1000">
+		<g><path id="path" d="M500,10C229.4,10,10,229.4,10,500c0,270.6,219.4,490,490,490c270.6,0,490-219.4,490-490C990,229.4,770.6,10,500,10z M500,967.7C241.7,967.7,32.3,758.3,32.3,500C32.3,241.7,241.7,32.3,500,32.3c258.3,0,467.7,209.4,467.7,467.7C967.7,758.3,758.3,967.7,500,967.7z M748.4,325L448,623.1L301.6,477.9c-4.4-4.3-11.4-4.3-15.8,0c-4.4,4.3-4.4,11.3,0,15.6l151.2,150c0.5,1.3,1.4,2.6,2.5,3.7c4.4,4.3,11.4,4.3,15.8,0l308.9-306.5c4.4-4.3,4.4-11.3,0-15.6C759.8,320.7,752.7,320.7,748.4,325z"</g>
+		</svg>
+						</a>
+     </div>
+    </div>`)
+        .join("")}`;
+
+      $("#drop").classList.add("hidden");
+      $("footer").classList.add("hasFiles");
+      $(".importar").classList.add("active");
+      setTimeout(() => {
+        $(".list-files").innerHTML = template;
+      }, 1000);
+
+      Object.keys(files).forEach(file => {
+        let load = 2000 + (file * 2000); // fake load
+        setTimeout(() => {
+          $(`.file--${file}`).querySelector(".progress").classList.remove("active");
+          $(`.file--${file}`).querySelector(".done").classList.add("anim");
+        }, load);
+      });
+
       $("footer").classList.add("hasFiles");
       $("#drop").classList.remove("active");
       evt.preventDefault();
@@ -526,7 +579,7 @@
     if (input[0].files.length == 0) {
       swal('Please update images')
     } else {
-      analisis();
+
       let response = await fetch('/inforuta', {
         method: 'POST',
         body: new FormData(formCase1)
@@ -534,8 +587,10 @@
       let result = await response.json();
       console.log(result.fotos)
       arrayfotos = result.fotos;
+      idglobal = result.id + 1;
       arraystring = arrayfotos.join(',')
-      console.log(arraystring)
+      console.log(idglobal)
+      analisis();
       mostrarfotos();
 
     }
@@ -602,7 +657,8 @@
       latitud: document.getElementById("txtLat").value,
       longitud: document.getElementById("txtLng").value,
       notas: document.getElementById("notas").value,
-      fotos: arraystring
+      fotos: arraystring,
+      id: idglobal
     }
     console.log(datos);
     const options = {
@@ -619,11 +675,10 @@
     console.log(result);
 
     var medidor = result.riesgo;
-    medidor = medidor.substring(0, medidor.length - 8)
+    medidor = medidor.substring(0, medidor.length - 4)
     valormedidor = parseFloat(medidor) * 10;
     console.log(valormedidor);
-
-
+   quitarlistener();
   };
 
 </script>

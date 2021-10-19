@@ -49,6 +49,7 @@ app.use(multer({
 const { pool, Client } = require("pg");
 const { request } = require('https');
 const { exec } = require('child_process');
+const { Console } = require('console');
 const connectionString =
     "postgressql://Brayan:tiotaxi22@basededatostaxi.csgckedzjvw7.us-east-2.rds.amazonaws.com:5432/postgres";
 const client = new Client({
@@ -394,11 +395,21 @@ app.post('/inforuta', (req, res) => {
     var fotosfile2 = fotosfile1.replace('undefined,','')
     console.log(fotosfile2) 
     fotosfile3 = fotosfile2.split(',')
-    fotosfile3 = {fotos: fotosfile3} 
+    
     console.log(fotosfile3) 
+    let sql = `SELECT * FROM inforuta id ORDER BY id DESC
+    LIMIT 1`;
+    client.query(sql)
+    .then(raw => {
+        console.log("este es el id, crack. Pilla: ")
+        console.log(raw.rows[0].id)   
+        fotosfile3={fotos:fotosfile3,id:raw.rows[0].id}
+        res.json(fotosfile3);
+        res.status(204);
+    })
+    .catch(e => console.log(e))
+    
      
-     res.json(fotosfile3);
-     res.status(204);
      /* document.getElementById('mostrarimagenes').innerHTML('<img src="/fotos-rutas/'+fotosfile2[0]+'">'); */
 });
 
@@ -435,10 +446,10 @@ app.post('/Riesgo', (req, res) => {
         console.log(calriesgo);
         res.json(calriesgo);
         var medidor = data.toString('utf8');
-        medidor = medidor.substring(0, medidor.length - 8)
+        medidor = medidor.substring(0, medidor.length - 4)
         var valormedidor = parseFloat(medidor) * 10;
         console.log('papi mira ve  '+valormedidor);
-          let sql = `INSERT INTO public.inforuta(id,fecharuta, latitud, longitud, notas, fotos, riesgo) VALUES(DEFAULT,'${req.body.fecharuta}','${req.body.latitud}','${req.body.longitud}','${req.body.notas}','${req.body.fotos}','${valormedidor}') RETURNING *`;
+          let sql = `INSERT INTO public.inforuta(id,fecharuta, latitud, longitud, notas, fotos, riesgo) VALUES('${req.body.id}','${req.body.fecharuta}','${req.body.latitud}','${req.body.longitud}','${req.body.notas}','${req.body.fotos}','${valormedidor}') RETURNING *`;
         client.query(sql)  
  
     });
