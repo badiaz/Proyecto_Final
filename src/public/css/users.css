@@ -103,6 +103,10 @@ a:hover {
     line-height: initial;
 }
 
+#notas{
+  height: 150px;
+}
+
 
 .swal-text {
     text-align: center;
@@ -467,6 +471,11 @@ a:hover {
     margin-left:30px;
     margin-top:20px;
   }
+   .form-group.mb-5{
+    margin-left:30px;
+    margin-top:20px;
+    height:10px;
+   }
 
   .logo {
     display: flex;

@@ -139,6 +139,11 @@
                                 </footer>
                               </div>
                             </div>
+                            <div class="form-group mb-4">
+                              <label for="notas" class="font-weight-bold">Additional Notes</label>
+                              <textarea id=notas type="text"  class="form-control bg-grey" name="notas"
+                                placeholder="Add notes to the case" width="50%" height="100px"></textarea>
+                            </div>
 
                           </div>
                           <div class="col-lg-6 my-4">
@@ -157,11 +162,7 @@
                                 value="-74.80928094" name="longitud" width="50%" height="100px">
                             </div>
 
-                            <div class="form-group mb-4">
-                              <label for="notas" class="font-weight-bold">Additional Notes</label>
-                              <input id=notas type="text" class="form-control bg-grey" name="notas"
-                                placeholder="Add notes to the case" width="50%" height="100px">
-                            </div>
+                            
 
                           </div>
                         </div>
@@ -381,18 +382,17 @@
 <script>
   let arraystring;
   let idglobal
-  window.addEventListener('beforeunload', function cerrar(e) {
-
-    e.preventDefault();
-    e.returnValue = '';
-
-  })
-
-  function quitarlistener() {
+  
     window.addEventListener('beforeunload', function cerrar(e) {
 
+      e.preventDefault();
+      e.returnValue = '';
+
     })
-  }
+  
+
+
+
 </script>
 <script>
   function analisis() {
@@ -454,11 +454,12 @@
 <!-- input -->
 <script>
   //DOM
-  const $ = document.querySelector.bind(document);
+  
 
   //APP
   let App = {};
   App.init = (function () {
+    var $ = document.querySelector.bind(document);
     //Init
     function handleFileSelect(evt) {
       const files = evt.target.files; // FileList object
@@ -678,7 +679,7 @@
     medidor = medidor.substring(0, medidor.length - 4)
     valormedidor = parseFloat(medidor) * 10;
     console.log(valormedidor);
-   quitarlistener();
+    quitarlistener();
   };
 
 </script>

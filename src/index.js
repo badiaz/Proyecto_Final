@@ -327,17 +327,7 @@ app.post('/casos', (req, res) => {
         })
         .catch(e => console.log(e))
 });
-app.post('/casos2', (req, res) => {
-    let sql = `SELECT  id,  direc, nombre, apellido from casos order by id `
-    client
-        .query(sql)
-        .then(raw => {
-            res.json(raw.rows);
-            console.log(raw.rows);
-        })
 
-        .catch(e => console.log(e))
-});
 
 
 
@@ -474,7 +464,20 @@ app.post('/consultaID', (req, res) => {
 
         })
         .catch(e => console.log(e))
+});
 
+app.post('/mapageneral', (req, res) => {
+    let sql = `SELECT  latitud, longitud,fecharuta, riesgo from inforuta order by fecharuta DESC, latitud DESC, longitud DESC`
+    client
+        .query(sql)
+        .then(raw => {
+            var general = raw.rows;
+            for(element in general) {
+                if(element.latitud){}
+            }
+            res.json(raw.rows);
+            console.log(raw.rows);
+        })
 
-
+        .catch(e => console.log(e))
 });

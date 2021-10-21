@@ -138,7 +138,7 @@
                       </div>
                       <div class="align-self-center">
                         <h6 class="d-inline-block mb-0 font-weight-bold">Additional Notes</h6>
-                        <h6 class="mb-0" id="notas"></h6>
+                        <h6 class="mb-0" id="notasb"></h6>
                       </div>
                     </div>
                   </div>
@@ -249,7 +249,7 @@
           document.getElementById("txtLat").innerHTML = result.latitud;
           document.getElementById("txtLng").innerHTML = result.longitud;
           document.getElementById("riesgo").innerHTML = result.riesgo + '%';
-          document.getElementById("notas").innerHTML = result.notas;
+          document.getElementById("notasb").innerHTML = result.notas;
           intensidadriesgo = result.riesgo;
           Lat = result.latitud;
           Lat = parseFloat(Lat);
@@ -345,7 +345,7 @@
           document.getElementById("txtLat").innerHTML = ''
           document.getElementById("txtLng").innerHTML = ''
           document.getElementById("riesgo").innerHTML = ''
-          document.getElementById("notas").innerHTML = ''
+          document.getElementById("notasb").innerHTML = ''
           swal({
             title: "ERROR!",
             text: "No hay registros del caso ingresado",
@@ -360,19 +360,24 @@
         });
       }
     }
-
+    let heatmaps = [];
     function initHeatMap() {
       console.log(intensidadriesgo)
+            
             console.log('pai entré a la fun')
             var heatMapData = [ {location: new google.maps.LatLng(Lat,Lng), weight:intensidadriesgo}];
-            var heatmap = new google.maps.visualization.HeatmapLayer({
-            data: heatMapData,
-            map: map
-          });
-
+            if(heatmaps.length > 0){
+              var capaheat = heatmaps[heatmaps.length-1]
+              capaheat.setMap(null);
+            }
+            var heatmap = new google.maps.visualization.HeatmapLayer ({
+                       
+                      });; 
           map.setCenter({lat:Lat, lng: Lng});
           map.setZoom(15);
+          heatmap.setData(heatMapData);
           heatmap.setMap(map); 
+          heatmaps.push(heatmap)
           }
 
   </script>
