@@ -153,8 +153,9 @@
 
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-  <script defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD2NiicK6DBaT1Oppou07XNG3eEKLNFJ0Y&callback=initMap"></script>
+  <script async
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCEen29bixPCHvTa7DWIErzdWhPg8Zp60Y&libraries=visualization&callback=initMap">
+    </script>
   <script async defer src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
     integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
     crossorigin="anonymous"></script>
@@ -174,6 +175,11 @@
 
     var map;
     var geocoder;
+    let intensidadriesgo;
+    let Lat;
+    let Lng;
+    
+    let heatmaps = [];
 
     function initMap() {
 
@@ -195,90 +201,47 @@
         }
       };
 
-      /* const response1 = await fetch('/casos', options1);
-      result1 = await response1.json(); */
+     
 
       const response2 = await fetch('/mapageneral', options1);
       result2 = await response2.json();
       console.log(result2);
-      /* var datatemp = [];
-      for (i = 0; i < result1.length - 1; i++) {
-        if (result1[i].id == result1[i + 1].id) {
-          continue;
-        } else {
-          datatemp.push(result1[i]);
-        }
-      }
-      datatemp.push(result1[result1.length - 1]);
-      console.log(datatemp) */
-
-      //Clean previous markers
-      if (typeof markers !== "undefined") {
-        for (var i = 0; i < markers.length; i++) {
-          markers[i].setMap(null);
-        }
-        markers = [];
-      }
-
-
-
-
-      if (typeof markers == "undefined") {
-        markers = [];
-      }
-
-      for (let index = 0; index < datatemp.length; index++) {
-        const persona = datatemp[index];
-        const address = result2[persona.id - 19].direc + " Barranquilla";
-        console.log(address);
-        if (address != "") {
-          geocoder.geocode({ 'address': address }, function (results1, status) {
-            if (status == google.maps.GeocoderStatus.OK) {
-              if (persona['estado'] == 1) {
-                var marker = new google.maps.Marker({
-                  map: map,
-                  icon: "https://i.postimg.cc/Y2JH3F7f/jeringagreen.png",
-                  animation: google.maps.Animation.DROP,
-                  position: results1[0].geometry.location
-                });
-              } else if (persona['estado'] == 2 || persona['estado'] == 3) {
-                var marker = new google.maps.Marker({
-                  map: map,
-                  icon: "https://i.postimg.cc/8kwvf1VS/jeringayellow.png",
-                  animation: google.maps.Animation.DROP,
-                  position: results1[0].geometry.location
-                });
-              } else if (persona['estado'] == 4) {
-                var marker = new google.maps.Marker({
-                  map: map,
-                  icon: "https://i.postimg.cc/NMHNf5nB/jeringaorange.png",
-                  animation: google.maps.Animation.DROP,
-                  position: results1[0].geometry.location
-                });
-              } else if (persona['estado'] == 0) {
-                var marker = new google.maps.Marker({
-                  map: map,
-                  icon: "https://i.postimg.cc/bJkTf4Gv/jeringapink.png",
-                  animation: google.maps.Animation.DROP,
-                  position: results1[0].geometry.location
-                });
-              } else {
-                var marker = new google.maps.Marker({
-                  map: map,
-                  icon: "https://i.postimg.cc/ry91G1x7/jeringared.png",
-                  animation: google.maps.Animation.DROP,
-                  position: results1[0].geometry.location
-                });
-              }
-              markers.push(marker);
-            } else {
-              alert('Geocode was not successful for the following reason: ' + status);
-            }
-          });
-        }
-      }
+      
+      
+      
+      initHeatMap();
+      
     }
+    
+    function initHeatMap() {
+      var heatMapData=[];
+      for (var i=0; i<result2.length; i++) {
+        if (result2[i].riesgo <= 30) {
+            result2[i].riesgo = 0.3;
+          } else if (result2[i].riesgo > 30 && result2[i].riesgo <= 70) {
+            result2[i].riesgo = 0.5;
+          } else if (result2[i].riesgo > 70 && result2[i].riesgo <= 100) {
+            result2[i].riesgo = 1;
+          }
+          heatMapData.push({ location: new google.maps.LatLng(result2[i].latitud, result2[i].longitud), weight: result2[i].riesgo });
+          console.log(result2[i].latitud);
+      }
 
+      console.log('pai entré a la fun')
+      
+      if (heatmaps.length > 0) {
+        var capaheat = heatmaps[heatmaps.length - 1]
+        capaheat.setMap(null);
+      }
+      var heatmap = new google.maps.visualization.HeatmapLayer({
+
+      });;
+      
+      
+      heatmap.setData(heatMapData);
+      heatmap.setMap(map);
+      heatmaps.push(heatmap)
+    }
   </script>
 
 </body>

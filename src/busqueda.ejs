@@ -164,7 +164,7 @@
                 </div>
               </div>
               <div class="col-lg-12">
-                <div id = "imagenes" class="card rounded-0" style="display: none">
+                <div id="imagenes" class="card rounded-0" style="display: none">
                   <div class="card-header bg-light">
                     <h5 class="font-weight-bold mb-0">Images</h5>
                   </div>
@@ -219,7 +219,7 @@
       });
 
     }
-    
+
     async function search() {
 
       if (document.getElementById('inputSearch').value != "") {
@@ -266,77 +266,10 @@
           arrayfotos = result.fotos;
           arrayfotos = arrayfotos.split(',');
           console.log(arrayfotos)
-          
+
           initHeatMap();
           mostrarfotos();
           document.getElementById('imagenes').style.display = 'block';
-          
-          
-
-          /* 
-                    var address = result.direc + ' barranquilla';
-                    var address1 = result.dirt + ' barranquilla';
-          
-                    geocoder.geocode({ 'address': address }, function (results1, status) {
-                      if (status == google.maps.GeocoderStatus.OK) {
-                        map.setCenter(results1[0].geometry.location);
-                        var marker = new google.maps.Marker({
-                          map: map,
-                          icon: "https://i.postimg.cc/Y2JH3F7f/jeringagreen.png",
-                          animation: google.maps.Animation.DROP,
-                          position: results1[0].geometry.location
-                        });
-                      } else {
-                        alert('Geocode was not successful for the following reason: ' + status);
-                      }
-                    });
-          
-                    geocoder.geocode({ 'address': address1 }, function (results2, status) {
-                      if (status == google.maps.GeocoderStatus.OK) {
-                        map.setCenter(results2[0].geometry.location);
-                        var marker = new google.maps.Marker({
-                          map: map,
-                          icon: "https://i.postimg.cc/ry91G1x7/jeringared.png",
-                          animation: google.maps.Animation.DROP,
-                          position: results2[0].geometry.location
-                        });
-                      } else {
-                        alert('Geocode was not successful for the following reason: ' + status);
-                      }
-                    });
-          
-                    var id = result.id;
-                    const consulta2 = { con: id };
-                    const options2 = {
-                      method: "POST",
-                      body: JSON.stringify(consulta2),
-                      headers: {
-                        "Content-Type": "application/json"
-                      }
-                    };
-          
-                    const response2 = await fetch('/tabla', options2);
-                    result1 = await response2.json();
-                    for (i = 0; i < result1.length; i++) {
-                      if (result1[i].estado == 0) { result1[i].estado = 'Sano'; }
-                      else if (result1[i].estado == 1) { result1[i].estado = 'Curado'; }
-                      else if (result1[i].estado == 2) { result1[i].estado = 'Tratamiento en casa'; }
-                      else if (result1[i].estado == 3) { result1[i].estado = 'Tratamiento en hospital'; }
-                      else if (result1[i].estado == 4) { result1[i].estado = 'UCI'; }
-                      else if (result1[i].estado == 5) { result1[i].estado = 'Fallecido'; }
-          
-                      console.log(result1[i].estado)
-                    }
-                    
-                    var table = document.getElementById('table');
-                    table.innerHTML = "";
-                    result1.forEach(function (object) {
-                      var tr = document.createElement('tr');
-                      var fecha1 = object.fecha.split("T")
-                      var fecha2 = fecha1[0];
-                      tr.innerHTML = '<th>' + fecha2 + '</th>' + '<td>' + object.estado + '</td>';
-                      table.appendChild(tr);
-                    }); */
 
         } else {
           document.getElementById('inputSearch').value = ''
@@ -348,14 +281,14 @@
           document.getElementById("notasb").innerHTML = ''
           swal({
             title: "ERROR!",
-            text: "No hay registros del caso ingresado",
+            text: "No results for given ID",
             icon: "warning",
           });
         }
       } else {
         swal({
           title: "ERROR!",
-          text: "Se debe ingresar la cédula del paciente o el ID del caso ",
+          text: "Please Insert Route Section ID",
           icon: "warning",
         });
       }
@@ -363,43 +296,43 @@
     let heatmaps = [];
     function initHeatMap() {
       console.log(intensidadriesgo)
-            
-            console.log('pai entré a la fun')
-            var heatMapData = [ {location: new google.maps.LatLng(Lat,Lng), weight:intensidadriesgo}];
-            if(heatmaps.length > 0){
-              var capaheat = heatmaps[heatmaps.length-1]
-              capaheat.setMap(null);
-            }
-            var heatmap = new google.maps.visualization.HeatmapLayer ({
-                       
-                      });; 
-          map.setCenter({lat:Lat, lng: Lng});
-          map.setZoom(15);
-          heatmap.setData(heatMapData);
-          heatmap.setMap(map); 
-          heatmaps.push(heatmap)
-          }
+
+      console.log('pai entré a la fun')
+      var heatMapData = [{ location: new google.maps.LatLng(Lat, Lng), weight: intensidadriesgo }];
+      if (heatmaps.length > 0) {
+        var capaheat = heatmaps[heatmaps.length - 1]
+        capaheat.setMap(null);
+      }
+      var heatmap = new google.maps.visualization.HeatmapLayer({
+
+      });;
+      map.setCenter({ lat: Lat, lng: Lng });
+      map.setZoom(15);
+      heatmap.setData(heatMapData);
+      heatmap.setMap(map);
+      heatmaps.push(heatmap)
+    }
 
   </script>
   <script>
     //paso 1 --> crear el array de imagenes
     function mostrarfotos() {
-  
+
       let arrayImagenes = arrayfotos;
-  
+
       console.log('este es el array  ' + arrayImagenes)
       //que imagen mostramos
       var imagenActual = 0;
-  
+
       //Cada 2 segundos se ejecute esta funcion
       var temporizador;
       /* temporizador = setInterval(cambiarImagen, 3000) */
-  
+
       //paso 2: listeners de los botones de anterior y siguiente
       document.getElementById("anterior").addEventListener("click", cambiarImagen);
       document.getElementById("siguiente").addEventListener("click", cambiarImagen);
       document.getElementById("siguiente").click();
-  
+
       //paso 3: Definir la función
       function cambiarImagen() {
         var boton = this.id;
@@ -417,7 +350,7 @@
         var imagenAMostrar = arrayImagenes[imagenActual];
         document.getElementById('imagen').src = "/fotos-rutas/" + imagenAMostrar;
       }
-  
+
     }
   </script>
 </body>

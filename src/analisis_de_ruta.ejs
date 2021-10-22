@@ -383,13 +383,14 @@
   let arraystring;
   let idglobal
   
-    window.addEventListener('beforeunload', function cerrar(e) {
-
+    
+   let cerrar1 = function cerrar(e) {
+      
       e.preventDefault();
       e.returnValue = '';
 
-    })
-  
+    }
+    window.addEventListener('beforeunload', cerrar1)
 
 
 
@@ -679,7 +680,7 @@
     medidor = medidor.substring(0, medidor.length - 4)
     valormedidor = parseFloat(medidor) * 10;
     console.log(valormedidor);
-    quitarlistener();
+    window.removeEventListener('beforeunload', cerrar1)
   };
 
 </script>

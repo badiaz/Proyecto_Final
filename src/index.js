@@ -13,6 +13,7 @@ const multer = require('multer');
 const fecharuta = [];
 const spawn = require("child_process").spawn;
 const fs= require('fs');
+var https = require('https');
 var fotosfile3;
 
 
@@ -142,11 +143,11 @@ app.get('/obtener_caso', function (request, response) {
 //Medico (General)
 app.get('/general', function (request, response) {
 
-    if (request.session.loggedin) {
+    if (request.session.loggedin1) {
         return response.render(path.join(__dirname + '/general.ejs'));
     } else {
         return response.render(path.join(__dirname + '/login.ejs'));
-    }
+    } 
 });
 
 //Medico (Busqueda)
@@ -429,6 +430,13 @@ app.post('/Riesgo', (req, res) => {
         hora = "0"+hora;
         
     console.log(req.body)
+    var options = {
+        host: 'maps.googleapis.com',
+        path: `/maps/api/geocode/json?latlng=${req.body.latitud},${req.body.longitud}&key=AIzaSyCEen29bixPCHvTa7DWIErzdWhPg8Zp60Y`
+      };
+      https.request(options, callback).end();
+    console.log(req.body)
+    
     var Process = spawn('python',["PruebaPf.py",bicicletas,motos,peaton,via,velocidad,alumbrado,hora]);
     
     Process.stdout.on('data', (data) => {
@@ -439,12 +447,32 @@ app.post('/Riesgo', (req, res) => {
         medidor = medidor.substring(0, medidor.length - 4)
         var valormedidor = parseFloat(medidor) * 10;
         console.log('papi mira ve  '+valormedidor);
-          let sql = `INSERT INTO public.inforuta(id,fecharuta, latitud, longitud, notas, fotos, riesgo) VALUES('${req.body.id}','${req.body.fecharuta}','${req.body.latitud}','${req.body.longitud}','${req.body.notas}','${req.body.fotos}','${valormedidor}') RETURNING *`;
+          let sql = `INSERT INTO public.inforuta(id,fecharuta, latitud, longitud, notas, fotos, riesgo,geocode) VALUES('${req.body.id}','${req.body.fecharuta}','${req.body.latitud}','${req.body.longitud}','${req.body.notas}','${req.body.fotos}','${valormedidor}','${geocoded.results[0].formatted_address}') RETURNING *`;
         client.query(sql)  
  
     });
-        
+    
+    
 })
+
+var geocoded;
+    callback = function(response) {
+    var str = '';
+  
+    //another chunk of data has been received, so append it to `str`
+    response.on('data', function (chunk) {
+      str += chunk;
+    });
+  
+    //the whole response has been received, so we just print it out here
+    response.on('end', function () {
+     
+      geocoded=JSON.parse(str);
+      console.log(geocoded.results[0].formatted_address)
+    });
+  }
+
+
 
 app.post('/consultaID', (req, res) => {
     var nombre = req.body.con;
@@ -467,16 +495,42 @@ app.post('/consultaID', (req, res) => {
 });
 
 app.post('/mapageneral', (req, res) => {
-    let sql = `SELECT  latitud, longitud,fecharuta, riesgo from inforuta order by fecharuta DESC, latitud DESC, longitud DESC`
+    let sql = `SELECT  latitud, longitud,fecharuta, riesgo, geocode from inforuta order by geocode DESC`
     client
         .query(sql)
         .then(raw => {
             var general = raw.rows;
-            for(element in general) {
-                if(element.latitud){}
+            console.log(general)
+            var generalTemp=[]
+            for(var i=1; i<general.length-1; i++){
+               var temp = general[i].geocode.split('-');
+               var temp2 = general[i+1].geocode.split('-');
+               if (temp[0]==temp2[0]){
+                   if(general[i].id > general[i+1].id){
+                       generalTemp.push(general[i]);
+                   }else{
+                        generalTemp.push(general[i+1]);
+                   }
+                   i++;
+               }else{
+                generalTemp.push(general[i]);
+               }
             }
-            res.json(raw.rows);
-            console.log(raw.rows);
+
+            var temp = general[general.length-1].geocode.split('-');
+               var temp2 = general[general.length-2].geocode.split('-');
+               if (temp[0]==temp2[0]){
+                   if(general[general.length-2].id > general[general.length-1].id){
+                       generalTemp.push(general[general.length-2]);
+                   }else{
+                        generalTemp.push(general[general.length-1]);
+                   }
+                   
+               }else{
+                generalTemp.push(general[general.length-1]);
+               }
+            res.json(generalTemp);
+            console.log(generalTemp);
         })
 
         .catch(e => console.log(e))
