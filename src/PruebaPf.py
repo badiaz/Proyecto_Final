@@ -11,9 +11,9 @@ from skfuzzy import control as ctrl
 
 try:
     # Definimos las entradas y salidas
-    NumBici = ctrl.Antecedent(np.arange(0,11,1),'NumBici')
-    NumMoto = ctrl.Antecedent(np.arange(0,11,1),'NumMoto')
-    Numpeaton = ctrl.Antecedent(np.arange(0,11,1),'Numpeaton')
+    NumBici = ctrl.Antecedent(np.arange(0,11,1),'NumBici') #si
+    NumMoto = ctrl.Antecedent(np.arange(0,11,1),'NumMoto') #si
+    Numpeaton = ctrl.Antecedent(np.arange(0,11,1),'Numpeaton') #si
     via = ctrl.Antecedent(np.arange(0,11,1),'via')
     deslizamiento = ctrl.Antecedent(np.arange(0,11,1),'deslizamiento')
     velocidad = ctrl.Antecedent(np.arange(0,110,10),'velocidad')
@@ -123,8 +123,8 @@ try:
     rule16 = ctrl.Rule(via['buena'] & velocidad['media'] , Riesgo['bajo'])
     rule17 = ctrl.Rule(via['buena'] & velocidad['baja'] , Riesgo['bajo'])
     #rule18 = ctrl.Rule(calzadadiv['no'] & velocidad['media'] , Riesgo['medio'])
-    #rule19 = ctrl.Rule(calzadadiv['no'] & velocidad['alta'] , Riesgo['alto'])
-    #rule20 = ctrl.Rule(calzadadiv['si'] & velocidad['baja'] , Riesgo['bajo'])
+    #rule19 = ctrl.Rule(Obras['Alta'] & ((deslizamiento['SPD']) | (deslizamiento['SPA'])), Riesgo['alto'])
+    #rule20 = ctrl.Rule(Separador['aceptable'] & deslizamiento['PB'] , Riesgo['bajo'])
 
 
     Riesgo_ctrl = ctrl.ControlSystem([rule1, rule2, rule3,rule4,rule5,rule6,rule7,rule8,rule9,rule10,rule11,rule12,rule13,rule14,rule15,rule16,rule17])#rule18,rule19,rule20])
@@ -133,11 +133,14 @@ try:
     Riesgo_simulador.input['NumMoto'] = int(sys.argv[2])
     Riesgo_simulador.input['Numpeaton'] = int(sys.argv[3])
     Riesgo_simulador.input['via'] = int(sys.argv[4])
-    #Riesgo_simulador.input['deslizamiento'] = 5
+    #Riesgo_simulador.input['deslizamiento'] =int(sys.argv[9])
     Riesgo_simulador.input['velocidad'] = int(sys.argv[5])   
     Riesgo_simulador.input['Hora'] = int(sys.argv[6])
     Riesgo_simulador.input['alumbrado'] = int(sys.argv[7])
-    #Riesgo_simulador.input['calzadadiv'] = 10
+    #Riesgo_simulador.input['calzadadiv'] = int(sys.argv[8])
+    #Riesgo_simulador.input['Obras'] = int(sys.argv[10])
+    #Riesgo_simulador.input['Separador'] = int(sys.argv[11])
+    
 
     Riesgo_simulador.compute()
     #NumBici.view(sim=Riesgo_simulador)

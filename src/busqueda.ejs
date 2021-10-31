@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="userestilo">
   <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;600&display=swap" rel="stylesheet">
   <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <title>History query</title>
 </head>
 
@@ -81,7 +82,7 @@
             <div class="row">
 
               <div class="col-lg-4 my-4">
-                <div class="card rounded-0">
+                <div id ="informacionID" class="card rounded-0">
                   <div class="card-header bg-light">
                     <h5 class="font-weight-bold mb-0"> Route section information</h5>
                   </div>
@@ -110,8 +111,8 @@
                         <h2 class="align-self-center mb-0"><i class="icon ion-md-map" width="25px"></i></h2>
                       </div>
                       <div class="align-self-center">
-                        <h6 class="d-inline-block mb-0 font-weight-bold">Latitude</h6>
-                        <h6 class="mb-0" id="txtLat"></h6>
+                        <h6 class="d-inline-block mb-0 font-weight-bold">Initial Coordinates</h6>
+                        <h6 class="mb-0" id="Initcoord"></h6>
                       </div>
                     </div>
                     <div class="d-flex border-bottom py-2">
@@ -119,8 +120,8 @@
                         <h2 class="align-self-center mb-0"><i class="icon ion-md-map" width="25px"></i></h2>
                       </div>
                       <div class="align-self-center">
-                        <h6 class="d-inline-block mb-0 font-weight-bold">Longitude</h6>
-                        <h6 class="mb-0" id="txtLng"></h6>
+                        <h6 class="d-inline-block mb-0 font-weight-bold">Final Coordinates</h6>
+                        <h6 class="mb-0" id="Finalcoord"></h6>
                       </div>
                     </div>
                     <div class="d-flex border-bottom py-2">
@@ -143,6 +144,8 @@
                     </div>
                   </div>
                 </div>
+                <br>
+                <input onclick=generatePDF() class="btn btn-primary" type="button" id="pdf" value="Generate Report">
               </div>
               <div class="col-lg-8 my-4">
                 <div class="card rounded-0">
@@ -158,7 +161,7 @@
                       </div>
                     </form>
                   </div>
-                  <div class="card-body">
+                  <div id="mapaglobal" class="card-body">
                     <div id="map"></div>
                   </div>
                 </div>
@@ -190,7 +193,7 @@
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 
   <script async
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCEen29bixPCHvTa7DWIErzdWhPg8Zp60Y&libraries=visualization&callback=initMap">
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCEen29bixPCHvTa7DWIErzdWhPg8Zp60Y&callback=initMap">
     </script>
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
     integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
@@ -203,13 +206,17 @@
     crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"
     integrity="sha256-R4pqcOYV8lt7snxMQO/HSbVCFRPMdrhAFMH+vr9giYI=" crossorigin="anonymous"></script>
+
   <script>
+
     //initMap();
     let map;
     var geocoder;
     let intensidadriesgo;
     let Lat;
     let Lng;
+    let Lat2;
+    let Lng2;
     let arrayfotos;
     let arraystring;
     function initMap() {
@@ -244,30 +251,43 @@
           var rut = result.fecharuta.split("T")
           var fecharuta = rut[0];
 
-          document.getElementById("id").innerHTML = result.id;
-          document.getElementById("fecharuta").innerHTML = fecharuta
-          document.getElementById("txtLat").innerHTML = result.latitud;
-          document.getElementById("txtLng").innerHTML = result.longitud;
-          document.getElementById("riesgo").innerHTML = result.riesgo + '%';
-          document.getElementById("notasb").innerHTML = result.notas;
           intensidadriesgo = result.riesgo;
           Lat = result.latitud;
           Lat = parseFloat(Lat);
           Lng = result.longitud;
           Lng = parseFloat(Lng);
+          Lat2 = parseFloat(result.latitud1);
+          Lng2 = parseFloat(result.longitud1);
+          let segment = [{ lat: Lat, lng: Lng }, { lat: Lat2, lng: Lng2 }]
+
+          var descriptor;
+          var color;
           if (intensidadriesgo <= 30) {
             intensidadriesgo = 0.3;
+            descriptor = "Low";
+            color = "#008000";
           } else if (intensidadriesgo > 30 && intensidadriesgo <= 70) {
             intensidadriesgo = 0.5;
+            descriptor = "Moderate";
+            color = "#f6d866";
           } else if (intensidadriesgo > 70 && intensidadriesgo <= 100) {
             intensidadriesgo = 1;
+            descriptor = "High";
+            color = "#ff0000";
           }
+          DrawSection(segment, color);
+          document.getElementById("id").innerHTML = result.id;
+          document.getElementById("fecharuta").innerHTML = fecharuta
+          document.getElementById("Initcoord").innerHTML = result.latitud + ", " + result.longitud;
+          document.getElementById("Finalcoord").innerHTML = result.latitud1 + ", " + result.longitud1;
+          document.getElementById("riesgo").innerHTML = descriptor + " (" + result.riesgo + '%)';
+          document.getElementById("notasb").innerHTML = result.notas;
           console.log(intensidadriesgo)
           arrayfotos = result.fotos;
           arrayfotos = arrayfotos.split(',');
           console.log(arrayfotos)
 
-          initHeatMap();
+          //initHeatMap();
           mostrarfotos();
           document.getElementById('imagenes').style.display = 'block';
 
@@ -281,19 +301,20 @@
           document.getElementById("notasb").innerHTML = ''
           swal({
             title: "ERROR!",
-            text: "No results for given ID",
+            text: "No records of the case entered",
             icon: "warning",
           });
         }
       } else {
         swal({
           title: "ERROR!",
-          text: "Please Insert Route Section ID",
+          text: "Please enter the Case ID ",
           icon: "warning",
         });
       }
     }
     let heatmaps = [];
+    let polylines = []
     function initHeatMap() {
       console.log(intensidadriesgo)
 
@@ -306,13 +327,36 @@
       var heatmap = new google.maps.visualization.HeatmapLayer({
 
       });;
-      map.setCenter({ lat: Lat, lng: Lng });
-      map.setZoom(15);
-      heatmap.setData(heatMapData);
-      heatmap.setMap(map);
-      heatmaps.push(heatmap)
+      
+     
     }
 
+    function DrawSection(segment, color) {
+      var lineSymbol = {
+        path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+      };
+      if (polylines.length > 0) {
+        var line = polylines[polylines.length - 1]
+        line.setMap(null);
+      }
+      var riskpath = new google.maps.Polyline({
+        path: segment,
+        geodesic: true,
+        strokeColor: color,
+        strokeOpacity: 1.0,
+        strokeWeight: 2,
+        icons: [
+          {
+            icon: lineSymbol,
+            offset: "100%",
+            repeat: '20px'
+          },
+        ]
+      });
+      
+      riskpath.setMap(map);
+      polylines.push(riskpath)
+    }
   </script>
   <script>
     //paso 1 --> crear el array de imagenes
@@ -353,6 +397,13 @@
 
     }
   </script>
+  <script>
+    function generatePDF(){
+      const element = document.getElementById("informacionID")
+      const element2 = document.getElementById("mapaglobal")
+      html2pdf()
+      .from(element)
+      .save();
+    }
+  </script>
 </body>
-
-</html>

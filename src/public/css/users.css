@@ -325,10 +325,10 @@ a:hover {
   
   .heat-sliderinv {
     --slider-base: #d8d8d8;
-    --slider-red: red;
+    --slider-red: #ff0000;
     --slider-orange: #ff7f36;
     --slider-yellow: #f6d866;
-    --slider-green: green;
+    --slider-green: #008000;
     --slider-blue: green;
     --slider-radius: 1em;
     --slider-handle-size: 1em;

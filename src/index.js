@@ -447,7 +447,7 @@ app.post('/Riesgo', (req, res) => {
         medidor = medidor.substring(0, medidor.length - 4)
         var valormedidor = parseFloat(medidor) * 10;
         console.log('papi mira ve  '+valormedidor);
-          let sql = `INSERT INTO public.inforuta(id,fecharuta, latitud, longitud, notas, fotos, riesgo,geocode) VALUES('${req.body.id}','${req.body.fecharuta}','${req.body.latitud}','${req.body.longitud}','${req.body.notas}','${req.body.fotos}','${valormedidor}','${geocoded.results[0].formatted_address}') RETURNING *`;
+          let sql = `INSERT INTO public.inforuta(id,fecharuta, latitud, longitud, notas, fotos, riesgo,geocode,latitud1,longitud1) VALUES('${req.body.id}','${req.body.fecharuta}','${req.body.latitud}','${req.body.longitud}','${req.body.notas}','${req.body.fotos}','${valormedidor}','${geocoded.results[0].formatted_address}','${req.body.latitud1}','${req.body.longitud1}') RETURNING *`;
         client.query(sql)  
  
     });
@@ -495,7 +495,7 @@ app.post('/consultaID', (req, res) => {
 });
 
 app.post('/mapageneral', (req, res) => {
-    let sql = `SELECT  latitud, longitud,fecharuta, riesgo, geocode from inforuta order by geocode DESC`
+    let sql = `SELECT  latitud, longitud,fecharuta, riesgo, geocode , latitud1, id, longitud1, notas from inforuta order by geocode DESC`
     client
         .query(sql)
         .then(raw => {

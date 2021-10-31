@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css">
   <!--SWAL-->
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  
   <title>Route section analysis</title>
 </head>
 
@@ -141,28 +142,38 @@
                             </div>
                             <div class="form-group mb-4">
                               <label for="notas" class="font-weight-bold">Additional Notes</label>
-                              <textarea id=notas type="text"  class="form-control bg-grey" name="notas"
+                              <textarea id=notas type="text" class="form-control bg-grey" name="notas"
                                 placeholder="Add notes to the case" width="50%" height="100px"></textarea>
                             </div>
 
                           </div>
                           <div class="col-lg-6 my-4">
                             <div class="form-group mb-4">
-                              <label for="apellido" class="font-weight-bold">Route Section Location</label>
+                              <label for="apellido" class="font-weight-bold">Route Section Location <p class="lead text-muted">Drag the markers. 
+                              </p></label>
                               <div id="map"></div>
                             </div>
                             <div class="form-group mb-4">
-                              <label for="latitude" class="font-weight-bold">Latitude:</label>
+                              <label for="latitude" class="font-weight-bold">Initial Latitude:</label>
                               <input id="txtLat" type="text" class="form-control bg-grey" readonly="readonly"
                                 value="10.9861045" name="latitud" width="50%" height="100px">
                             </div>
                             <div class="form-group mb-4">
-                              <label for="longitude" class="font-weight-bold">Longitude:</label>
+                              <label for="longitude" class="font-weight-bold">Initial Longitude:</label>
                               <input id="txtLng" type="text" class="form-control bg-grey" readonly="readonly"
                                 value="-74.80928094" name="longitud" width="50%" height="100px">
                             </div>
+                            <div class="form-group mb-4">
+                              <label for="latitude" class="font-weight-bold">Final Latitude:</label>
+                              <input id="txtLat1" type="text" class="form-control bg-grey" readonly="readonly"
+                                value="10.9861045" name="latitud" width="50%" height="100px">
+                            </div>
+                            <div class="form-group mb-4">
+                              <label for="longitude" class="font-weight-bold">Final Longitude:</label>
+                              <input id="txtLng1" type="text" class="form-control bg-grey" readonly="readonly"
+                                value="-74.80928094" name="longitud" width="50%" height="100px">
+                            </div>
 
-                            
 
                           </div>
                         </div>
@@ -187,7 +198,8 @@
               <div class="col-lg-12 my-4">
                 <div class="card rounded-0">
                   <div class="card-header bg-light">
-                    <h5 class="d-inline-block font-weight-bold mb-0">Images</h5>
+                    <h5 class="d-inline-block font-weight-bold mb-0">Images <p class="lead text-muted">All images must be part of the same section of the route at the same instant in time. Please complete the information taking into account all images. 
+                    </p>  </h5>
                   </div>
                   <div class="card-body">
                     <div class="container">
@@ -382,15 +394,15 @@
 <script>
   let arraystring;
   let idglobal
-  
-    
-   let cerrar1 = function cerrar(e) {
-      
-      e.preventDefault();
-      e.returnValue = '';
 
-    }
-    window.addEventListener('beforeunload', cerrar1)
+
+  let cerrar1 = function cerrar(e) {
+
+    e.preventDefault();
+    e.returnValue = '';
+
+  }
+  window.addEventListener('beforeunload', cerrar1)
 
 
 
@@ -433,7 +445,15 @@
       draggable: true,
       map: map
     });
-
+    var marker1 = new google.maps.Marker({
+      position: myLatlng,
+      draggable: true,
+      map: map
+    });
+    marker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png')
+    marker1.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png')
+  
+    marker1.setMap(map);
     marker.setMap(map);
     // adds a listener to the marker
     // gets the coords when drag event ends
@@ -442,20 +462,53 @@
       $("#txtLat").val(evt.latLng.lat().toFixed(6));
       $("#txtLng").val(evt.latLng.lng().toFixed(6));
 
-      map.panTo(evt.latLng);
+      /* map.panTo(evt.latLng); */
     });
 
-    // centers the map on markers coords
-    map.setCenter(marker.position);
+    google.maps.event.addListener(marker1, 'dragend', function (evt) {
+      $("#txtLat1").val(evt.latLng.lat().toFixed(6));
+      $("#txtLng1").val(evt.latLng.lng().toFixed(6));
 
-    // adds the marker on the map
-    marker.setMap(map);
+      /* map.panTo(evt.latLng); */
+    });
+
+    const infowindow = new google.maps.InfoWindow({
+      content: 'Initial point ',
+    });
+    const infowindow1 = new google.maps.InfoWindow({
+      content: 'Final point ',
+    });
+
+    google.maps.event.addListener(marker, 'mouseover', function (evt) {
+      infowindow.open({
+        anchor: marker,
+        map,
+        shouldFocus: false,
+      });
+
+    })
+    google.maps.event.addListener(marker, 'mouseout', function (evt) {
+      infowindow.close();
+    })
+    /* para marker2 */
+    google.maps.event.addListener(marker1, 'mouseover', function (evt) {
+      infowindow1.open({
+        anchor: marker1,
+        map,
+        shouldFocus: false,
+      });
+
+    })
+    google.maps.event.addListener(marker1, 'mouseout', function (evt) {
+      infowindow1.close();
+    })
+    
   }
 </script>
 <!-- input -->
 <script>
   //DOM
-  
+
 
   //APP
   let App = {};
@@ -658,6 +711,8 @@
       fecharuta: document.getElementById("fecharuta").value,
       latitud: document.getElementById("txtLat").value,
       longitud: document.getElementById("txtLng").value,
+      latitud1: document.getElementById("txtLat1").value,
+      longitud1: document.getElementById("txtLng1").value,
       notas: document.getElementById("notas").value,
       fotos: arraystring,
       id: idglobal
@@ -703,7 +758,7 @@
     } else if (document.getElementById('bicicletas').value >= 7 && document.getElementById('bicicletas').value <= 10) {
       text = "There is a High bicycle flow."
     }
-    output.value = `valor: ${value} (${percent}) ${text}`
+    output.value = `value: ${value}  (${text})`
   }
 
   const output1 = document.querySelector('#outmoto')
@@ -712,8 +767,16 @@
     const decimals1 = step && step.includes('.') ? step.split('.')[1] : 1
     const percent1 = `${((value - min) / (max - min) * 100).toFixed(decimals1)}%`
     parent.style.setProperty('--p', percent1)
-
-    output1.value = `valor: ${value} (${percent1})`
+    let text1
+    parent.style.setProperty('--p', percent1)
+    if (document.getElementById('bicicletas').value >= 0 && document.getElementById('bicicletas').value < 3) {
+      text1 = "There is a low motorcycle flow."
+    } else if (document.getElementById('bicicletas').value >= 3 && document.getElementById('bicicletas').value < 7) {
+      text1 = "There is a Moderate motorcycle flow.."
+    } else if (document.getElementById('bicicletas').value >= 7 && document.getElementById('bicicletas').value <= 10) {
+      text1 = "There is a High motorcycle flow."
+    }
+    output1.value = `valor: ${value} (${text1})`
   }
 
   const output2 = document.querySelector('#outpeaton')
@@ -722,8 +785,16 @@
     const decimals2 = step && step.includes('.') ? step.split('.')[1] : 1
     const percent2 = `${((value - min) / (max - min) * 100).toFixed(decimals2)}%`
     parent.style.setProperty('--p', percent2)
-
-    output2.value = `valor: ${value} (${percent2})`
+    let text2
+    parent.style.setProperty('--p', percent2)
+    if (document.getElementById('bicicletas').value >= 0 && document.getElementById('bicicletas').value < 3) {
+      text2 = "There is a low pedestrians flow."
+    } else if (document.getElementById('bicicletas').value >= 3 && document.getElementById('bicicletas').value < 7) {
+      text2 = "There is a Moderate pedestrians flow.."
+    } else if (document.getElementById('bicicletas').value >= 7 && document.getElementById('bicicletas').value <= 10) {
+      text2 = "There is a High pedestrians flow."
+    }
+    output2.value = `valor: ${value} (${text2})`
   }
 
   const output3 = document.querySelector('#outvia')

@@ -82,6 +82,69 @@
               <div class="col-lg-4 my-4">
                 <div class="card rounded-0">
                   <div class="card-header bg-light">
+                    <h5 class="font-weight-bold mb-0"> Route section information</h5>
+                  </div>
+                  <div class="card-body pt-2">
+                    <div class="d-flex border-bottom py-2">
+                      <div class="d-flex mr-3">
+                        <h2 class="align-self-center mb-0"><i class="icon ion-md-pricetag"></i></h2>
+                      </div>
+                      <div class="align-self-center">
+                        <h6 class="d-inline-block mb-0 font-weight-bold">Section ID</h6>
+                        <h6 class="mb-0" id="id"></h6>
+                      </div>
+                    </div>
+
+                    <div class="d-flex border-bottom py-2">
+                      <div class="d-flex mr-3">
+                        <h2 class="align-self-center mb-0"><i class="icon ion-md-calendar"></i></h2>
+                      </div>
+                      <div class="align-self-center">
+                        <h6 class="d-inline-block mb-0 font-weight-bold">Date of analysis</h6>
+                        <h6 class="mb-0" id="fecharuta"></h6>
+                      </div>
+                    </div>
+                    <div class="d-flex border-bottom py-2">
+                      <div class="d-flex mr-3 mb-0">
+                        <h2 class="align-self-center mb-0"><i class="icon ion-md-map" width="25px"></i></h2>
+                      </div>
+                      <div class="align-self-center">
+                        <h6 class="d-inline-block mb-0 font-weight-bold">Initial Coordinates</h6>
+                        <h6 class="mb-0" id="Initcoord"></h6>
+                      </div>
+                    </div>
+                    <div class="d-flex border-bottom py-2">
+                      <div class="d-flex mr-3 mb-0">
+                        <h2 class="align-self-center mb-0"><i class="icon ion-md-map" width="25px"></i></h2>
+                      </div>
+                      <div class="align-self-center">
+                        <h6 class="d-inline-block mb-0 font-weight-bold">Final Coordinates</h6>
+                        <h6 class="mb-0" id="Finalcoord"></h6>
+                      </div>
+                    </div>
+                    <div class="d-flex border-bottom py-2">
+                      <div class="d-flex mr-3">
+                        <h2 class="align-self-center mb-0"><i class="icon ion-md-document"></i></h2>
+                      </div>
+                      <div class="align-self-center">
+                        <h6 class="d-inline-block mb-0 font-weight-bold">Risk level</h6>
+                        <h6 class="mb-0" id="riesgo"></h6>
+                      </div>
+                    </div>
+                    <div class="d-flex border-bottom py-2">
+                      <div class="d-flex mr-3">
+                        <h2 class="align-self-center mb-0"><i class="icon ion-md-book"></i></h2>
+                      </div>
+                      <div class="align-self-center">
+                        <h6 class="d-inline-block mb-0 font-weight-bold">Additional Notes</h6>
+                        <h6 class="mb-0" id="notasb"></h6>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <br>
+                <div class="card rounded-0">
+                  <div class="card-header bg-light">
                     <h5 class="font-weight-bold mb-0">Color Codes</h5>
                   </div>
                   <div class="card-body pt-2">
@@ -103,7 +166,7 @@
                         <h6 class="d-inline-block mb-0">Curado</h6>
                       </div>
                     </div> -->
-                   <div class="d-flex border-bottom py-2">
+                    <div class="d-flex border-bottom py-2">
                       <div class="d-flex mr-3">
                         <h2 class="align-self-center mb-0"><img src="https://i.postimg.cc/j2hv4tx7/yellow.png"
                             width="25px"></h2>
@@ -111,8 +174,8 @@
                       <div class="align-self-center">
                         <h6 class="d-inline-block mb-0">Moderate Risk</h6>
                       </div>
-                    </div> 
-                   <!--  <div class="d-flex border-bottom py-2">
+                    </div>
+                    <!--  <div class="d-flex border-bottom py-2">
                       <div class="d-flex mr-3">
                         <h2 class="align-self-center mb-0"><img src="https://i.postimg.cc/DZrc7nbM/orange.png"
                             width="25px"></h2>
@@ -132,12 +195,13 @@
                     </div>
                   </div>
                 </div>
+                
               </div>
               <div class="col-lg-8 my-4">
                 <div class="card rounded-0">
                   <div class="card-header bg-light">
-                    <h5 class="d-inline-block font-weight-bold mb-0">Mapa del total de casos registrados</h5>
-                    <button class="btn btn-primary float-right" onclick="initMap(), casos()">Actualizar</button>
+                    <h5 class="d-inline-block font-weight-bold mb-0">Map of total registered cases</h5>
+                    <button class="btn btn-primary float-right" onclick="initMap(), casos()">Update</button>
                   </div>
                   <div class="card-body">
                     <div id="map"></div>
@@ -178,7 +242,7 @@
     let intensidadriesgo;
     let Lat;
     let Lng;
-    
+
     let heatmaps = [];
 
     function initMap() {
@@ -201,34 +265,49 @@
         }
       };
 
-     
+
 
       const response2 = await fetch('/mapageneral', options1);
       result2 = await response2.json();
       console.log(result2);
-      
-      
-      
+
+
+
       initHeatMap();
-      
+
     }
-    
+    let markers = [];
+    let polylines = [];
     function initHeatMap() {
-      var heatMapData=[];
-      for (var i=0; i<result2.length; i++) {
+
+      var color;
+      var icon;
+      var descriptor
+      for (var i = 0; i < result2.length; i++) {
         if (result2[i].riesgo <= 30) {
-            result2[i].riesgo = 0.3;
-          } else if (result2[i].riesgo > 30 && result2[i].riesgo <= 70) {
-            result2[i].riesgo = 0.5;
-          } else if (result2[i].riesgo > 70 && result2[i].riesgo <= 100) {
-            result2[i].riesgo = 1;
-          }
-          heatMapData.push({ location: new google.maps.LatLng(result2[i].latitud, result2[i].longitud), weight: result2[i].riesgo });
-          console.log(result2[i].latitud);
+          
+          descriptor = "Low";
+          color = "#008000";
+          icon = "http://maps.google.com/mapfiles/ms/icons/green.png";
+        } else if (result2[i].riesgo > 30 && result2[i].riesgo <= 70) {
+          
+          descriptor = "Moderate";
+          color = "#f6d866";
+          icon = "http://maps.google.com/mapfiles/ms/icons/orange.png";
+        } else if (result2[i].riesgo > 70 && result2[i].riesgo <= 100) {
+          
+          color = "#ff0000";
+          descriptor = "High";
+          icon = "http://maps.google.com/mapfiles/ms/icons/red.png";
+        }
+        var pos = { lat: parseFloat(result2[i].latitud), lng: parseFloat(result2[i].longitud) };
+        var segment = [pos, { lat: parseFloat(result2[i].latitud1), lng: parseFloat(result2[i].longitud1) }];
+        DrawSection(segment, color);
+        addMarker(pos, result2[i].id, icon, result2[i], descriptor)
       }
 
       console.log('pai entré a la fun')
-      
+
       if (heatmaps.length > 0) {
         var capaheat = heatmaps[heatmaps.length - 1]
         capaheat.setMap(null);
@@ -236,12 +315,54 @@
       var heatmap = new google.maps.visualization.HeatmapLayer({
 
       });;
-      
-      
-      heatmap.setData(heatMapData);
-      heatmap.setMap(map);
-      heatmaps.push(heatmap)
+
+
+      //heatmap.setData(heatMapData);
+      //heatmap.setMap(map);
+      //heatmaps.push(heatmap)
     }
+    function DrawSection(segment, color) {
+
+      var riskpath = new google.maps.Polyline({
+        path: segment,
+        geodesic: true,
+        strokeColor: color,
+        strokeOpacity: 1.0,
+        strokeWeight: 2,
+      });
+
+      riskpath.setMap(map)
+      polylines.push(riskpath)
+    }
+    function addMarker(pos, id, icon, result, descriptor) {
+      var marker = new google.maps.Marker({
+        position: pos,
+        label: {
+          text: String(id),
+          fontFamily: 'Source Sans Pro',
+          fontSize: '17px',
+          fontWeight: 'bold'
+        },
+        map: map,
+        icon: {
+          url: icon,
+          labelOrigin: { x: 16, y: 10 },
+
+        }
+      });
+      var rut = result.fecharuta.split("T")
+      var fecharuta = rut[0];
+      marker.addListener('mouseover', () => {
+        document.getElementById("id").innerHTML = result.id;
+        document.getElementById("fecharuta").innerHTML = fecharuta
+        document.getElementById("Initcoord").innerHTML = result.latitud + ", " + result.longitud;
+        document.getElementById("Finalcoord").innerHTML = result.latitud1 + ", " + result.longitud1;
+        document.getElementById("riesgo").innerHTML = descriptor + " (" + result.riesgo + '%)';
+        document.getElementById("notasb").innerHTML = result.notas;
+      })
+      markers.push(marker);
+    }
+
   </script>
 
 </body>
