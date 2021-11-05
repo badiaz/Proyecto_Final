@@ -9,7 +9,9 @@
   <link rel="stylesheet" href="userestilo">
   <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;600&display=swap" rel="stylesheet">
   <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
+    integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <title>History query</title>
 </head>
 
@@ -82,7 +84,7 @@
             <div class="row">
 
               <div class="col-lg-4 my-4">
-                <div id ="informacionID" class="card rounded-0">
+                <div id="informacionID" class="card rounded-0">
                   <div class="card-header bg-light">
                     <h5 class="font-weight-bold mb-0"> Route section information</h5>
                   </div>
@@ -219,6 +221,7 @@
     let Lng2;
     let arrayfotos;
     let arraystring;
+    let fecharuta;
     function initMap() {
       map = new google.maps.Map(document.getElementById('map'), {
         zoom: 13, center: { lat: 10.9861045, lng: -74.80928094 },
@@ -249,7 +252,7 @@
           console.log('papi entre a len')
           //Simplify addresses
           var rut = result.fecharuta.split("T")
-          var fecharuta = rut[0];
+          fecharuta = rut[0];
 
           intensidadriesgo = result.riesgo;
           Lat = result.latitud;
@@ -327,8 +330,8 @@
       var heatmap = new google.maps.visualization.HeatmapLayer({
 
       });;
-      
-     
+
+
     }
 
     function DrawSection(segment, color) {
@@ -353,7 +356,7 @@
           },
         ]
       });
-      
+
       riskpath.setMap(map);
       polylines.push(riskpath)
     }
@@ -398,12 +401,29 @@
     }
   </script>
   <script>
-    function generatePDF(){
+    /* function generatePDF() {
       const element = document.getElementById("informacionID")
       const element2 = document.getElementById("mapaglobal")
       html2pdf()
-      .from(element)
-      .save();
+        .from(element)
+        .save();
+    }
+ */
+    async function generatePDF() {
+      var input = document.getElementById('inputSearch').value;
+      const consulta2 = { con: input,
+      fecharuta: fecharuta};
+      const options2 = {
+        method: "POST",
+        body: JSON.stringify(consulta2),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      };
+
+      const response2 = await fetch('/informe', options2);
+      result = await response2.json();
+      console.log(result);
     }
   </script>
 </body>

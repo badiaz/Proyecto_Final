@@ -20,6 +20,7 @@
 		"ejs": "^3.1.6",
 		"express": "^4.17.1",
 		"express-session": "^1.17.2",
+		"html-pdf": "^3.0.1",
 		"html2pdf.js": "^0.10.1",
 		"jquery": "^3.6.0",
 		"leaflet": "^1.7.1",

@@ -12,8 +12,9 @@ const PassportLocal = require('passport-local').Strategy;
 const multer = require('multer');
 const fecharuta = [];
 const spawn = require("child_process").spawn;
-const fs= require('fs');
+const fs = require('fs');
 var https = require('https');
+var pdf = require('html-pdf');
 var fotosfile3;
 
 
@@ -26,7 +27,7 @@ app.use(express.static('public'));
 const storage = multer.diskStorage({
     destination: path.join(__dirname, 'public/fotos-rutas'),
     filename: (req, file, cb) => {
-         cb(null, file.originalname);
+        cb(null, file.originalname);
     }
 });
 // multer
@@ -147,7 +148,7 @@ app.get('/general', function (request, response) {
         return response.render(path.join(__dirname + '/general.ejs'));
     } else {
         return response.render(path.join(__dirname + '/login.ejs'));
-    } 
+    }
 });
 
 //Medico (Busqueda)
@@ -367,110 +368,110 @@ app.post('/resumencasospordia', (req, res) => {
 
 
 app.post('/inforuta', (req, res) => {
-    
+
     console.log(req.body)
     var filelenght = req.files.length;
-    let files= req.files;
-    let fotosfile ;
-    let fotosfile1 ;
-   
+    let files = req.files;
+    let fotosfile;
+    let fotosfile1;
+
     console.log(files)
     var i = 0;
-      for ( i ; i< filelenght; i++ ){
+    for (i; i < filelenght; i++) {
         fotosfile = files[i].originalname;
-        fotosfile1 = fotosfile1 +","+ fotosfile; 
-        console.log(fotosfile1) 
-        }  
-    
-    console.log(filelenght) 
-    var fotosfile2 = fotosfile1.replace('undefined,','')
-    console.log(fotosfile2) 
+        fotosfile1 = fotosfile1 + "," + fotosfile;
+        console.log(fotosfile1)
+    }
+
+    console.log(filelenght)
+    var fotosfile2 = fotosfile1.replace('undefined,', '')
+    console.log(fotosfile2)
     fotosfile3 = fotosfile2.split(',')
-    
-    console.log(fotosfile3) 
+
+    console.log(fotosfile3)
     let sql = `SELECT * FROM inforuta id ORDER BY id DESC
     LIMIT 1`;
     client.query(sql)
-    .then(raw => {
-        console.log("este es el id, crack. Pilla: ")
-        console.log(raw.rows[0].id)   
-        fotosfile3={fotos:fotosfile3,id:raw.rows[0].id}
-        res.json(fotosfile3);
-        res.status(204);
-    })
-    .catch(e => console.log(e))
-    
-     
-     /* document.getElementById('mostrarimagenes').innerHTML('<img src="/fotos-rutas/'+fotosfile2[0]+'">'); */
+        .then(raw => {
+            console.log("este es el id, crack. Pilla: ")
+            console.log(raw.rows[0].id)
+            fotosfile3 = { fotos: fotosfile3, id: raw.rows[0].id }
+            res.json(fotosfile3);
+            res.status(204);
+        })
+        .catch(e => console.log(e))
+
+
+    /* document.getElementById('mostrarimagenes').innerHTML('<img src="/fotos-rutas/'+fotosfile2[0]+'">'); */
 });
 
 app.post('/Riesgo', (req, res) => {
-    
+
     let bicicletas = req.body.bicicletas;
-        bicicletas = "0"+bicicletas;
+    bicicletas = "0" + bicicletas;
     let motos = req.body.motos;
-        motos = "0"+motos;
+    motos = "0" + motos;
     let peaton = req.body.peaton;
-        peaton ="0"+peaton;
+    peaton = "0" + peaton;
     let via = req.body.via;
-        via = "0"+via;
+    via = "0" + via;
     let deslizamiento = req.body.deslizamiento;
-        deslizamiento = "0"+deslizamiento;
+    deslizamiento = "0" + deslizamiento;
     let obrasvia = req.body.obrasvia;
-        obrasvia = "0"+obrasvia;
+    obrasvia = "0" + obrasvia;
     let velocidad = req.body.velocidad;
-       velocidad = "0"+velocidad;
+    velocidad = "0" + velocidad;
     let alumbrado = req.body.alumbrado;
-        alumbrado = "0"+alumbrado;
+    alumbrado = "0" + alumbrado;
     let separador = req.body.separador;
-       separador = "0"+separador;
+    separador = "0" + separador;
     let calzadadiv = req.body.calzadadiv;
-        calzadadiv = "0"+calzadadiv;
+    calzadadiv = "0" + calzadadiv;
     let hora = req.body.hora;
-        hora = "0"+hora;
-        
+    hora = "0" + hora;
+
     console.log(req.body)
     var options = {
         host: 'maps.googleapis.com',
         path: `/maps/api/geocode/json?latlng=${req.body.latitud},${req.body.longitud}&key=AIzaSyCEen29bixPCHvTa7DWIErzdWhPg8Zp60Y`
-      };
-      https.request(options, callback).end();
+    };
+    https.request(options, callback).end();
     console.log(req.body)
-    
-    var Process = spawn('python',["PruebaPf.py",bicicletas,motos,peaton,via,velocidad,alumbrado,hora]);
-    
+
+    var Process = spawn('python', ["PruebaPf.py", bicicletas, motos, peaton, via, velocidad, alumbrado, hora]);
+
     Process.stdout.on('data', (data) => {
-        var calriesgo = {riesgo: data.toString('utf8')}
+        var calriesgo = { riesgo: data.toString('utf8') }
         console.log(calriesgo);
         res.json(calriesgo);
         var medidor = data.toString('utf8');
         medidor = medidor.substring(0, medidor.length - 4)
         var valormedidor = parseFloat(medidor) * 10;
-        console.log('papi mira ve  '+valormedidor);
-          let sql = `INSERT INTO public.inforuta(id,fecharuta, latitud, longitud, notas, fotos, riesgo,geocode,latitud1,longitud1) VALUES('${req.body.id}','${req.body.fecharuta}','${req.body.latitud}','${req.body.longitud}','${req.body.notas}','${req.body.fotos}','${valormedidor}','${geocoded.results[0].formatted_address}','${req.body.latitud1}','${req.body.longitud1}') RETURNING *`;
-        client.query(sql)  
- 
+        console.log('papi mira ve  ' + valormedidor);
+        let sql = `INSERT INTO public.inforuta(id,fecharuta, latitud, longitud, notas, fotos, riesgo,geocode,latitud1,longitud1) VALUES('${req.body.id}','${req.body.fecharuta}','${req.body.latitud}','${req.body.longitud}','${req.body.notas}','${req.body.fotos}','${valormedidor}','${geocoded.results[0].formatted_address}','${req.body.latitud1}','${req.body.longitud1}') RETURNING *`;
+        client.query(sql)
+
     });
-    
-    
+
+
 })
 
 var geocoded;
-    callback = function(response) {
+callback = function (response) {
     var str = '';
-  
+
     //another chunk of data has been received, so append it to `str`
     response.on('data', function (chunk) {
-      str += chunk;
+        str += chunk;
     });
-  
+
     //the whole response has been received, so we just print it out here
     response.on('end', function () {
-     
-      geocoded=JSON.parse(str);
-      console.log(geocoded.results[0].formatted_address)
+
+        geocoded = JSON.parse(str);
+        console.log(geocoded.results[0].formatted_address)
     });
-  }
+}
 
 
 
@@ -482,13 +483,13 @@ app.post('/consultaID', (req, res) => {
         .then(raw => {
             console.log("estas son, crack. Pilla: ")
             console.log(raw.rows[0])
-            if(raw.rows[0] == undefined) {
-             var resultado = {id: 0}
-             res.json(resultado)
-            }else{
-             res.json(raw.rows[0]);
+            if (raw.rows[0] == undefined) {
+                var resultado = { id: 0 }
+                res.json(resultado)
+            } else {
+                res.json(raw.rows[0]);
             }
-            
+
 
         })
         .catch(e => console.log(e))
@@ -501,37 +502,185 @@ app.post('/mapageneral', (req, res) => {
         .then(raw => {
             var general = raw.rows;
             console.log(general)
-            var generalTemp=[]
-            for(var i=1; i<general.length-1; i++){
-               var temp = general[i].geocode.split('-');
-               var temp2 = general[i+1].geocode.split('-');
-               if (temp[0]==temp2[0]){
-                   if(general[i].id > general[i+1].id){
-                       generalTemp.push(general[i]);
-                   }else{
-                        generalTemp.push(general[i+1]);
-                   }
-                   i++;
-               }else{
-                generalTemp.push(general[i]);
-               }
+            var generalTemp = []
+            for (var i = 1; i < general.length - 1; i++) {
+                var temp = general[i].geocode.split('-');
+                var temp2 = general[i + 1].geocode.split('-');
+                if (temp[0] == temp2[0]) {
+                    if (general[i].id > general[i + 1].id) {
+                        generalTemp.push(general[i]);
+                    } else {
+                        generalTemp.push(general[i + 1]);
+                    }
+                    i++;
+                } else {
+                    generalTemp.push(general[i]);
+                }
             }
 
-            var temp = general[general.length-1].geocode.split('-');
-               var temp2 = general[general.length-2].geocode.split('-');
-               if (temp[0]==temp2[0]){
-                   if(general[general.length-2].id > general[general.length-1].id){
-                       generalTemp.push(general[general.length-2]);
-                   }else{
-                        generalTemp.push(general[general.length-1]);
-                   }
-                   
-               }else{
-                generalTemp.push(general[general.length-1]);
-               }
+            var temp = general[general.length - 1].geocode.split('-');
+            var temp2 = general[general.length - 2].geocode.split('-');
+            if (temp[0] == temp2[0]) {
+                if (general[general.length - 2].id > general[general.length - 1].id) {
+                    generalTemp.push(general[general.length - 2]);
+                } else {
+                    generalTemp.push(general[general.length - 1]);
+                }
+
+            } else {
+                generalTemp.push(general[general.length - 1]);
+            }
             res.json(generalTemp);
             console.log(generalTemp);
         })
 
         .catch(e => console.log(e))
+});
+
+app.post('/informe', (req, res) => {
+    var nombre = req.body.con;
+    var fecharuta = req.body.fecharuta;
+    console.log(nombre);
+    let result;
+    let rut;
+   
+    let intensidadriesgo;
+    let Lat;
+    let Lng;
+    let Lat1;
+    let Lng1;
+    let descriptor;
+    let sql = `SELECT * FROM inforuta WHERE id = ${req.body.con}`;
+    client.query(sql)
+        .then(raw => {
+            console.log("estas son, crack. Pilla: ")
+            result = raw.rows[0];
+            console.log(result) 
+        
+            intensidadriesgo = result.riesgo;
+            if (intensidadriesgo <= 30) {
+                intensidadriesgo = 0.3;
+                descriptor = "Low";
+                
+              } else if (intensidadriesgo > 30 && intensidadriesgo <= 70) {
+                intensidadriesgo = 0.5;
+                descriptor = "Moderate";
+                
+              } else if (intensidadriesgo > 70 && intensidadriesgo <= 100) {
+                intensidadriesgo = 1;
+                descriptor = "High";
+                
+              }
+
+              var contenido = `
+
+              <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+              integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+            <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;600&display=swap" rel="stylesheet">
+            <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
+              integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg=="
+              crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+              <style>
+                          #informacionID{
+                              width: 40%;
+                          }
+                          .logo img {
+                              width: 60px;
+                              margin-right: 0.6rem;
+                              margin-top: -0.6rem;
+                              }
+                           
+               </style>
+          </head>
+          <div class="logo">
+          <img src="https://i.postimg.cc/wTC1XTN5/logo-sin-fondo.png" alt="Logo" /> <h3>RISK TOOL</h3>
+          </div>
+          <h1 class="align-self-center mb-0">Route Section Report</h1>
+          <p>Estoy generando PDF a partir de este código HTML sencillo</p>
+          <div class="col-lg-4 my-4">
+                          <div id="informacionID" class="card rounded-0" >
+                            <div class="card-header bg-light">
+                              <h5 class="font-weight-bold mb-0"> Route section information</h5>
+                            </div>
+                            <div class="card-body pt-2">
+                              <div class="d-flex border-bottom py-2">
+                                <div class="d-flex mr-3">
+                                  <h2 class="align-self-center mb-0"><i class="icon ion-md-pricetag"></i></h2>
+                                </div>
+                                <div class="align-self-center">
+                                  <h6 class="d-inline-block mb-0 font-weight-bold">Section ID</h6>
+                                  <h6 class="mb-0" id="id">${nombre}</h6>
+                                </div>
+                              </div>
+          
+                              <div class="d-flex border-bottom py-2">
+                                <div class="d-flex mr-3">
+                                  <h2 class="align-self-center mb-0"><i class="icon ion-md-calendar"></i></h2>
+                                </div>
+                                <div class="align-self-center">
+                                  <h6 class="d-inline-block mb-0 font-weight-bold">Date of analysis</h6>
+                                  <h6 class="mb-0" id="fecharuta">${fecharuta}</h6>
+                                </div>
+                              </div>
+                              <div class="d-flex border-bottom py-2">
+                                <div class="d-flex mr-3 mb-0">
+                                  <h2 class="align-self-center mb-0"><i class="icon ion-md-map" width="25px"></i></h2>
+                                </div>
+                                <div class="align-self-center">
+                                  <h6 class="d-inline-block mb-0 font-weight-bold">Initial Coordinates</h6>
+                                  <h6 class="mb-0" id="Initcoord">${result.latitud + ", " + result.longitud}</h6>
+                                </div>
+                              </div>
+                              <div class="d-flex border-bottom py-2">
+                                <div class="d-flex mr-3 mb-0">
+                                  <h2 class="align-self-center mb-0"><i class="icon ion-md-map" width="25px"></i></h2>
+                                </div>
+                                <div class="align-self-center">
+                                  <h6 class="d-inline-block mb-0 font-weight-bold">Final Coordinates</h6>
+                                  <h6 class="mb-0" id="Finalcoord">${result.latitud1 + ", " + result.longitud1}</h6>
+                                </div>
+                              </div>
+                              <div class="d-flex border-bottom py-2">
+                                <div class="d-flex mr-3">
+                                  <h2 class="align-self-center mb-0"><i class="icon ion-md-document"></i></h2>
+                                </div>
+                                <div class="align-self-center">
+                                  <h6 class="d-inline-block mb-0 font-weight-bold">Risk level</h6>
+                                  <h6 class="mb-0" id="riesgo">${descriptor + " (" + result.riesgo + '%)'}</h6>
+                                </div>
+                              </div>
+                              <div class="d-flex border-bottom py-2">
+                                <div class="d-flex mr-3">
+                                  <h2 class="align-self-center mb-0"><i class="icon ion-md-book"></i></h2>
+                                </div>
+                                <div class="align-self-center">
+                                  <h6 class="d-inline-block mb-0 font-weight-bold">Additional Notes</h6>
+                                  <h6 class="mb-0" id="notasb">${result.notas}</h6>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          
+                        </div>
+          `;
+          
+          
+              pdf.create(contenido).toFile('./salida.pdf', function (err, res) {
+                  if (err) {
+                      console.log(err);
+                  } else {
+                      console.log(res);
+                      pdffile= res;
+                  }
+              });
+          
+              res.sendFile(path.join(__dirname + '/salida.pdf'));
+        })
+        .catch(e => console.log(e))
+       console.log(fecharuta)
+    
 });
