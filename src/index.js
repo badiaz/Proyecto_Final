@@ -109,7 +109,9 @@ app.get('/userestilo', (request, response) => {
 app.get('/mainestilo', (request, response) => {
     response.sendFile(path.join(__dirname + '/public/css/main.css'));
 });
-
+app.get('/reportestilo', (request, response) => {
+    response.sendFile(path.join(__dirname + '/public/css/report.css'));
+});
 //Admin
 app.get('/admin', function (request, response) {
     console.log(request.session)
@@ -132,7 +134,7 @@ app.get('/registro_caso', function (request, response) {
 });
 
 //Ayudante (Obtener caso)
-app.get('/obtener_caso', function (request, response) {
+app.get('/report', function (request, response) {
 
     if (request.session.loggedin1) {
         return response.render(path.join(__dirname + '/obtener_caso.ejs'));
@@ -543,7 +545,7 @@ app.post('/informe', (req, res) => {
     console.log(nombre);
     let result;
     let rut;
-   
+
     let intensidadriesgo;
     let Lat;
     let Lng;
@@ -555,24 +557,24 @@ app.post('/informe', (req, res) => {
         .then(raw => {
             console.log("estas son, crack. Pilla: ")
             result = raw.rows[0];
-            console.log(result) 
-        
+            console.log(result)
+
             intensidadriesgo = result.riesgo;
             if (intensidadriesgo <= 30) {
                 intensidadriesgo = 0.3;
                 descriptor = "Low";
-                
-              } else if (intensidadriesgo > 30 && intensidadriesgo <= 70) {
+
+            } else if (intensidadriesgo > 30 && intensidadriesgo <= 70) {
                 intensidadriesgo = 0.5;
                 descriptor = "Moderate";
-                
-              } else if (intensidadriesgo > 70 && intensidadriesgo <= 100) {
+
+            } else if (intensidadriesgo > 70 && intensidadriesgo <= 100) {
                 intensidadriesgo = 1;
                 descriptor = "High";
-                
-              }
 
-              var contenido = `
+            }
+
+            var contenido = `
 
               <head>
             <meta charset="UTF-8">
@@ -581,9 +583,7 @@ app.post('/informe', (req, res) => {
               integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
             <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;600&display=swap" rel="stylesheet">
             <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
-              integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg=="
-              crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
               <style>
                           #informacionID{
                               width: 40%;
@@ -593,6 +593,7 @@ app.post('/informe', (req, res) => {
                               margin-right: 0.6rem;
                               margin-top: -0.6rem;
                               }
+                         
                            
                </style>
           </head>
@@ -664,23 +665,39 @@ app.post('/informe', (req, res) => {
                               </div>
                             </div>
                           </div>
+                          <div id="mapaglobal" class="card-body">
+                          <div id="map"></div>
+                          </div>
+
                           
                         </div>
+                        <script async
+                         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCEen29bixPCHvTa7DWIErzdWhPg8Zp60Y&callback=initMap">
+                        </script>
+                        <script>
+                        function initMap() {
+                            map = new google.maps.Map(document.getElementById('map'), {
+                              zoom: 13, center: { lat: 10.9861045, lng: -74.80928094 },
+                              streetViewControl: false
+                            });
+                      
+                          }
+                        </script>
           `;
-          
-          
-              pdf.create(contenido).toFile('./salida.pdf', function (err, res) {
-                  if (err) {
-                      console.log(err);
-                  } else {
-                      console.log(res);
-                      pdffile= res;
-                  }
-              });
-          
-              res.sendFile(path.join(__dirname + '/salida.pdf'));
+
+
+            pdf.create(contenido).toFile('./salida.pdf', function (err, res) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    console.log(res);
+                    pdffile = res;
+                }
+            });
+
+            res.sendFile(path.join(__dirname + '/salida.pdf'));
         })
         .catch(e => console.log(e))
-       console.log(fecharuta)
-    
+    console.log(fecharuta)
+
 });

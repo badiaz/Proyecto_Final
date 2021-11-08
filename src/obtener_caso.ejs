@@ -6,17 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
         integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-    <link rel="stylesheet" href="userestilo">
+    <link rel="stylesheet" href="reportestilo">
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;600&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="jquery/jquery.datetimepicker.min.css">
-    <title>Ayudante</title>
+
+    <title>Report</title>
 </head>
 
 <body>
     <div class="d-flex" id="content-wrapper">
         <!-- Sidebar -->
-        <div id="sidebar-container" class="bg-primary">
+        <!--  <div id="sidebar-container" class="bg-primary">
             <div class="logo">
                 <h4 class="text-light font-weight-bold mb-0"><img src="https://i.postimg.cc/k4cVktLT/RISK-TOOL.png" alt="">
                 </h4>
@@ -29,12 +29,12 @@
                         class="icon ion-md-search lead mr-2"></i>
                     Obtener caso</a>
             </div>
-        </div>
+        </div> -->
         <!-- Fin sidebar -->
 
         <div class="w-100">
             <!-- Navbar -->
-            <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+            <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
                 <div class="container">
                     <button class="navbar-toggler" type="button" data-toggle="collapse"
                         data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -58,7 +58,7 @@
                         </ul>
                     </div>
                 </div>
-            </nav>
+            </nav> -->
             <!-- Fin Navbar -->
 
             <!-- Page Content -->
@@ -67,8 +67,8 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-lg-9 col-md-8">
-                                <h1 class="font-weight-bold mb-0">Bienvenido Ayudante</h1>
-                                <p class="lead text-muted">Revisa la última información sobre los pacientes</p>
+                                <h1 class="font-weight-bold mb-0">Report</h1>
+                                <p class="lead text-muted"></p>
                             </div>
                             <div class="col-lg-3 col-md-4 d-flex">
                                 <!-- <button class="btn btn-primary w-100 align-self-center">Descargar reporte de hoy</button> -->
@@ -83,186 +83,94 @@
                             <div class="col-lg-4 my-4">
                                 <div class="card rounded-0">
                                     <div class="card-header bg-light">
-                                        <h5 class="font-weight-bold mb-0">Información del paciente</h5>
+                                        <h5 class="font-weight-bold mb-0">Route Information</h5>
                                     </div>
-                                    <div class="card-body pt-2">
-                                        <div class="d-flex border-bottom py-2">
-                                            <div class="d-flex mr-3">
-                                                <h2 class="align-self-center mb-0"><i class="icon ion-md-pricetag"></i>
-                                                </h2>
-                                            </div>
-                                            <div class="align-self-center">
-                                                <h6 class="d-inline-block mb-0 font-weight-bold">ID del caso</h6>
-                                                <h6 class="mb-0" id="idcaso" name="idcaso"></h6>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex border-bottom py-2">
-                                            <div class="d-flex mr-3">
-                                                <h2 class="align-self-center mb-0"><i class="icon ion-md-person"></i>
-                                                </h2>
-                                            </div>
-                                            <div class="align-self-center">
-                                                <h6 class="d-inline-block mb-0 font-weight-bold">Nombre completo</h6>
-                                                <h6 class="mb-0" id="nombre_completo" name="nombre_completo"></h6>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex border-bottom py-2">
-                                            <div class="d-flex mr-3">
-                                                <h2 class="align-self-center mb-0"><i class="icon ion-md-card"></i></h2>
-                                            </div>
-                                            <div class="align-self-center">
-                                                <h6 class="d-inline-block mb-0 font-weight-bold">Cedúla</h6>
-                                                <h6 class="mb-0" id="cedula" name="cedula"></h6>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex border-bottom py-2">
-                                            <div class="d-flex mr-3">
-                                                <h2 class="align-self-center mb-0"><i class="icon ion-md-person"></i>
-                                                </h2>
-                                            </div>
-                                            <div class="align-self-center">
-                                                <h6 class="d-inline-block mb-0 font-weight-bold">Sexo</h6>
-                                                <h6 class="mb-0" id="sexo" name="sexo"></h6>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex border-bottom py-2">
-                                            <div class="d-flex mr-3">
-                                                <h2 class="align-self-center mb-0"><i class="icon ion-md-calendar"></i>
-                                                </h2>
-                                            </div>
-                                            <div class="align-self-center">
-                                                <h6 class="d-inline-block mb-0 font-weight-bold">Fecha de nacimiento
-                                                </h6>
-                                                <h6 class="mb-0" id="fechanac" name="fechanac"></h6>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex border-bottom py-2">
-                                            <div class="d-flex mr-3">
-                                                <h2 class="align-self-center mb-0"><i class="icon ion-md-map"></i></h2>
-                                            </div>
-                                            <div class="align-self-center">
-                                                <h6 class="d-inline-block mb-0 font-weight-bold">Dirección del domicilio
-                                                </h6>
-                                                <h6 class="mb-0" id="casa" name="casa"></h6>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex border-bottom py-2">
-                                            <div class="d-flex mr-3">
-                                                <h2 class="align-self-center mb-0"><i class="icon ion-md-map"></i></h2>
-                                            </div>
-                                            <div class="align-self-center">
-                                                <h6 class="d-inline-block mb-0 font-weight-bold">Dirección de trabajo
-                                                </h6>
-                                                <h6 class="mb-0" id="trabajo" name="trabajo"></h6>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex border-bottom py-2">
-                                            <div class="d-flex mr-3">
-                                                <h2 class="align-self-center mb-0"><i class="icon ion-md-document"></i>
-                                                </h2>
-                                            </div>
-                                            <div class="align-self-center">
-                                                <h6 class="d-inline-block mb-0 font-weight-bold">Resultado de examen
-                                                </h6>
-                                                <h6 class="mb-0" id="examen" name="examen"></h6>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex border-bottom py-2">
-                                            <div class="d-flex mr-3">
-                                                <h2 class="align-self-center mb-0"><i class="icon ion-md-calendar"></i>
-                                                </h2>
-                                            </div>
-                                            <div class="align-self-center">
-                                                <h6 class="d-inline-block mb-0 font-weight-bold">Fecha de prueba</h6>
-                                                <h6 class="mb-0" id="fechaex" name="fechaex"></h6>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex border-bottom py-2">
-                                            <div class="d-flex mr-3">
-                                                <h2 class="align-self-center mb-0"><i class="icon ion-md-document"></i>
-                                                </h2>
-                                            </div>
-                                            <div class="align-self-center">
-                                                <h6 class="d-inline-block mb-0 font-weight-bold">Último estado
-                                                    registrado</h6>
-                                                <h6 class="mb-0" id="estado" name="estado"></h6>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex border-bottom py-2">
-                                            <div class="d-flex mr-3">
-                                                <h2 class="align-self-center mb-0"><i class="icon ion-md-calendar"></i>
-                                                </h2>
-                                            </div>
-                                            <div class="align-self-center">
-                                                <h6 class="d-inline-block mb-0 font-weight-bold">Fecha del último estado
-                                                    registrado</h6>
-                                                <h6 class="mb-0" id="fecha_estado" name="fecha_estado"></h6>
-                                            </div>
-                                        </div>
+                                    <div class="card-body">
+                                        <table class="table">
+                                            <!-- <thead class="thead-dark">
+                                                <tr>
+                                                    <th scope="col"></th>
+                                                    <th scope="col"></th>
+                                                </tr>
+                                            </thead> -->
+                                            <tbody id="table">
+                                                <!-- Filas generadas dinamicamente xd -->
+                                                <tr>
+                                                    <th scope="row">Product to be transported</th>
+                                                    <td>
+                                                        <h6 class="mb-0" id="producto">-</h6>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row"> Risk product </th>
+                                                    <td>
+                                                        <h6 class="mb-0" id="riesgoproducto">-</h6>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row"> UN Number </th>
+                                                    <td>
+                                                        <h6 class="mb-0" id="UN">-</h6>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row"> Presentation </th>
+                                                    <td>
+                                                        <h6 class="mb-0" id="presentation">-</h6>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row"> Packing </th>
+                                                    <td>
+                                                        <h6 class="mb-0" id="packing">-</h6>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row"> Labels </th>
+                                                    <td>
+                                                        <h6 class="mb-0" id="labels">-</h6>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row"> Total Risk </th>
+                                                    <td>
+                                                        <h6 class="mb-0" id="risk">-</h6>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        
                                     </div>
                                 </div>
                             </div>
+                            <div class="saltopagina"></div>
                             <div class="col-lg-8 my-4">
                                 <div class="card rounded-0">
-                                    <div class="card-header bg-light">
-                                        <h5 class="font-weight-bold mb-4">Obtener el caso</h5>
-                                        <h6 class="mb-3">Ingrese el nombre, la cédula del paciente o el ID del caso</h6>
-                                        <form id="obtenerCaso">
-                                            <div class="input-group mb-4">
-                                                <input type="text" class="form-control w-10" id="inputCaso"
-                                                    name="inputCaso" placeholder="Nombre, apellido, cédula o ID de caso">
-                                                <div class="input-group-append">
-                                                    <button class="btn btn-primary" type="button"
-                                                        onclick="obtenerCaso()">Buscar</button>
-                                                </div>
-                                            </div>
-                                        </form>
+                                    <div id ="selectpro" class="card-header bg-light">
+                                        <h5 class="font-weight-bold mb-4">Product</h5>
+                                        <h6 class="mb-3">Select the product to be transported</h6>
+                                        <select oninput="actualizar(this)" class="custom-select mb-4" id="lista_product"
+                                            name="lista_estados">
+                                            <option value="1">-</option>
+                                            <option value="2">Carbon disulfide</option>
+                                            <!-- <option value="3">Tratamiento en hospital</option>
+                                            <option value="4">En UCI</option>
+                                            <option value="1">Curado</option>
+                                            <option value="5">Fallecido</option> -->
+                                        </select>
+                                        <input onclick="save()" class="btn btn-primary" type="button" id="pdf" value="Save Report">
                                     </div>
                                     <div class="card-body">
-                                        <h5 class="font-weight-bold mb-4">Actualizar el estado del paciente</h5>
-                                        <h6 class="mb-3">Ingrese en el siguiente menú desplegable el nuevo estado del
-                                            paciente</h6>
-                                        <form id="formUpdate">
-                                            <select class="custom-select mb-4" id="lista_estados" name="lista_estados">
-                                                <option value="2">Tratamiento en casa</option>
-                                                <option value="3">Tratamiento en hospital</option>
-                                                <option value="4">En UCI</option>
-                                                <option value="1">Curado</option>
-                                                <option value="5">Fallecido</option>
-                                            </select>
-                                            <h6 class="mb-3 mt-4">Ingrese la fecha de la actualización del estado</h6>
-                                            <input type="date" class="form-control w-10" id="fechact"
-                                                name="fechact" onkeydown="return false" />
-                                            <button type="button" class="btn btn-primary mt-4 mb-4 w-50"
-                                                onclick="actualizarCaso()">Actualizar estado</button>
-                                        </form>
+                                        <h5 class="font-weight-bold mb-4">Route Generator</h5>
+                                        <h6 class="mb-3"></h6>
+                                        <div id="map"></div>
+                                        
                                     </div>
                                 </div>
                             </div>
 
                             <div class="col-lg-12">
-                                <div class="card rounded-0">
-                                    <div class="card-header bg-light">
-                                        <h5 class="font-weight-bold mb-0">Tabla de registro de estados</h5>
-                                    </div>
-                                    <div class="card-body">
-                                        <table class="table">
-                                            <thead class="thead-dark">
-                                                <tr>
-                                                    <th scope="col">Fecha de actualización</th>
-                                                    <th scope="col">Estado</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody id="table">
-                                                <!-- Filas generadas dinamicamente xd -->
-                                                <tr>
-                                                    <th scope="row">-</th>
-                                                    <td>-</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -270,180 +178,187 @@
             </div>
         </div>
     </div>
+    
+
+
+</body>
+<script async
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCEen29bixPCHvTa7DWIErzdWhPg8Zp60Y&libraries=visualization&callback=initMap"></script>
     <script>
-        async function obtenerCaso(){
-        const caso = document.getElementById("inputCaso").value;
-        const consulta = {con:caso};
-        const options = {
-            method: "POST",
-            body: JSON.stringify(consulta),
-            headers: {
-                "Content-Type": "application/json"
-            }
-        };
-    
-        const response = await fetch('/gest_caso', options);
-        result = await response.json();
-        console.log(result.id)
-        if (result.id > 0 ){
-            //Simplify addresses
-            var nac = result.fechanac.split("T")
-            var examen = result.fechaex.split("T")
-            var est = result.fechaex.split("T")
-            var fechanac = nac[0];
-            var fechaex = examen[0];
-            fecha_estado = est[0];
-            var estado;
-            console.log(result.resultado)
-            if (result.resultado == 0){result.resultado= 'Negativo';estado ='Sano';}
-            else if (result.resultado == 1){result.resultado= 'Negativo';estado ='Curado';}
-            else if(result.resultado == 2 ) {result.resultado= 'Positivo'; estado ='Tratamiento en casa';}
-            else if(result.resultado == 3) {result.resultado= 'Positivo'; estado ='Tratamiento en hospital';}
-            else if(result.resultado == 4 ){result.resultado= 'Positivo';estado ='UCI';}
-            else if(result.resultado == 5 ){result.resultado= '-';estado ='Fallecido';}
-            
-            console.log(result.resultado)
-            document.getElementById("idcaso").innerHTML = result.id;
-            document.getElementById("nombre_completo").innerHTML = result.nombre +" "+ result.apellido;
-            document.getElementById("cedula").innerHTML = result.cedula;
-            if (result.sexo == 1){document.getElementById("sexo").innerHTML = 'Masculino';}
-            else{document.getElementById("sexo").innerHTML = 'Femenino';}
-            document.getElementById("fechanac").innerHTML = fechanac;
-            document.getElementById("casa").innerHTML = result.direc;
-            document.getElementById("trabajo").innerHTML = result.dirt;
-            console.log(result)
-            document.getElementById("examen").innerHTML = result.resultado;
-            document.getElementById("fechaex").innerHTML = fechaex;
-            document.getElementById("estado").innerHTML = estado;
-            document.getElementById("fecha_estado").innerHTML = fecha_estado;
-    
-            
-    
-            var id = result.id;
-        const consulta2 = {con:id};
-        const options2 = {
-            method: "POST",
-            body: JSON.stringify(consulta2),
-            headers: {
-                "Content-Type": "application/json"
-            }
-        };  
-
-        const response2 = await fetch('/tabla', options2);
-        result1 = await response2.json();
-        console.log(result1.length)
-        for (i=0; i<result1.length; i++){
-        if (result1[i].estado == 0){result1[i].estado='Sano';}
-        else if (result1[i].estado == 1){result1[i].estado='Curado';}
-        else if(result1[i].estado == 2 ) {result1[i].estado='Tratamiento en casa';}
-        else if(result1[i].estado == 3 ) { result1[i].estado='Tratamiento en hospital';}
-        else if(result1[i].estado == 4 ){result1[i].estado='UCI';}
-        else if(result1[i].estado == 5 ){result1[i].estado='Fallecido';}
-            
-        console.log(result1[i].estado)}
-        document.getElementById("estado").innerHTML = result1[0].estado;
-        var table = document.getElementById('table');
-        table.innerHTML = "";
-
-        result1.forEach(function(object) {
-            var tr = document.createElement('tr');
-            var fecha1 = object.fecha.split("T")
-            var fecha2 = fecha1[0];
-            tr.innerHTML = '<th>' + fecha2 + '</th>' + '<td>' + object.estado + '</td>';
-            table.appendChild(tr);
-        });
-    
-           
-        } else {
-            swal({
-              title: "ERROR!",
-              text: "No hay registros del caso ingresado",
-              icon: "warning",
+        function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 13, center: { lat: 10.9861045, lng: -74.80928094 },
+                streetViewControl: false
             });
-          }
-    }
-    
-    async function actualizarCaso(){
-        if (document.getElementById("inputCaso").value != '' && document.getElementById("fecha_estado").value != '' && document.getElementById("fechact").value != ''){
-            if (document.getElementById("estado").innerHTML != 'Fallecido') {
-                var data = [];
-                var id = document.getElementById("idcaso").innerHTML;
-                var fecha_estado = document.getElementById("fechact").value;
-                var estado_actual = document.getElementById("lista_estados").value;
-                data.push(id)
-                data.push(fecha_estado)
-                data.push(estado_actual)
-    
-                const consulta = {con:data};
-                const options = {
-                    method: "POST",
-                    body: JSON.stringify(consulta),
-                    headers: {
-                        "Content-Type": "application/json"
-                    }
-                };  
-    
-                const response = await fetch('/estado', options);
-                result = await response.json();
-                swal({
-                    title: "Caso actualizado",
-                    
-                    icon: "success",
-                });
-                obtenerCaso();
-                document.forms['formUpdate'].reset()
-                
-                
-            } else {
-                swal({
-                    title: "ERROR!",
-                    text: "No se puede cambiar el estado de un paciente fallecido. Verifique la información o contacte con el administrador.",
-                    icon: "warning",
-                });
-            }  
-        } else {
-            swal({
-                title: "ERROR!",
-                text: "Debe ingresar un valor en todos los campos",
-                icon: "warning",
-              });
+            casos();
         }
-    }
-    
-    //Update
-    if (document.getElementById('formUpdate') != undefined) {
-        const formUpdate = document.getElementById('formUpdate')
-        formUpdate.addEventListener('submit', (e) =>{
-            e.preventDefault();
-            let form = e.target
-            if (document.getElementById("inputCaso").value == '' || document.getElementById("fecha_estado").value == '' || document.getElementById("fechact").value == ''){ 
-                swal({
-                    title: "ERROR!",
-                    text: "Todos los campos deben ser ingresados",
-                    icon: "warning",
-                });
-            } else {
-                if (document.getElementById("estado").innerHTML != 'Fallecido') {
-                    swal({
-                        title: "Caso actualizado",
-                        
-                        icon: "success",
-
-                    });
-                    form.submit()
-                    document.forms['formUpdate'].reset()
-                    obtenerCaso();
-                } else {
-                    swal({
-                        title: "ERROR!",
-                        text: "No se puede cambiar el estado de un paciente fallecido. Verifique la información o contacte con el administrador.",
-                        icon: "warning",
-                    });
-                } 
-            }
-        });
-    }
     </script>
+    <script>
+
+        var select = document.getElementById("lista_product");
+        select.addEventListener('onchange', () => {
+            if (document.getElementById("lista_product").value == 2) {
+                console.log("entré")
+            }
+
+
+        })
+        function actualizar(option) {
+
+            if (option.value == 2) {
+                console.log("entré")
+                document.getElementById("producto").innerHTML = "Carbon disulfide"
+                document.getElementById("riesgoproducto").innerHTML = "H225 - Highly flammable liquid and vapor Content." + "<br> H315 - Causes skin irritation." +
+                    "<br> H319 - Causes serious eye irritation." + "<br> H372 - Causes damage to organs through prolonged or repeated exposure." + "<br> H361fd - Suspected of causing eye irritation." +
+                    "<br> H372 - Causes damage to organs through prolonged or repeated exposure." + "<br> H361fd - Suspected of damaging fertility. Suspected of damaging the unborn child. " + "<br> H332 - Harmful if inhaled."
+                document.getElementById("UN").innerHTML = "UN 1131 Carbon disulfide, Class 3 (6.1)"
+                document.getElementById("presentation").innerHTML = "Liquid"
+                document.getElementById("packing").innerHTML = "Isocontainer"
+                document.getElementById("labels").innerHTML = '<img src="/fotos-rutas/carbondisulfide.png"></img>'
+            }
+
+        }
+     /*  document.getElementById("fecharuta").innerHTML = fecharuta
+              document.getElementById("Initcoord").innerHTML = result.latitud + ", " + result.longitud;
+              document.getElementById("Finalcoord").innerHTML = result.latitud1 + ", " + result.longitud1;
+              document.getElementById("riesgo").innerHTML = descriptor + " (" + result.riesgo + '%)';
+              document.getElementById("notasb").innerHTML = result.notas; */
+    </script>
+<script>
+    async function casos() {
+        routePath =[];
+        var mapaconsult;
+        const consulta = { con: mapaconsult };
+        const options1 = {
+          method: "POST",
+          body: JSON.stringify(consulta),
+          headers: {
+            "Content-Type": "application/json"
+          }
+        };
+  
+  
+  
+        const response2 = await fetch('/mapageneral', options1);
+        result2 = await response2.json();
+        console.log(result2);
+  
+  
+  
+        initHeatMap();
+        map.addListener('click', (e) => {
+          addRoutePoint(e.latLng)
+        } )
+      }
+      function addRoutePoint(pos){
+        var marker = new google.maps.Marker({
+          position: pos,
+          map: map
+      });
+        routePath.push(pos)
+        routeMarkers.push(marker)
+        drawRoute();
+      }
+      let routePath =[];
+      let routeMarkers =[];
+      let markers = [];
+      let polylines = [];
+      let routeSegments=[]
+      function initHeatMap() {
+  
+        var color;
+        var icon;
+        var descriptor
+        for (var i = 0; i < result2.length; i++) {
+          if (result2[i].riesgo <= 30) {
+            
+            descriptor = "Low";
+            color = "#008000";
+            icon = "http://maps.google.com/mapfiles/ms/icons/green.png";
+          } else if (result2[i].riesgo > 30 && result2[i].riesgo <= 70) {
+            
+            descriptor = "Moderate";
+            color = "#f6d866";
+            icon = "http://maps.google.com/mapfiles/ms/icons/orange.png";
+          } else if (result2[i].riesgo > 70 && result2[i].riesgo <= 100) {
+            
+            color = "#ff0000";
+            descriptor = "High";
+            icon = "http://maps.google.com/mapfiles/ms/icons/red.png";
+          }
+          var pos = { lat: parseFloat(result2[i].latitud), lng: parseFloat(result2[i].longitud) };
+          var segment = [pos, { lat: parseFloat(result2[i].latitud1), lng: parseFloat(result2[i].longitud1) }];
+          DrawSection(segment, color);
+          
+        }
+  
+        console.log('pai entré a la fun')
+  
+        
+  
+  
+        //heatmap.setData(heatMapData);
+        //heatmap.setMap(map);
+        //heatmaps.push(heatmap)
+      }
+      function DrawSection(segment, color) {
+        var lineSymbol = {
+          path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+        };
+  
+        var riskpath = new google.maps.Polyline({
+          path: segment,
+          geodesic: true,
+          strokeColor: color,
+          strokeOpacity: 1.0,
+          strokeWeight: 2,
+          icons: [
+            {
+              icon: lineSymbol,
+              offset: "100%",
+              repeat: '20px'
+            },
+          ]
+        });
+  
+        riskpath.setMap(map)
+        polylines.push(riskpath)
+      }
+      
+      function drawRoute(){
+        var lineSymbol = {
+          path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+        };
+        if (route != null){
+          route.setMap(null)
+        }
+        route = new google.maps.Polyline({
+          path: routePath,
+          geodesic: true,
+          strokeColor: "#000000",
+          strokeOpacity: 1.0,
+          strokeWeight: 2,
+          icons: [
+            {
+              icon: lineSymbol,
+              offset: "100%",
+              repeat: '20px'
+            },
+          ]
+        });
+        
+        route.setMap(map)
+      };
+      let route;
+  </script>
+  <script>
+      function save(){
+          /* document.getElementById("pdf").style.display = 'none'; */
+          window.print();
+      }
+  </script>
+
+
 
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <!-- Optional JavaScript -->
@@ -459,32 +374,4 @@
         crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"
         integrity="sha256-R4pqcOYV8lt7snxMQO/HSbVCFRPMdrhAFMH+vr9giYI=" crossorigin="anonymous"></script>
-    <script src="scripts/obtener_caso.js"></script>
-    <script src="jquery/jquery.js"></script>
-    <script src="jquery/jquery.datetimepicker.full.js"></script>
-    <script>  
-    //Obtener fecha de hoy
-
-		let today = new Date();
-		let dd = today.getDate();
-		let mm = today.getMonth() + 1; //enero es 0!
-		let yyyy = today.getFullYear();
-		
-		if (dd < 10) {
-			dd = "0" + dd;
-		}
-		if (mm < 10) {
-			mm = "0" + mm;
-		}
-		
-		today = yyyy + "-" + mm + "-" + dd ;
-
-		//Inicialziar el calendario con la fecha de hoy
-		document.getElementById("fechact").value = today;
-        document.getElementById("fechact").max = today;
-		
-		
-    </script>
-</body>
-
 </html>

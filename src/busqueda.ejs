@@ -147,7 +147,7 @@
                   </div>
                 </div>
                 <br>
-                <input onclick=generatePDF() class="btn btn-primary" type="button" id="pdf" value="Generate Report">
+                
               </div>
               <div class="col-lg-8 my-4">
                 <div class="card rounded-0">
@@ -196,7 +196,7 @@
 
   <script async
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCEen29bixPCHvTa7DWIErzdWhPg8Zp60Y&callback=initMap">
-    </script>
+  </script>
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
     integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
     crossorigin="anonymous"></script>
@@ -254,7 +254,7 @@
           var rut = result.fecharuta.split("T")
           fecharuta = rut[0];
 
-          intensidadriesgo = result.riesgo;
+          intensidadriesgo = result.riesgo.toFixed(2);
           Lat = result.latitud;
           Lat = parseFloat(Lat);
           Lng = result.longitud;
@@ -283,7 +283,7 @@
           document.getElementById("fecharuta").innerHTML = fecharuta
           document.getElementById("Initcoord").innerHTML = result.latitud + ", " + result.longitud;
           document.getElementById("Finalcoord").innerHTML = result.latitud1 + ", " + result.longitud1;
-          document.getElementById("riesgo").innerHTML = descriptor + " (" + result.riesgo + '%)';
+          document.getElementById("riesgo").innerHTML = descriptor + " (" + result.riesgo.toFixed(2) + '%)';
           document.getElementById("notasb").innerHTML = result.notas;
           console.log(intensidadriesgo)
           arrayfotos = result.fotos;

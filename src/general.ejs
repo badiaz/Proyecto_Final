@@ -27,6 +27,8 @@
           General map</a>
         <a href="/busqueda" class="d-block text-light p-3 border-0"><i class="icon ion-md-search lead mr-2"></i>
           Search by ID</a>
+        <a href="/report" class="d-block text-light p-3 border-0"><i class="icon ion-md-search lead mr-2"></i>
+           Generate report</a>
       </div>
     </div>
     <!-- Fin sidebar -->
@@ -202,11 +204,36 @@
                   <div class="card-header bg-light">
                     <h5 class="d-inline-block font-weight-bold mb-0">Map of total registered cases</h5>
                     <button class="btn btn-primary float-right" onclick="initMap(), casos()">Update</button>
+                    
                   </div>
                   <div class="card-body">
                     <div id="map"></div>
                   </div>
                 </div>
+                <br>
+                <div class="col-lg-12">
+                  <div class="card rounded-0">
+                    <div class="card-header bg-light">
+                      <h5 class="font-weight-bold mb-0">Selected route segments</h5>
+                    </div>
+                    <div class="card-body">
+                      <table class="table">
+                        <thead class="thead-dark">
+                          <tr>
+                            <th scope="col">Segment ID</th>
+                            <th scope="col">Risk level</th>
+                          </tr>
+                        </thead>
+                        <tbody id="table">
+                          <!-- Filas generadas dinamicamente xd -->
+                          <tr>
+                            <th scope="row">-</th>
+                            <td>-</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
               </div>
             </div>
           </div>
@@ -246,6 +273,8 @@
     let heatmaps = [];
 
     function initMap() {
+      var table = document.getElementById('table');
+          table.innerHTML = "";
 
       map = new google.maps.Map(document.getElementById('map'), {
         zoom: 12, center: { lat: 10.949185, lng: -74.803391 },
@@ -255,6 +284,7 @@
     }
 
     async function casos() {
+      routePath =[];
       var mapaconsult;
       const consulta = { con: mapaconsult };
       const options1 = {
@@ -274,10 +304,24 @@
 
 
       initHeatMap();
-
+      map.addListener('click', (e) => {
+        addRoutePoint(e.latLng)
+      } )
     }
+    function addRoutePoint(pos){
+      var marker = new google.maps.Marker({
+        position: pos,
+        map: map
+    });
+      routePath.push(pos)
+      routeMarkers.push(marker)
+      drawRoute();
+    }
+    let routePath =[];
+    let routeMarkers =[];
     let markers = [];
     let polylines = [];
+    let routeSegments=[]
     function initHeatMap() {
 
       var color;
@@ -303,7 +347,7 @@
         var pos = { lat: parseFloat(result2[i].latitud), lng: parseFloat(result2[i].longitud) };
         var segment = [pos, { lat: parseFloat(result2[i].latitud1), lng: parseFloat(result2[i].longitud1) }];
         DrawSection(segment, color);
-        addMarker(pos, result2[i].id, icon, result2[i], descriptor)
+        addMarker(segment, result2[i].id, icon, result2[i], descriptor)
       }
 
       console.log('pai entré a la fun')
@@ -322,6 +366,9 @@
       //heatmaps.push(heatmap)
     }
     function DrawSection(segment, color) {
+      var lineSymbol = {
+        path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+      };
 
       var riskpath = new google.maps.Polyline({
         path: segment,
@@ -329,14 +376,21 @@
         strokeColor: color,
         strokeOpacity: 1.0,
         strokeWeight: 2,
+        icons: [
+          {
+            icon: lineSymbol,
+            offset: "100%",
+            repeat: '20px'
+          },
+        ]
       });
 
       riskpath.setMap(map)
       polylines.push(riskpath)
     }
-    function addMarker(pos, id, icon, result, descriptor) {
+    function addMarker(segment, id, icon, result, descriptor) {
       var marker = new google.maps.Marker({
-        position: pos,
+        position: segment[0],
         label: {
           text: String(id),
           fontFamily: 'Source Sans Pro',
@@ -357,12 +411,51 @@
         document.getElementById("fecharuta").innerHTML = fecharuta
         document.getElementById("Initcoord").innerHTML = result.latitud + ", " + result.longitud;
         document.getElementById("Finalcoord").innerHTML = result.latitud1 + ", " + result.longitud1;
-        document.getElementById("riesgo").innerHTML = descriptor + " (" + result.riesgo + '%)';
+        document.getElementById("riesgo").innerHTML = descriptor + " (" + result.riesgo.toFixed(2) + '%)';
         document.getElementById("notasb").innerHTML = result.notas;
+      })
+      marker.addListener('click', () => {
+        routePath.push(segment[0])
+        routePath.push(segment[1])
+        drawRoute();
+        insertTable(result.riesgo.toFixed(2), result.id);
+        
       })
       markers.push(marker);
     }
-
+    function insertTable(res1, res2){
+      console.log("executed")
+      var table = document.getElementById('table');
+            var tr = document.createElement('tr');
+            tr.innerHTML = '<th>' + res2 + '</th>' + '<td>' + res1 + '</td>';
+            table.appendChild(tr);  
+    };
+    
+    function drawRoute(){
+      var lineSymbol = {
+        path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+      };
+      if (route != null){
+        route.setMap(null)
+      }
+      route = new google.maps.Polyline({
+        path: routePath,
+        geodesic: true,
+        strokeColor: "#000000",
+        strokeOpacity: 1.0,
+        strokeWeight: 2,
+        icons: [
+          {
+            icon: lineSymbol,
+            offset: "100%",
+            repeat: '20px'
+          },
+        ]
+      });
+      
+      route.setMap(map)
+    };
+    let route;
   </script>
 
 </body>
