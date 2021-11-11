@@ -851,7 +851,8 @@ div.saltopagina{
     }
 
     @media print{
-        body{width:1000px;}
+        body{width:1000px;
+        size:portrait}
 
         #selectpro{
             display:none;
@@ -859,9 +860,12 @@ div.saltopagina{
         #pdf{
             display:none;
         }
+        #sidebar-container{
+          display:none;
+        }
         
         div.saltopagina{
            display:block;
-           page-break-before:always;
+           page-break-before: always;
         }
      }

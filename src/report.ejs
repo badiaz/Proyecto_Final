@@ -14,7 +14,6 @@
 </head>
 
 <body>
-    <div class="d-flex" id="content-wrapper">
         <!-- Sidebar -->
         <!--  <div id="sidebar-container" class="bg-primary">
             <div class="logo">
@@ -32,7 +31,7 @@
         </div> -->
         <!-- Fin sidebar -->
 
-        <div class="w-100">
+        
             <!-- Navbar -->
             <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
                 <div class="container">
@@ -63,7 +62,7 @@
 
             <!-- Page Content -->
             <div id="content" class="bg-grey w-100">
-                <section class="bg-light py-3">
+                <div class="bg-light py-3">
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-lg-9 col-md-8">
@@ -75,9 +74,9 @@
                             </div>
                         </div>
                     </div>
-                </section>
+                </div>
 
-                <section>
+                <div>
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-lg-4 my-4">
@@ -166,6 +165,30 @@
                                         <div id="map"></div>
                                         
                                     </div>
+                                    <br>
+                <div class="col-lg-12">
+                  <div class="card rounded-0">
+                    <div class="card-header bg-light">
+                      <h5 class="font-weight-bold mb-0">Selected route segments</h5>
+                    </div>
+                    <div class="card-body">
+                      <table class="table">
+                        <thead class="thead-dark">
+                          <tr>
+                            <th scope="col">Segment ID</th>
+                            <th scope="col">Risk level</th>
+                          </tr>
+                        </thead>
+                        <tbody id="tableroute">
+                          <!-- Filas generadas dinamicamente xd -->
+                          <tr>
+                            <th scope="row">-</th>
+                            <td>-</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
                                 </div>
                             </div>
 
@@ -174,7 +197,7 @@
                             </div>
                         </div>
                     </div>
-                </section>
+                </div>
             </div>
         </div>
     </div>
@@ -186,12 +209,181 @@
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCEen29bixPCHvTa7DWIErzdWhPg8Zp60Y&libraries=visualization&callback=initMap"></script>
     <script>
         function initMap() {
-            map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 13, center: { lat: 10.9861045, lng: -74.80928094 },
-                streetViewControl: false
-            });
-            casos();
+      var table = document.getElementById('tableroute');
+          table.innerHTML = "";
+
+      map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 12, center: { lat: 10.949185, lng: -74.803391 },
+        streetViewControl: false
+      });
+      geocoder = new google.maps.Geocoder();
+      casos();
+    }
+
+    async function casos() {
+      routePath =[];
+      var mapaconsult;
+      const consulta = { con: mapaconsult };
+      const options1 = {
+        method: "POST",
+        body: JSON.stringify(consulta),
+        headers: {
+          "Content-Type": "application/json"
         }
+      };
+
+
+
+      const response2 = await fetch('/mapageneral', options1);
+      result2 = await response2.json();
+      console.log(result2);
+
+
+
+      initHeatMap();
+      map.addListener('click', (e) => {
+        addRoutePoint(e.latLng)
+      } )
+    }
+    function addRoutePoint(pos){
+      var marker = new google.maps.Marker({
+        position: pos,
+        map: map
+    });
+      routePath.push(pos)
+      routeMarkers.push(marker)
+      drawRoute();
+    }
+    let routePath =[];
+    let routeMarkers =[];
+    let markers = [];
+    let polylines = [];
+    let routeSegments=[]
+    function initHeatMap() {
+
+      var color;
+      var icon;
+      var descriptor
+      for (var i = 0; i < result2.length; i++) {
+        if (result2[i].riesgo <= 30) {
+          
+          descriptor = "Low";
+          color = "#008000";
+          icon = "http://maps.google.com/mapfiles/ms/icons/green.png";
+        } else if (result2[i].riesgo > 30 && result2[i].riesgo <= 70) {
+          
+          descriptor = "Moderate";
+          color = "#f6d866";
+          icon = "http://maps.google.com/mapfiles/ms/icons/orange.png";
+        } else if (result2[i].riesgo > 70 && result2[i].riesgo <= 100) {
+          
+          color = "#ff0000";
+          descriptor = "High";
+          icon = "http://maps.google.com/mapfiles/ms/icons/red.png";
+        }
+        var pos = { lat: parseFloat(result2[i].latitud), lng: parseFloat(result2[i].longitud) };
+        var segment = [pos, { lat: parseFloat(result2[i].latitud1), lng: parseFloat(result2[i].longitud1) }];
+        DrawSection(segment, color);
+        addMarker(segment, result2[i].id, icon, result2[i], descriptor)
+      }
+
+      console.log('pai entré a la fun')
+
+
+
+      //heatmap.setData(heatMapData);
+      //heatmap.setMap(map);
+      //heatmaps.push(heatmap)
+    }
+    function DrawSection(segment, color) {
+      var lineSymbol = {
+        path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+      };
+
+      var riskpath = new google.maps.Polyline({
+        path: segment,
+        geodesic: true,
+        strokeColor: color,
+        strokeOpacity: 1.0,
+        strokeWeight: 2,
+        icons: [
+          {
+            icon: lineSymbol,
+            offset: "100%",
+            repeat: '20px'
+          },
+        ]
+      });
+
+      riskpath.setMap(map)
+      polylines.push(riskpath)
+    }
+    function addMarker(segment, id, icon, result, descriptor) {
+      var marker = new google.maps.Marker({
+        position: segment[0],
+        label: {
+          text: String(id),
+          fontFamily: 'Source Sans Pro',
+          fontSize: '17px',
+          fontWeight: 'bold'
+        },
+        map: map,
+        icon: {
+          url: icon,
+          labelOrigin: { x: 16, y: 10 },
+
+        }
+      });
+      var rut = result.fecharuta.split("T")
+      var fecharuta = rut[0];
+
+      marker.addListener('click', () => {
+        routePath.push(segment[0])
+        routePath.push(segment[1])
+        drawRoute();
+        insertTable(result.riesgo.toFixed(2), result.id);
+        
+      })
+      markers.push(marker);
+    }
+    function insertTable(res1, res2){
+      console.log("executed")
+      var table = document.getElementById('tableroute');
+            var tr = document.createElement('tr');
+            tr.innerHTML = '<th>' + res2 + '</th>' + '<td>' + res1 + '</td>';
+            table.appendChild(tr);  
+    };
+    var snappedCoordinates = [];
+    var placeIdArray = [];
+    var apiKey = 'AIzaSyCEen29bixPCHvTa7DWIErzdWhPg8Zp60Y'
+    function drawRoute(){
+      var lineSymbol = {
+        path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+      };
+      if (route != null){
+        route.setMap(null)
+      }
+      route = new google.maps.Polyline({
+        path: routePath,
+        geodesic: true,
+        strokeColor: "#000000",
+        strokeOpacity: 1.0,
+        strokeWeight: 2,
+        icons: [
+          {
+            icon: lineSymbol,
+            offset: "100%",
+            repeat: '20px'
+          },
+        ]
+      });
+    var path = route.getPath();
+    placeIdArray = [];
+    runSnapToRoad(path);
+      
+      route.setMap(map)
+    };
+    let route;
     </script>
     <script>
 
@@ -225,147 +417,59 @@
               document.getElementById("notasb").innerHTML = result.notas; */
     </script>
 <script>
-    async function casos() {
-        routePath =[];
-        var mapaconsult;
-        const consulta = { con: mapaconsult };
-        const options1 = {
-          method: "POST",
-          body: JSON.stringify(consulta),
-          headers: {
-            "Content-Type": "application/json"
-          }
-        };
-  
-  
-  
-        const response2 = await fetch('/mapageneral', options1);
-        result2 = await response2.json();
-        console.log(result2);
-  
-  
-  
-        initHeatMap();
-        map.addListener('click', (e) => {
-          addRoutePoint(e.latLng)
-        } )
+   
+  </script>
+  <script>// Snap a user-created polyline to roads and draw the snapped path
+    function runSnapToRoad(path) {
+      var pathValues = [];
+      for (var i = 0; i < path.getLength(); i++) {
+        pathValues.push(path.getAt(i).toUrlValue());
       }
-      function addRoutePoint(pos){
-        var marker = new google.maps.Marker({
-          position: pos,
-          map: map
+    
+      $.get('https://roads.googleapis.com/v1/snapToRoads', {
+        interpolate: true,
+        key: apiKey,
+        path: pathValues.join('|')
+      }, function(data) {
+        processSnapToRoadResponse(data);
+        drawSnappedPolyline();
       });
-        routePath.push(pos)
-        routeMarkers.push(marker)
-        drawRoute();
+    }
+    
+    // Store snapped polyline returned by the snap-to-road service.
+    function processSnapToRoadResponse(data) {
+      snappedCoordinates = [];
+      placeIdArray = [];
+      for (var i = 0; i < data.snappedPoints.length; i++) {
+        var latlng = new google.maps.LatLng(
+            data.snappedPoints[i].location.latitude,
+            data.snappedPoints[i].location.longitude);
+        snappedCoordinates.push(latlng);
+        placeIdArray.push(data.snappedPoints[i].placeId);
       }
-      let routePath =[];
-      let routeMarkers =[];
-      let markers = [];
-      let polylines = [];
-      let routeSegments=[]
-      function initHeatMap() {
-  
-        var color;
-        var icon;
-        var descriptor
-        for (var i = 0; i < result2.length; i++) {
-          if (result2[i].riesgo <= 30) {
-            
-            descriptor = "Low";
-            color = "#008000";
-            icon = "http://maps.google.com/mapfiles/ms/icons/green.png";
-          } else if (result2[i].riesgo > 30 && result2[i].riesgo <= 70) {
-            
-            descriptor = "Moderate";
-            color = "#f6d866";
-            icon = "http://maps.google.com/mapfiles/ms/icons/orange.png";
-          } else if (result2[i].riesgo > 70 && result2[i].riesgo <= 100) {
-            
-            color = "#ff0000";
-            descriptor = "High";
-            icon = "http://maps.google.com/mapfiles/ms/icons/red.png";
-          }
-          var pos = { lat: parseFloat(result2[i].latitud), lng: parseFloat(result2[i].longitud) };
-          var segment = [pos, { lat: parseFloat(result2[i].latitud1), lng: parseFloat(result2[i].longitud1) }];
-          DrawSection(segment, color);
-          
-        }
-  
-        console.log('pai entré a la fun')
-  
-        
-  
-  
-        //heatmap.setData(heatMapData);
-        //heatmap.setMap(map);
-        //heatmaps.push(heatmap)
-      }
-      function DrawSection(segment, color) {
-        var lineSymbol = {
-          path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
-        };
-  
-        var riskpath = new google.maps.Polyline({
-          path: segment,
-          geodesic: true,
-          strokeColor: color,
-          strokeOpacity: 1.0,
-          strokeWeight: 2,
-          icons: [
-            {
-              icon: lineSymbol,
-              offset: "100%",
-              repeat: '20px'
-            },
-          ]
-        });
-  
-        riskpath.setMap(map)
-        polylines.push(riskpath)
-      }
-      
-      function drawRoute(){
-        var lineSymbol = {
-          path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
-        };
-        if (route != null){
-          route.setMap(null)
-        }
-        route = new google.maps.Polyline({
-          path: routePath,
-          geodesic: true,
-          strokeColor: "#000000",
-          strokeOpacity: 1.0,
-          strokeWeight: 2,
-          icons: [
-            {
-              icon: lineSymbol,
-              offset: "100%",
-              repeat: '20px'
-            },
-          ]
-        });
-        
-        route.setMap(map)
-      };
-      let route;
-  </script>
-  <script>
-      function save(){
-          /* document.getElementById("pdf").style.display = 'none'; */
-          window.print();
-      }
-  </script>
+    }
+    
+    // Draws the snapped polyline (after processing snap-to-road response).
+    function drawSnappedPolyline() {
+      var snappedPolyline = new google.maps.Polyline({
+        path: snappedCoordinates,
+        strokeColor: '#add8e6',
+        strokeWeight: 4,
+        strokeOpacity: 0.9,
+      });
+    
+      snappedPolyline.setMap(map);
+      polylines.push(snappedPolyline);
+    }
+    </script> 
 
 
 
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
         integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
         crossorigin="anonymous"></script>
