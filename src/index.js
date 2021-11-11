@@ -137,7 +137,7 @@ app.get('/registro_caso', function (request, response) {
 app.get('/report', function (request, response) {
 
     if (request.session.loggedin1) {
-        return response.render(path.join(__dirname + '/obtener_caso.ejs'));
+        return response.render(path.join(__dirname + '/report.ejs'));
     } else {
         return response.render(path.join(__dirname + '/login.ejs'));
     }
