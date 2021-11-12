@@ -10,12 +10,21 @@ body {
     font-family: 'Source Sans Pro', sans-serif;
     font-weight: 300;
     color: var(--primary);
+    background-color: var(--grey)
+    
+}
+.fotowidth{
+  width: 100%;
 }
 
 a:hover {
     text-decoration: none;
 }
 
+/* div.saltopagina {
+  display: none;  
+}
+ */
 .bg-primary { background-color: var(--primary) !important;  }
 .bg-fondo{
     background-image: url(https://i.postimg.cc/VN9BVNfv/img-login.png);
@@ -60,7 +69,11 @@ a:hover {
     height: 100vh;
     padding-bottom: 5rem;
 }
-
+#info{
+  margin-top:20px;
+  margin-left: 20px;
+  max-width: 40%;
+}
 .avatar {
     max-width: 35px;
 }

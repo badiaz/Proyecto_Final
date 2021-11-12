@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
   <link rel="stylesheet" href="userestilo">
-  <link rel="stylesheet" href="reportestilo" media="print">
+  <link rel="stylesheet" href="report.css" media="print">
   <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;600&display=swap" rel="stylesheet">
   <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
 
@@ -15,9 +15,9 @@
 </head>
 
 <body>
-
-  <!-- Sidebar -->
-  <!--  <div id="sidebar-container" class="bg-primary">
+  <div class="d-flex" id="content-wrapper">
+    <!-- Sidebar -->
+    <!--  <div id="sidebar-container" class="bg-primary">
             <div class="logo">
                 <h4 class="text-light font-weight-bold mb-0"><img src="https://i.postimg.cc/k4cVktLT/RISK-TOOL.png" alt="">
                 </h4>
@@ -31,11 +31,11 @@
                     Obtener caso</a>
             </div>
         </div> -->
-  <!-- Fin sidebar -->
+    <!-- Fin sidebar -->
 
-  <div class="w-100">
-    <!-- Navbar -->
-    <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+    <div class="w-100">
+      <!-- Navbar -->
+      <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
                 <div class="container">
                     <button class="navbar-toggler" type="button" data-toggle="collapse"
                         data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -60,28 +60,28 @@
                     </div>
                 </div>
             </nav> -->
-    <!-- Fin Navbar -->
-    <section class="bg-light py-3">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-lg-9 col-md-8">
-            <h1 class="font-weight-bold mb-0">Report</h1>
-            <p class="lead text-muted"></p>
+      <!-- Fin Navbar -->
+
+      <!-- Page Content -->
+      <div id="content" class="bg-grey w-100">
+        <section class="bg-light py-3">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-lg-9 col-md-8">
+                <h1 class="font-weight-bold mb-0">Report</h1>
+                <p class="lead text-muted"></p>
+              </div>
+              <div class="col-lg-3 col-md-4 d-flex">
+                <!-- <button class="btn btn-primary w-100 align-self-center">Descargar reporte de hoy</button> -->
+              </div>
+            </div>
           </div>
-          <div class="col-lg-3 col-md-4 d-flex">
-            <!-- <button class="btn btn-primary w-100 align-self-center">Descargar reporte de hoy</button> -->
-          </div>
-        </div>
+        </section>
       </div>
-    </section>
-    <!-- Page Content -->
-    <div id="content" class="bg-grey w-100">
-
-
       <section>
         <div class="container-fluid">
           <div class="row">
-            <div class="col-lg-8 my-4">
+            <div class="col-lg-4 my-4">
               <div class="card rounded-0">
                 <div class="card-header bg-light">
                   <h5 class="font-weight-bold mb-0">Route Information</h5>
@@ -144,8 +144,8 @@
                 </div>
               </div>
             </div>
-
-            <div class="col-lg-8 my-2">
+            <div class="saltopagina"></div>
+            <div class="col-lg-8 my-4">
               <div class="card rounded-0">
                 <div id="selectpro" class="card-header bg-light">
                   <h5 class="font-weight-bold mb-4">Product</h5>
@@ -158,7 +158,7 @@
                                             <option value="1">Curado</option>
                                             <option value="5">Fallecido</option> -->
                   </select>
-                  <input onclick="save()" class="btn btn-primary" type="button" id="pdf" value="Save Report">
+                  <input onclick="generatePDF()" class="btn btn-primary" type="button" id="pdf" value="Save Report">
                 </div>
                 <div class="card-body">
                   <h5 class="font-weight-bold mb-4">Route Generator</h5>
@@ -166,75 +166,42 @@
                   <div id="map"></div>
 
                 </div>
-
-              </div>
-            </div>
-          </div>
-      </section>
-      <div class="saltopagina"></div>
-      <div class="saltopagina"></div>
-      <section>
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-lg-8">
-              <div class="card rounded-0">
-                <div class="card-header bg-light">
-                  <h5 class="font-weight-bold mb-0">Selected route segments</h5>
-                </div>
-                <div class="card-body">
-                  <table class="table">
-                    <thead class="thead-dark">
-                      <tr>
-                        <th scope="col">Segment ID</th>
-                        <th scope="col">Risk level</th>
-                        <th scope="col">Notes</th>
-                      </tr>
-                    </thead>
-                    <tbody id="tableroute">
-                      <!-- Filas generadas dinamicamente xd -->
-                      <tr>
-                        <th scope="row">-</th>
-                        <td>-</td>
-                      </tr>
-                    </tbody>
-                  </table>
+                <br>
+                <div class="col-lg-12">
+                  <div class="card rounded-0">
+                    <div class="card-header bg-light">
+                      <h5 class="font-weight-bold mb-0">Selected route segments</h5>
+                    </div>
+                    <div class="card-body">
+                      <table class="table">
+                        <thead class="thead-dark">
+                          <tr>
+                            <th scope="col">Segment ID</th>
+                            <th scope="col">Risk level</th>
+                          </tr>
+                        </thead>
+                        <tbody id="tableroute">
+                          <!-- Filas generadas dinamicamente xd -->
+                          <tr>
+                            <th scope="row">-</th>
+                            <td>-</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      <section>
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-lg-8 my-4">
-              <div class="card rounded-0">
-                <div class="card-header bg-light">
-                  <h5 class="font-weight-bold mb-0">Images</h5>
-                </div>
-                <div class="card-body">
-                  <table class="table">
-                    <!-- <thead class="thead-dark">
-                                              <tr>
-                                                  <th scope="col"></th>
-                                                  <th scope="col"></th>
-                                              </tr>
-                                          </thead> -->
-                    <tbody id="tablafotos">
-                      <!-- Filas generadas dinamicamente xd -->
 
+              <div class="col-lg-12">
 
-                    </tbody>
-                  </table>
-
-                </div>
               </div>
             </div>
           </div>
       </section>
     </div>
   </div>
-
+  </div>
 
 
 
@@ -278,14 +245,12 @@
     map.addListener('click', (e) => {
       addRoutePoint(e.latLng)
     })
-
   }
   function addRoutePoint(pos) {
     var marker = new google.maps.Marker({
       position: pos,
       map: map
     });
-    marker.setMap(null)
     routePath.push(pos)
     routeMarkers.push(marker)
     drawRoute();
@@ -319,7 +284,7 @@
       }
       var pos = { lat: parseFloat(result2[i].latitud), lng: parseFloat(result2[i].longitud) };
       var segment = [pos, { lat: parseFloat(result2[i].latitud1), lng: parseFloat(result2[i].longitud1) }];
-      DrawSection(segment, color)
+      DrawSection(segment, color);
       addMarker(segment, result2[i].id, icon, result2[i], descriptor)
     }
 
@@ -331,37 +296,28 @@
     //heatmap.setMap(map);
     //heatmaps.push(heatmap)
   }
-  riskpaths = []
   function DrawSection(segment, color) {
     var lineSymbol = {
       path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
     };
+
     var riskpath = new google.maps.Polyline({
       path: segment,
       geodesic: true,
       strokeColor: color,
       strokeOpacity: 1.0,
-      strokeWeight: 8,
-      strokeOpacity: 1,
-      zIndex: 999,
-
+      strokeWeight: 2,
+      icons: [
+        {
+          icon: lineSymbol,
+          offset: "100%",
+          repeat: '20px'
+        },
+      ]
     });
-    path = riskpath.getPath();
-    runSnapToSegment(path, color);
-    riskpaths.push(riskpath)
-  }
-  function insertImages(result) {
-    fotos = result.fotos.split(',')
-    console.log(fotos)
-    img = document.getElementById('tablafotos');
-    var tr = document.createElement('tr');
-    tr.innerHTML = '<th>' + result.id + '</th>';
-    img.appendChild(tr)
-    for (i = 0; i < fotos.length; i++) {
-      var tr = document.createElement('tr');
-      tr.innerHTML = "<img class='fotowidth' src='/fotos-rutas/" + fotos[i] + "'>";
-      img.appendChild(tr)
-    }
+
+    riskpath.setMap(map)
+    polylines.push(riskpath)
   }
   function addMarker(segment, id, icon, result, descriptor) {
     var marker = new google.maps.Marker({
@@ -386,22 +342,25 @@
       routePath.push(segment[0])
       routePath.push(segment[1])
       drawRoute();
-      insertTable(result.riesgo.toFixed(2), result.id, result.notas);
-      insertImages(result)
+      insertTable(result.riesgo.toFixed(2), result.id);
+
     })
     markers.push(marker);
   }
-  function insertTable(res1, res2, res3) {
+  function insertTable(res1, res2) {
     console.log("executed")
     var table = document.getElementById('tableroute');
     var tr = document.createElement('tr');
-    tr.innerHTML = '<th>' + res2 + '</th>' + '<td>' + res1 + "%" + '</td>' + '<th>' + res3 + '</th>';
+    tr.innerHTML = '<th>' + res2 + '</th>' + '<td>' + res1 + '</td>';
     table.appendChild(tr);
   };
   var snappedCoordinates = [];
   var placeIdArray = [];
   var apiKey = 'AIzaSyCEen29bixPCHvTa7DWIErzdWhPg8Zp60Y'
   function drawRoute() {
+    var lineSymbol = {
+      path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+    };
     if (route != null) {
       route.setMap(null)
     }
@@ -409,14 +368,21 @@
       path: routePath,
       geodesic: true,
       strokeColor: "#000000",
-      strokeWeight: 8,
-      strokeOpacity: 1,
-
+      strokeOpacity: 1.0,
+      strokeWeight: 2,
+      icons: [
+        {
+          icon: lineSymbol,
+          offset: "100%",
+          repeat: '20px'
+        },
+      ]
     });
     var path = route.getPath();
     placeIdArray = [];
     runSnapToRoad(path);
 
+    route.setMap(map)
   };
   let route;
 </script>
@@ -446,10 +412,10 @@
 
   }
      /*  document.getElementById("fecharuta").innerHTML = fecharuta
-document.getElementById("Initcoord").innerHTML = result.latitud + ", " + result.longitud;
-document.getElementById("Finalcoord").innerHTML = result.latitud1 + ", " + result.longitud1;
-document.getElementById("riesgo").innerHTML = descriptor + " (" + result.riesgo + '%)';
-document.getElementById("notasb").innerHTML = result.notas; */
+           document.getElementById("Initcoord").innerHTML = result.latitud + ", " + result.longitud;
+           document.getElementById("Finalcoord").innerHTML = result.latitud1 + ", " + result.longitud1;
+           document.getElementById("riesgo").innerHTML = descriptor + " (" + result.riesgo + '%)';
+           document.getElementById("notasb").innerHTML = result.notas; */
 </script>
 <script>
 
@@ -470,22 +436,6 @@ document.getElementById("notasb").innerHTML = result.notas; */
       drawSnappedPolyline();
     });
   }
-  function runSnapToSegment(path, color) {
-    var pathValues = [];
-    for (var i = 0; i < path.getLength(); i++) {
-      pathValues.push(path.getAt(i).toUrlValue());
-    }
-
-    $.get('https://roads.googleapis.com/v1/snapToRoads', {
-      interpolate: true,
-      key: apiKey,
-      path: pathValues.join('|')
-    }, function (data) {
-      processSnapToRoadResponse(data);
-      drawSnappedSegment(color);
-    });
-  }
-
 
   // Store snapped polyline returned by the snap-to-road service.
   function processSnapToRoadResponse(data) {
@@ -502,64 +452,36 @@ document.getElementById("notasb").innerHTML = result.notas; */
 
   // Draws the snapped polyline (after processing snap-to-road response).
   function drawSnappedPolyline() {
-    var lineSymbol = {
-      path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
-    };
-    if (polylines.length > 0) {
-      polylines[length - 1].setMap(null)
-    }
     var snappedPolyline = new google.maps.Polyline({
       path: snappedCoordinates,
-      geodesic: true,
-      strokeColor: "#0f2547",
-      strokeOpacity: 1.0,
-      strokeWeight: 8,
-      zIndex: 998,
-
+      strokeColor: '#add8e6',
+      strokeWeight: 4,
+      strokeOpacity: 0.9,
     });
 
     snappedPolyline.setMap(map);
-    polylines[0] = snappedPolyline;
-  }
-  function drawSnappedSegment(color) {
-    var lineSymbol = {
-      path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
-    };
-    if (polylines.length > 0) {
-      polylines[length - 1].setMap(null)
-    }
-    var snappedPolyline = new google.maps.Polyline({
-      path: snappedCoordinates,
-      geodesic: true,
-      strokeColor: color,
-      strokeOpacity: 1.0,
-      strokeWeight: 8,
-      zIndex: 999,
-
-    });
-
-    snappedPolyline.setMap(map);
-    riskpaths[0] = snappedPolyline;
+    polylines.push(snappedPolyline);
   }
 </script>
-
 <script>
+  async function generatePDF() {
+    var input = 2;
+    const consulta2 = {
+      con: input,
+      fecharuta: 2021 - 01 - 22
+    };
+    const options2 = {
+      method: "POST",
+      body: JSON.stringify(consulta2),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    };
 
-  function save() {
-    window.print();
+    const response2 = await fetch('/informe', options2);
+    result = await response2.json();
+    console.log(result);
   }
-  //Función deshacer último punto
-  function undoSegment() {
-    routePath.pop();
-    drawRoute();
-  }
-
-  //Función limpiar la ruta
-  function clearSegment() {
-    polylines[0].setMap(null)
-    routePath = [];
-  }
-
 </script>
 
 
