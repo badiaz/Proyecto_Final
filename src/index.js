@@ -166,6 +166,14 @@ app.get('/busqueda', function (request, response) {
         return response.render(path.join(__dirname + '/login.ejs'));
     }
 });
+app.get('/nuevo', function (request, response) {
+    request.session.loggedin = true;
+    if (request.session.loggedin) {
+        return response.render(path.join(__dirname + '/nuevo.ejs'));
+    } else {
+        return response.render(path.join(__dirname + '/login.ejs'));
+    }
+});
 
 
 app.post('/form', (req, res) => {

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
         integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-    <link rel="stylesheet" href="userestilo">
+    <link rel="stylesheet" href="reportuser">
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;600&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/41bcea2ae3.js" crossorigin="anonymous"></script>
@@ -89,357 +89,1479 @@
 
                     </div>
                 </section>
-                <section id="registro">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-12 my-4">
-                                <div class="card rounded-0">
-                                    <div class="card-header bg-light">
-                                        <h5 class="d-inline-block font-weight-bold mb-0">Route section information</h5>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="container">
-                                            <form id="formCase1" enctype="multipart/form-data">
-                                                <div class="row">
-                                                    <div class="col-lg-6 my-4">
-
-                                                        <div class="form-group mb-4">
-                                                            <label for="fecha_nac" class="font-weight-bold">Date of
-                                                                analysis</label>
-                                                            <input type="date" class="form-control w-10" id="fecharuta"
-                                                                name="fecharuta" onkeydown="return false" />
-                                                        </div>
-
-                                                        <!-- <div class="drop-zone">
-                              <span class="drop-zone__prompt">Drag or click here to attach an image</span>
-                              <input type="file" name="fotos" class="drop-zone__input" accept="image/*" id="file"
-                                multiple="multiple">
-                            </div>
-                            <img id="output" /> -->
-                                                        <div id="upload" class="upload">
-                                                            <div class="upload-files">
-                                                                <header>
-                                                                    <p>
-                                                                        <i class="fa fa-cloud-upload"
-                                                                            aria-hidden="true"></i>
-                                                                        <span class="up">up</span>
-                                                                        <span class="load">load</span>
-                                                                    </p>
-                                                                </header>
-                                                                <div class="body" id="drop">
-                                                                    <i class="fa fa-file-text-o pointer-none"
-                                                                        aria-hidden="true"></i>
-                                                                    <p class="pointer-none"><b>Drag and drop</b> your
-                                                                        images here <br /> or <a href=""
-                                                                            id="triggerFile">browse</a> to begin the
-                                                                        upload</p>
-                                                                    <input type="file" name="fotos" accept="image/*"
-                                                                        id="file" multiple="multiple" />
-                                                                </div>
-                                                                <footer>
-                                                                    <div class="divider">
-                                                                        <span>
-                                                                            <AR>FILES</AR>
-                                                                        </span>
-                                                                    </div>
-                                                                    <div class="list-files">
-                                                                        <!--   template   -->
-                                                                        <button type="button" class="importar">UPDATE
-                                                                            FILES</button>
-                                                                    </div>
-
-                                                                </footer>
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group mb-4">
-                                                            <label for="notas" class="font-weight-bold">Additional
-                                                                Notes</label>
-                                                            <textarea id=notas type="text" class="form-control bg-grey"
-                                                                name="notas" placeholder="Add notes to the case"
-                                                                width="50%" height="100px"></textarea>
-                                                        </div>
-
-                                                    </div>
-                                                    <div class="col-lg-6 my-4">
-                                                        <div class="form-group mb-4">
-                                                            <label for="apellido" class="font-weight-bold">Route Section
-                                                                Location <p class="lead text-muted">Drag the markers.
-                                                                </p></label>
-                                                            <div id="map"></div>
-                                                        </div>
-                                                        <div class="form-group mb-4">
-                                                            <label for="latitude" class="font-weight-bold">Initial
-                                                                Latitude:</label>
-                                                            <input id="txtLat" type="text" class="form-control bg-grey"
-                                                                readonly="readonly" value="10.9861045" name="latitud"
-                                                                width="50%" height="100px">
-                                                        </div>
-                                                        <div class="form-group mb-4">
-                                                            <label for="longitude" class="font-weight-bold">Initial
-                                                                Longitude:</label>
-                                                            <input id="txtLng" type="text" class="form-control bg-grey"
-                                                                readonly="readonly" value="-74.80928094" name="longitud"
-                                                                width="50%" height="100px">
-                                                        </div>
-                                                        <div class="form-group mb-4">
-                                                            <label for="latitude" class="font-weight-bold">Final
-                                                                Latitude:</label>
-                                                            <input id="txtLat1" type="text" class="form-control bg-grey"
-                                                                readonly="readonly" value="10.9861045" name="latitud"
-                                                                width="50%" height="100px">
-                                                        </div>
-                                                        <div class="form-group mb-4">
-                                                            <label for="longitude" class="font-weight-bold">Final
-                                                                Longitude:</label>
-                                                            <input id="txtLng1" type="text" class="form-control bg-grey"
-                                                                readonly="readonly" value="-74.80928094" name="longitud"
-                                                                width="50%" height="100px">
-                                                        </div>
-
-
-                                                    </div>
-                                                </div>
-
-                                                <button type="submit" class="btn btn-primary mt-4 mb-4 w-25"> Register
-                                                    section</button>
-
-
+                <div id="contenido">
+                    <section>
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-lg-8 my-2">
+                                    <div class="card rounded-0">
+                                        <div id="selectpro" class="card-header bg-light">
+                                            <h5 class="font-weight-bold mb-4">Product</h5>
+                                            <h6 class="mb-3">Select the product to be transported</h6>
+                                            <select oninput="actualizar(this)" class="custom-select mb-4"
+                                                id="lista_product" name="lista_estados">
+                                                <option value="1">-</option>
+                                                <option value="2">Carbon disulfide</option>
+                                                <!-- <option value="3">Tratamiento en hospital</option>
+                                                        <option value="4">En UCI</option>
+                                                        <option value="1">Curado</option>
+                                                        <option value="5">Fallecido</option> -->
+                                            </select>
+                                            <input onclick="save()" class="btn btn-primary" type="button" id="pdf"
+                                                value="Save Report">
+                                        </div>
+                                        <div class="card-body">
+                                            <h5 class="font-weight-bold mb-4">Route Generator</h5>
+                                            <h6 class="mb-3"></h6>
+                                            <input onclick="undoSegment()" class="btn btn-primary" type="button"
+                                                id="undo" value="Undo Segment">
+                                            <input onclick="clearSegment()" class="btn btn-primary" type="button"
+                                                id="clear" value="Clear Segment">
+                                            <br><br>
+                                            <div id="map"></div>
 
                                         </div>
 
-                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <section>
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-lg-8 my-4">
+                                    <div class="card rounded-0">
+                                        <div class="card-header bg-light">
+                                            <h5 class="font-weight-bold mb-0">Route Information</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <table class="table">
+                                                <!-- <thead class="thead-dark">
+                                                                <tr>
+                                                                    <th scope="col"></th>
+                                                                    <th scope="col"></th>
+                                                                </tr>
+                                                            </thead> -->
+                                                <tbody id="table">
+                                                    <!-- Filas generadas dinamicamente xd -->
+                                                    <tr>
+                                                        <th scope="row">Product to be transported</th>
+                                                        <td>
+                                                            <h6 class="mb-0" id="producto">-</h6>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row"> Risk product </th>
+                                                        <td>
+                                                            <h6 class="mb-0" id="riesgoproducto">-</h6>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row"> UN Number </th>
+                                                        <td>
+                                                            <h6 class="mb-0" id="UN">-</h6>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row"> Presentation </th>
+                                                        <td>
+                                                            <h6 class="mb-0" id="presentation">-</h6>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row"> Packing </th>
+                                                        <td>
+                                                            <h6 class="mb-0" id="packing">-</h6>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row"> Labels </th>
+                                                        <td>
+                                                            <h6 class="mb-0" id="labels">-</h6>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row"> Total Risk </th>
+                                                        <td>
+                                                            <h6 class="mb-0" id="risk">-</h6>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    </section>
+
+                    <div class="container-fluid saltopagina">
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <div class="card rounded-0">
+                                    <div class="card-header bg-light">
+                                        <h5 class="font-weight-bold mb-0">Selected route segments</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <table class="table">
+                                            <thead class="thead-dark">
+                                                <tr>
+                                                    <th scope="col">Segment ID</th>
+                                                    <th scope="col">Risk level</th>
+                                                    <th scope="col">Notes</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="tableroute">
+                                                <!-- Filas generadas dinamicamente xd -->
+                                                <tr>
+                                                    <th scope="row">-</th>
+                                                    <td>-</td>
+                                                    <td><a id="eval" data-toggle="modal" data-target="#exampleModal"
+                                                            href="#contenido2">Assess
+                                                            Segment</a><img id="chulo" style="display:none;"
+                                                            src="img/green.png">
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </section>
-                <section id="imagenes" class="imagenes">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-12 my-4">
-                                <div class="card rounded-0">
-                                    <div class="card-header bg-light">
-                                        <h5 class="d-inline-block font-weight-bold mb-0">Images <p
-                                                class="lead text-muted">All images must be part of the same section of
-                                                the route at the same instant in time. Please complete the information
-                                                taking into account all images.
-                                            </p>
-                                        </h5>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="container">
-                                            <span id="mostrarimagenes"></span>
-                                            <img id='imagen' src='/fotos-rutas/'><br>
-                                            <input class="btn btn-primary mt-4 mb-4 w-25" type="button" id="anterior"
-                                                value="<<">
-                                            <input class="btn btn-primary mt-4 mb-4 w-25" type="button" id="siguiente"
-                                                value=">>">
+
+                    <section>
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-lg-8 my-4">
+                                    <div class="card rounded-0">
+                                        <div class="card-header bg-light">
+                                            <h5 class="font-weight-bold mb-0">Images</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <table class="table">
+                                                <!-- <thead class="thead-dark">
+                                                          <tr>
+                                                              <th scope="col"></th>
+                                                              <th scope="col"></th>
+                                                          </tr>
+                                                      </thead> -->
+                                                <tbody id="tablafotos">
+                                                    <!-- Filas generadas dinamicamente xd -->
+
+
+                                                </tbody>
+                                            </table>
+
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                </section>
-                <section id="analisis" class="analisis">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-12 my-4">
-                                <div class="card rounded-0">
-                                    <div class="card-header bg-light">
-                                        <h5 class="d-inline-block font-weight-bold mb-0">Route Section Analysis</h5>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="container">
+                    </section>
+                    <!-- Button trigger modal -->
+                    <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                        Launch demo modal
+                    </button> -->
+                </div>
 
-                                            <div class="row">
-                                                <div class="col-lg-6 my-4">
-                                                    <label for="flujo_carretara" class="font-weight-bold">Vehicular and
-                                                        pedestrian flow</label>
-                                                    <div class="Divisor_variables">
-                                                        <div class="form-group mb-4">
-                                                            <label class="heat-slider heat-slider--v">
-                                                                <span class="heat-slider--label font-weight-bold">Number
-                                                                    of Bicycles:</span>
-                                                                <span class="heat-slider--input">
-                                                                    <input id="bicicletas" name="bicicletas"
-                                                                        type="range" value="0" min="0" max="10"
-                                                                        oninput="doThings(event)" />
-                                                                </span>
-                                                            </label>
-                                                            <output id="outbici">Please scroll to select...</output>
-                                                        </div>
-                                                        <div class="form-group mb-4">
-                                                            <label class="heat-slider heat-slider--v">
-                                                                <span class="heat-slider--label font-weight-bold">Number
-                                                                    of motorcycles:</span>
-                                                                <span class="heat-slider--input">
-                                                                    <input id="motos" type="range" name="motos"
-                                                                        value="0" min="0" max="10"
-                                                                        oninput="doThings1(event)" />
-                                                                </span>
-                                                            </label>
-                                                            <output id="outmoto">Please scroll to select...</output>
-                                                        </div>
-                                                        <div class="form-group mb-4">
-                                                            <label class="heat-slider heat-slider--v">
-                                                                <span class="heat-slider--label font-weight-bold">Number
-                                                                    of Pedestrians:</span>
-                                                                <span class="heat-slider--input">
-                                                                    <input id="peaton" type="range" name="peaton"
-                                                                        value="0" min="0" max="10"
-                                                                        oninput="doThings2(event)" />
-                                                                </span>
-                                                            </label>
-                                                            <output id="outpeaton">Please scroll to select...</output>
-                                                        </div>
-                                                    </div>
-                                                    <br><br><br>
-                                                    <label for="flujo_carretara" class="font-weight-bold">Conditions of
-                                                        the road section:</label>
-                                                    <div class="Divisor_variables">
-                                                        <div class="form-group mb-4">
-                                                            <label class="heat-sliderinv heat-sliderinv--v">
-                                                                <span class="heat-sliderinv--label font-weight-bold">On
-                                                                    a scale of rate the condition of
-                                                                    the road:</span>
-                                                                <span class="heat-sliderinv--input">
-                                                                    <input id="via" type="range" name="via" value="0"
-                                                                        min="0" max="10" oninput="doThings3(event)" />
-                                                                </span>
-                                                            </label>
-                                                            <output id="outvia">Please scroll to select...</output>
-                                                        </div>
-                                                        <div class="form-group mb-4">
-                                                            <label class="heat-slider heat-slider--v">
-                                                                <span class="heat-slider--label font-weight-bold">On a
-                                                                    scale of, how good is the skid
-                                                                    resistance of the road:</span>
-                                                                <span class="heat-slider--input">
-                                                                    <input id="deslizamiento" type="range"
-                                                                        name="deslizamiento" value="0" min="0" max="10"
-                                                                        oninput="doThings4(event)" />
-                                                                </span>
-                                                            </label>
-                                                            <output id="outdeslizamiento">Please scroll to
-                                                                select...</output>
-                                                        </div>
-                                                        <div class="form-group mb-4">
-                                                            <label class="heat-slider heat-slider--v">
-                                                                <span class="heat-slider--label font-weight-bold">On a
-                                                                    scale of 0 to 10, rate the
-                                                                    severity of the roadworks:</span>
-                                                                <span class="heat-slider--input">
-                                                                    <input id="obrasvia" type="range" name="obrasvia"
-                                                                        value="0" min="0" max="10" step="1"
-                                                                        oninput="doThings9(event)" />
-                                                                </span>
-                                                            </label>
-                                                            <output id="outseveridad">Please scroll to
-                                                                select...</output>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-6 my-4">
-                                                    <label for="flujo_carretara" class="font-weight-bold">Elements and
-                                                        signaling of the
-                                                        road</label>
-                                                    <div class="Divisor_variables">
-                                                        <div class="form-group mb-4">
-                                                            <label class="heat-slider heat-slider--v">
-                                                                <span class="heat-slider--label font-weight-bold">Select
-                                                                    the Speed limit of the road the
-                                                                    road:</span>
-                                                                <span class="heat-slider--input">
-                                                                    <input id="velocidad" type="range" name="velocidad"
-                                                                        value="0" min="0" max="100" step="10"
-                                                                        oninput="doThings5(event)" />
-                                                                </span>
-                                                            </label>
-                                                            <output id="outvelocidad">Please scroll to
-                                                                select...</output>
-                                                        </div>
+            </div>
 
-                                                        <div class="form-group mb-4">
-                                                            <label class="heat-sliderinv heat-sliderinv--v">
-                                                                <span class="heat-sliderinv--label font-weight-bold">On
-                                                                    a scale of rate the quality of
-                                                                    street lighting:</span>
-                                                                <span class="heat-sliderinv--input">
-                                                                    <input id="alumbrado" type="range" name="alumbrado"
-                                                                        value="0" min="0" max="10"
-                                                                        oninput="doThings7(event)" />
-                                                                </span>
-                                                            </label>
-                                                            <output id="outalumbrado">Please scroll to
-                                                                select...</output>
-                                                        </div>
-                                                        <div class="form-group mb-4">
-                                                            <label class="heat-sliderinv heat-sliderinv--v">
-                                                                <span class="heat-sliderinv--label font-weight-bold">On
-                                                                    a scale of 0 to 10, rate the
-                                                                    quality of road median (separator):</span>
-                                                                <span class="heat-sliderinv--input">
-                                                                    <input id="separador" type="range" name="separador"
-                                                                        value="0" min="0" max="10" step="1"
-                                                                        oninput="doThings8(event)" />
-                                                                </span>
-                                                            </label>
-                                                            <output id="outseparador">Please scroll to
-                                                                select...</output>
-                                                        </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Report</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="contenido2" class="bg-grey w-100">
 
-                                                        <div class="form-group mb-4">
-                                                            <label for="sexo" class="font-weight-bold">Does the road
-                                                                have centreline rumble
-                                                                strips?</label>
-                                                        </div>
-                                                        <div class="form-group mb-4">
-                                                            <div class="btn-group btn-group-toggle"
-                                                                data-toggle="buttons">
-                                                                <label class="btn btn-primary active">
-                                                                    <input type="radio" name="calzadadiv"
-                                                                        id="calzadadiv1" value="1" checked> Present
-                                                                </label>
-                                                                <label class="btn btn-primary">
-                                                                    <input type="radio" name="calzadadiv"
-                                                                        id="calzadadiv2" value="2"> Not Present
-                                                                </label>
+                        <section id="registro">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-lg-12 my-4">
+                                        <div class="card rounded-0">
+                                            <div class="card-header bg-light">
+                                                <h5 class="d-inline-block font-weight-bold mb-0">Route section
+                                                    information
+                                                </h5>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="container">
+                                                    <form id="formCase1" enctype="multipart/form-data">
+                                                        <div class="row">
+                                                            <div class="col-lg-6 my-4">
+
+                                                                <div class="form-group mb-4">
+                                                                    <label for="fecha_nac" class="font-weight-bold">Date
+                                                                        of
+                                                                        analysis</label>
+                                                                    <input type="date" class="form-control w-10"
+                                                                        id="fecharuta" name="fecharuta"
+                                                                        onkeydown="return false" />
+                                                                </div>
+
+                                                                <!-- <div class="drop-zone">
+                                              <span class="drop-zone__prompt">Drag or click here to attach an image</span>
+                                              <input type="file" name="fotos" class="drop-zone__input" accept="image/*" id="file"
+                                                multiple="multiple">
+                                            </div>
+                                            <img id="output" /> -->
+                                                                <div id="upload" class="upload">
+                                                                    <div class="upload-files">
+                                                                        <header>
+                                                                            <p>
+                                                                                <i class="fa fa-cloud-upload"
+                                                                                    aria-hidden="true"></i>
+                                                                                <span class="up">up</span>
+                                                                                <span class="load">load</span>
+                                                                            </p>
+                                                                        </header>
+                                                                        <div class="body" id="drop">
+                                                                            <i class="fa fa-file-text-o pointer-none"
+                                                                                aria-hidden="true"></i>
+                                                                            <p class="pointer-none"><b>Drag and drop</b>
+                                                                                your
+                                                                                images here <br /> or <a href=""
+                                                                                    id="triggerFile">browse</a> to begin
+                                                                                the
+                                                                                upload</p>
+                                                                            <input type="file" name="fotos"
+                                                                                accept="image/*" id="file"
+                                                                                multiple="multiple" />
+                                                                        </div>
+                                                                        <footer>
+                                                                            <div class="divider">
+                                                                                <span>
+                                                                                    <AR>FILES</AR>
+                                                                                </span>
+                                                                            </div>
+                                                                            <div class="list-files">
+                                                                                <!--   template   -->
+                                                                                <button type="button"
+                                                                                    class="importar">UPDATE
+                                                                                    FILES</button>
+                                                                            </div>
+
+                                                                        </footer>
+                                                                    </div>
+                                                                </div>
+
+
+                                                            </div>
+                                                            <div class="col-lg-6 my-4">
+                                                                <div class="form-group mb-4">
+                                                                    <label for="notas"
+                                                                        class="font-weight-bold">Additional
+                                                                        Notes</label>
+                                                                    <textarea id=notas type="text"
+                                                                        class="form-control bg-grey" name="notas"
+                                                                        placeholder="Add notes to the case" width="50%"
+                                                                        height="100px"></textarea>
+                                                                </div>
+                                                                <!-- <div class="form-group mb-4">
+                                                                    <label for="apellido" class="font-weight-bold">Route
+                                                                        Section
+                                                                        Location <p class="lead text-muted">Drag the
+                                                                            markers.
+                                                                        </p></label>
+                                                                    <div id="map"></div>
+                                                                </div>
+                                                                <div class="form-group mb-4">
+                                                                    <label for="latitude"
+                                                                        class="font-weight-bold">Initial
+                                                                        Latitude:</label>
+                                                                    <input id="txtLat" type="text"
+                                                                        class="form-control bg-grey" readonly="readonly"
+                                                                        value="10.9861045" name="latitud" width="50%"
+                                                                        height="100px">
+                                                                </div>
+                                                                <div class="form-group mb-4">
+                                                                    <label for="longitude"
+                                                                        class="font-weight-bold">Initial
+                                                                        Longitude:</label>
+                                                                    <input id="txtLng" type="text"
+                                                                        class="form-control bg-grey" readonly="readonly"
+                                                                        value="-74.80928094" name="longitud" width="50%"
+                                                                        height="100px">
+                                                                </div>
+                                                                <div class="form-group mb-4">
+                                                                    <label for="latitude" class="font-weight-bold">Final
+                                                                        Latitude:</label>
+                                                                    <input id="txtLat1" type="text"
+                                                                        class="form-control bg-grey" readonly="readonly"
+                                                                        value="10.9861045" name="latitud" width="50%"
+                                                                        height="100px">
+                                                                </div>
+                                                                <div class="form-group mb-4">
+                                                                    <label for="longitude"
+                                                                        class="font-weight-bold">Final
+                                                                        Longitude:</label>
+                                                                    <input id="txtLng1" type="text"
+                                                                        class="form-control bg-grey" readonly="readonly"
+                                                                        value="-74.80928094" name="longitud" width="50%"
+                                                                        height="100px">
+                                                                </div> -->
+
+
                                                             </div>
                                                         </div>
-                                                        <div class="form-group mb-4">
-                                                            <label class="heat-slider heat-slider--v">
-                                                                <span class="heat-slider--label font-weight-bold">Select
-                                                                    the tentative departure
-                                                                    time:</span>
-                                                                <span class="heat-slider--input">
-                                                                    <input id="hora" type="range" name="hora" value="0"
-                                                                        min="0" max="24" step="1"
-                                                                        oninput="doThings6(event)" />
-                                                                </span>
-                                                            </label>
-                                                            <output id="outHora">Please scroll to select...</output>
-                                                        </div>
-                                                    </div>
+
+                                                        <button type="submit" class="btn btn-primary mt-4 mb-4 w-25">
+                                                            Register
+                                                            section</button>
+
+
+
+                                                </div>
+
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        <section id="imagenes" class="imagenes" style="display:none">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-lg-12 my-4">
+                                        <div class="card rounded-0">
+                                            <div class="card-header bg-light">
+                                                <h5 class="d-inline-block font-weight-bold mb-0">Images <p
+                                                        class="lead text-muted">All images must
+                                                        be part of the same section of the route at the same instant in
+                                                        time.
+                                                        Please complete the
+                                                        information taking into account all images.
+                                                    </p>
+                                                </h5>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="container">
+                                                    <span id="mostrarimagenes"></span>
+                                                    <img id='imagen' src='/fotos-rutas/'><br>
+                                                    <input class="btn btn-primary mt-4 mb-4 w-25" type="button"
+                                                        id="anterior" value="<<">
+                                                    <input class="btn btn-primary mt-4 mb-4 w-25" type="button"
+                                                        id="siguiente" value=">>">
                                                 </div>
                                             </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        </section>
+                        <section id="analisis" class="analisis" style="display:none">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-lg-12 my-4">
+                                        <div class="card rounded-0">
+                                            <div class="card-header bg-light">
+                                                <h5 class="d-inline-block font-weight-bold mb-0">Route Section Analysis
+                                                </h5>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="container">
 
-                                            <button type="button" onclick="riesgo()"
-                                                class="btn btn-primary mt-4 mb-4 w-25">Assess route
-                                                section</button>
-                                            <!-- <button onclick="addPanel()" class="btn btn-primary mt-4 mb-4 w-25"> Añadir segmento + </button> -->
+                                                    <div class="row">
+                                                        <div class="col-lg-6 my-4">
+                                                            <label for="flujo_carretara"
+                                                                class="font-weight-bold">Vehicular
+                                                                and
+                                                                pedestrian flow</label>
+                                                            <div class="Divisor_variables">
+                                                                <div class="form-group mb-4">
+                                                                    <label class="heat-slider heat-slider--v">
+                                                                        <span
+                                                                            class="heat-slider--label font-weight-bold">Number
+                                                                            of Bicycles:</span>
+                                                                        <span class="heat-slider--input">
+                                                                            <input id="bicicletas" name="bicicletas"
+                                                                                type="range" value="0" min="0" max="10"
+                                                                                oninput="doThings(event)" />
+                                                                        </span>
+                                                                    </label>
+                                                                    <output id="outbici">Please scroll to
+                                                                        select...</output>
+                                                                </div>
+                                                                <div class="form-group mb-4">
+                                                                    <label class="heat-slider heat-slider--v">
+                                                                        <span
+                                                                            class="heat-slider--label font-weight-bold">Number
+                                                                            of motorcycles:</span>
+                                                                        <span class="heat-slider--input">
+                                                                            <input id="motos" type="range" name="motos"
+                                                                                value="0" min="0" max="10"
+                                                                                oninput="doThings1(event)" />
+                                                                        </span>
+                                                                    </label>
+                                                                    <output id="outmoto">Please scroll to
+                                                                        select...</output>
+                                                                </div>
+                                                                <div class="form-group mb-4">
+                                                                    <label class="heat-slider heat-slider--v">
+                                                                        <span
+                                                                            class="heat-slider--label font-weight-bold">Number
+                                                                            of Pedestrians:</span>
+                                                                        <span class="heat-slider--input">
+                                                                            <input id="peaton" type="range"
+                                                                                name="peaton" value="0" min="0" max="10"
+                                                                                oninput="doThings2(event)" />
+                                                                        </span>
+                                                                    </label>
+                                                                    <output id="outpeaton">Please scroll to
+                                                                        select...</output>
+                                                                </div>
+                                                            </div>
+                                                            <br><br><br>
+                                                            <label for="flujo_carretara"
+                                                                class="font-weight-bold">Conditions
+                                                                of
+                                                                the road section:</label>
+                                                            <div class="Divisor_variables">
+                                                                <div class="form-group mb-4">
+                                                                    <label class="heat-sliderinv heat-sliderinv--v">
+                                                                        <span
+                                                                            class="heat-sliderinv--label font-weight-bold">On
+                                                                            a scale of rate the condition of
+                                                                            the road:</span>
+                                                                        <span class="heat-sliderinv--input">
+                                                                            <input id="via" type="range" name="via"
+                                                                                value="0" min="0" max="10"
+                                                                                oninput="doThings3(event)" />
+                                                                        </span>
+                                                                    </label>
+                                                                    <output id="outvia">Please scroll to
+                                                                        select...</output>
+                                                                </div>
+                                                                <div class="form-group mb-4">
+                                                                    <label class="heat-slider heat-slider--v">
+                                                                        <span
+                                                                            class="heat-slider--label font-weight-bold">On
+                                                                            a
+                                                                            scale of, how good is the skid
+                                                                            resistance of the road:</span>
+                                                                        <span class="heat-slider--input">
+                                                                            <input id="deslizamiento" type="range"
+                                                                                name="deslizamiento" value="0" min="0"
+                                                                                max="10" oninput="doThings4(event)" />
+                                                                        </span>
+                                                                    </label>
+                                                                    <output id="outdeslizamiento">Please scroll to
+                                                                        select...</output>
+                                                                </div>
+                                                                <div class="form-group mb-4">
+                                                                    <label class="heat-slider heat-slider--v">
+                                                                        <span
+                                                                            class="heat-slider--label font-weight-bold">On
+                                                                            a
+                                                                            scale of 0 to 10, rate the
+                                                                            severity of the roadworks:</span>
+                                                                        <span class="heat-slider--input">
+                                                                            <input id="obrasvia" type="range"
+                                                                                name="obrasvia" value="0" min="0"
+                                                                                max="10" step="1"
+                                                                                oninput="doThings9(event)" />
+                                                                        </span>
+                                                                    </label>
+                                                                    <output id="outseveridad">Please scroll to
+                                                                        select...</output>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-6 my-4">
+                                                            <label for="flujo_carretara"
+                                                                class="font-weight-bold">Elements
+                                                                and
+                                                                signaling of the
+                                                                road</label>
+                                                            <div class="Divisor_variables">
+                                                                <div class="form-group mb-4">
+                                                                    <label class="heat-slider heat-slider--v">
+                                                                        <span
+                                                                            class="heat-slider--label font-weight-bold">Select
+                                                                            the Speed limit of the road the
+                                                                            road:</span>
+                                                                        <span class="heat-slider--input">
+                                                                            <input id="velocidad" type="range"
+                                                                                name="velocidad" value="0" min="0"
+                                                                                max="100" step="10"
+                                                                                oninput="doThings5(event)" />
+                                                                        </span>
+                                                                    </label>
+                                                                    <output id="outvelocidad">Please scroll to
+                                                                        select...</output>
+                                                                </div>
+
+                                                                <div class="form-group mb-4">
+                                                                    <label class="heat-sliderinv heat-sliderinv--v">
+                                                                        <span
+                                                                            class="heat-sliderinv--label font-weight-bold">On
+                                                                            a scale of rate the quality of
+                                                                            street lighting:</span>
+                                                                        <span class="heat-sliderinv--input">
+                                                                            <input id="alumbrado" type="range"
+                                                                                name="alumbrado" value="0" min="0"
+                                                                                max="10" oninput="doThings7(event)" />
+                                                                        </span>
+                                                                    </label>
+                                                                    <output id="outalumbrado">Please scroll to
+                                                                        select...</output>
+                                                                </div>
+                                                                <div class="form-group mb-4">
+                                                                    <label class="heat-sliderinv heat-sliderinv--v">
+                                                                        <span
+                                                                            class="heat-sliderinv--label font-weight-bold">On
+                                                                            a scale of 0 to 10, rate the
+                                                                            quality of road median (separator):</span>
+                                                                        <span class="heat-sliderinv--input">
+                                                                            <input id="separador" type="range"
+                                                                                name="separador" value="0" min="0"
+                                                                                max="10" step="1"
+                                                                                oninput="doThings8(event)" />
+                                                                        </span>
+                                                                    </label>
+                                                                    <output id="outseparador">Please scroll to
+                                                                        select...</output>
+                                                                </div>
+
+                                                                <div class="form-group mb-4">
+                                                                    <label for="sexo" class="font-weight-bold">Does the
+                                                                        road
+                                                                        have centreline rumble
+                                                                        strips?</label>
+                                                                </div>
+                                                                <div class="form-group mb-4">
+                                                                    <div class="btn-group btn-group-toggle"
+                                                                        data-toggle="buttons">
+                                                                        <label class="btn btn-primary active">
+                                                                            <input type="radio" name="calzadadiv"
+                                                                                id="calzadadiv1" value="1" checked>
+                                                                            Present
+                                                                        </label>
+                                                                        <label class="btn btn-primary">
+                                                                            <input type="radio" name="calzadadiv"
+                                                                                id="calzadadiv2" value="2"> Not Present
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group mb-4">
+                                                                    <label class="heat-slider heat-slider--v">
+                                                                        <span
+                                                                            class="heat-slider--label font-weight-bold">Select
+                                                                            the tentative departure
+                                                                            time:</span>
+                                                                        <span class="heat-slider--input">
+                                                                            <input id="hora" type="range" name="hora"
+                                                                                value="0" min="0" max="24" step="1"
+                                                                                oninput="doThings6(event)" />
+                                                                        </span>
+                                                                    </label>
+                                                                    <output id="outHora">Please scroll to
+                                                                        select...</output>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <button type="button" onclick="riesgo()"
+                                                        class="btn btn-primary mt-4 mb-4 w-25">Assess route
+                                                        section</button>
+                                                    <!-- <button onclick="addPanel()" class="btn btn-primary mt-4 mb-4 w-25"> Añadir segmento + </button> -->
 
 
 
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </section>
+                        </section>
 
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" onclick="evaluar()" class="btn btn-primary">Save changes</button>
+                </div>
             </div>
         </div>
     </div>
 </body>
+<script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCEen29bixPCHvTa7DWIErzdWhPg8Zp60Y&callback=initMap"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://andreruffert.github.io/rangeslider.js/assets/rangeslider.js/dist/rangeslider.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.2/underscore-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
+<script>
+    let arraystring;
+    let idglobal
+
+
+    let cerrar1 = function cerrar(e) {
+
+        e.preventDefault();
+        e.returnValue = '';
+
+    }
+    window.addEventListener('beforeunload', cerrar1)
+
+
+
+</script>
+<script>
+    function analisis() {
+
+        document.getElementById('imagenes').style.display = 'block';
+        document.getElementById('analisis').style.display = 'block';
+        document.getElementById('registro').style.display = 'none';
+        document.getElementById('imagenes').scrollIntoView({ block: "end", behavior: "smooth" });
+        setTimeout(() => {
+            swal({
+                title: "Route Section Images Uploaded Successfully",
+                text: "Route Section ID:  " + idglobal + " \n \n Please complete the following information to property register the case.",
+                icon: "success",
+            });
+        }, 1500)
+
+    }
+</script>
+
+
+<script>
+    //initMap();
+    var map;
+    var geocoder;
+
+
+    function initMap() {
+        var myLatlng = new google.maps.LatLng(10.9861045, -74.80928094);
+        map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 12, center: { lat: 10.9861045, lng: -74.80928094 },
+            streetViewControl: false
+        });
+        geocoder = new google.maps.Geocoder();
+
+        var marker = new google.maps.Marker({
+            position: myLatlng,
+            draggable: true,
+            map: map
+        });
+        var marker1 = new google.maps.Marker({
+            position: myLatlng,
+            draggable: true,
+            map: map
+        });
+        marker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png')
+        marker1.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png')
+
+        marker1.setMap(map);
+        marker.setMap(map);
+        // adds a listener to the marker
+        // gets the coords when drag event ends
+        // then updates the input with the new coords
+        google.maps.event.addListener(marker, 'dragend', function (evt) {
+            $("#txtLat").val(evt.latLng.lat().toFixed(6));
+            $("#txtLng").val(evt.latLng.lng().toFixed(6));
+
+            /* map.panTo(evt.latLng); */
+        });
+
+        google.maps.event.addListener(marker1, 'dragend', function (evt) {
+            $("#txtLat1").val(evt.latLng.lat().toFixed(6));
+            $("#txtLng1").val(evt.latLng.lng().toFixed(6));
+
+            /* map.panTo(evt.latLng); */
+        });
+
+        const infowindow = new google.maps.InfoWindow({
+            content: 'Initial point ',
+        });
+        const infowindow1 = new google.maps.InfoWindow({
+            content: 'Final point ',
+        });
+
+        google.maps.event.addListener(marker, 'mouseover', function (evt) {
+            infowindow.open({
+                anchor: marker,
+                map,
+                shouldFocus: false,
+            });
+
+        })
+        google.maps.event.addListener(marker, 'mouseout', function (evt) {
+            infowindow.close();
+        })
+        /* para marker2 */
+        google.maps.event.addListener(marker1, 'mouseover', function (evt) {
+            infowindow1.open({
+                anchor: marker1,
+                map,
+                shouldFocus: false,
+            });
+
+        })
+        google.maps.event.addListener(marker1, 'mouseout', function (evt) {
+            infowindow1.close();
+        })
+        casos();
+    }
+</script>
+<!-- input -->
+<script>
+    //DOM
+
+
+    //APP
+    let App = {};
+    App.init = (function () {
+        var $ = document.querySelector.bind(document);
+        //Init
+        function handleFileSelect(evt) {
+            const files = evt.target.files; // FileList object
+
+            //files template
+            let template = `${Object.keys(files)
+                .map(file => `<div class="file file--${file}">
+       <div class="name"><span>${files[file].name}</span></div>
+       <div class="progress active"></div>
+       <div class="done">
+      <a href="" target="_blank">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 1000 1000">
+          <g><path id="path" d="M500,10C229.4,10,10,229.4,10,500c0,270.6,219.4,490,490,490c270.6,0,490-219.4,490-490C990,229.4,770.6,10,500,10z M500,967.7C241.7,967.7,32.3,758.3,32.3,500C32.3,241.7,241.7,32.3,500,32.3c258.3,0,467.7,209.4,467.7,467.7C967.7,758.3,758.3,967.7,500,967.7z M748.4,325L448,623.1L301.6,477.9c-4.4-4.3-11.4-4.3-15.8,0c-4.4,4.3-4.4,11.3,0,15.6l151.2,150c0.5,1.3,1.4,2.6,2.5,3.7c4.4,4.3,11.4,4.3,15.8,0l308.9-306.5c4.4-4.3,4.4-11.3,0-15.6C759.8,320.7,752.7,320.7,748.4,325z"</g>
+          </svg>
+                          </a>
+       </div>
+      </div>`)
+                .join("")}`;
+
+            $("#drop").classList.add("hidden");
+            $("footer").classList.add("hasFiles");
+            $(".importar").classList.add("active");
+            setTimeout(() => {
+                $(".list-files").innerHTML = template;
+            }, 1000);
+
+            Object.keys(files).forEach(file => {
+                let load = 2000 + (file * 2000); // fake load
+                setTimeout(() => {
+                    $(`.file--${file}`).querySelector(".progress").classList.remove("active");
+                    $(`.file--${file}`).querySelector(".done").classList.add("anim");
+                }, load);
+            });
+        }
+
+        // trigger input
+        $("#triggerFile").addEventListener("click", evt => {
+            evt.preventDefault();
+            $("input[type=file]").click();
+        });
+
+        // drop events
+        $("#drop").ondragleave = evt => {
+            $("#drop").classList.remove("active");
+            evt.preventDefault();
+        };
+        $("#drop").ondragover = $("#drop").ondragenter = evt => {
+            $("#drop").classList.add("active");
+            evt.preventDefault();
+        };
+        $("#drop").ondrop = evt => {
+            console.log(evt.dataTransfer.files)
+            $("input[type=file]").files = evt.dataTransfer.files;
+            const files = evt.dataTransfer.files; // FileList object
+
+            //files template
+            let template = `${Object.keys(files)
+                .map(file => `<div class="file file--${file}">
+       <div class="name"><span>${files[file].name}</span></div>
+       <div class="progress active"></div>
+       <div class="done">
+      <a href="" target="_blank">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 1000 1000">
+          <g><path id="path" d="M500,10C229.4,10,10,229.4,10,500c0,270.6,219.4,490,490,490c270.6,0,490-219.4,490-490C990,229.4,770.6,10,500,10z M500,967.7C241.7,967.7,32.3,758.3,32.3,500C32.3,241.7,241.7,32.3,500,32.3c258.3,0,467.7,209.4,467.7,467.7C967.7,758.3,758.3,967.7,500,967.7z M748.4,325L448,623.1L301.6,477.9c-4.4-4.3-11.4-4.3-15.8,0c-4.4,4.3-4.4,11.3,0,15.6l151.2,150c0.5,1.3,1.4,2.6,2.5,3.7c4.4,4.3,11.4,4.3,15.8,0l308.9-306.5c4.4-4.3,4.4-11.3,0-15.6C759.8,320.7,752.7,320.7,748.4,325z"</g>
+          </svg>
+                          </a>
+       </div>
+      </div>`)
+                .join("")}`;
+
+            $("#drop").classList.add("hidden");
+            $("footer").classList.add("hasFiles");
+            $(".importar").classList.add("active");
+            setTimeout(() => {
+                $(".list-files").innerHTML = template;
+            }, 1000);
+
+            Object.keys(files).forEach(file => {
+                let load = 2000 + (file * 2000); // fake load
+                setTimeout(() => {
+                    $(`.file--${file}`).querySelector(".progress").classList.remove("active");
+                    $(`.file--${file}`).querySelector(".done").classList.add("anim");
+                }, load);
+            });
+
+            $("footer").classList.add("hasFiles");
+            $("#drop").classList.remove("active");
+            evt.preventDefault();
+        };
+
+        //upload more
+        $(".importar").addEventListener("click", () => {
+            $(".list-files").innerHTML = "";
+            $("footer").classList.remove("hasFiles");
+            $(".importar").classList.remove("active");
+            setTimeout(() => {
+                $("#drop").classList.remove("hidden");
+            }, 500);
+        });
+
+        // input change
+        $("input[type=file]").addEventListener("change", handleFileSelect);
+    })();
+</script>
+
+
+
+
+<script>
+    let arrayfotos;
+
+    formCase1.onsubmit = async (e) => {
+
+        e.preventDefault();
+
+        var input = document.getElementsByName('fotos');
+        console.log(input[0].files)
+        if (input[0].files.length == 0) {
+            swal('Please update images')
+        } else {
+
+            let response = await fetch('/inforuta', {
+                method: 'POST',
+                body: new FormData(formCase1)
+            });
+            let result = await response.json();
+            console.log(result.fotos)
+            arrayfotos = result.fotos;
+            idglobal = result.id + 1;
+            arraystring = arrayfotos.join(',')
+            console.log(idglobal)
+            analisis();
+            mostrarfotos();
+
+        }
+
+
+    };
+</script>
+<script>
+    //paso 1 --> crear el array de imagenes
+    function mostrarfotos() {
+
+        let arrayImagenes = arrayfotos;
+
+        console.log('este es el array  ' + arrayImagenes)
+        //que imagen mostramos
+        var imagenActual = 0;
+
+        //Cada 2 segundos se ejecute esta funcion
+        var temporizador;
+        /* temporizador = setInterval(cambiarImagen, 3000) */
+
+        //paso 2: listeners de los botones de anterior y siguiente
+        document.getElementById("anterior").addEventListener("click", cambiarImagen);
+        document.getElementById("siguiente").addEventListener("click", cambiarImagen);
+        document.getElementById("siguiente").click();
+
+        //paso 3: Definir la función
+        function cambiarImagen() {
+            var boton = this.id;
+            if (boton == 'anterior') {
+                imagenActual--;
+                if (imagenActual < 0) {
+                    imagenActual = arrayImagenes.length - 1;
+                }
+            } else {
+                imagenActual++;
+                if (imagenActual == arrayImagenes.length) {
+                    imagenActual = 0;
+                }
+            }
+            var imagenAMostrar = arrayImagenes[imagenActual];
+            document.getElementById('imagen').src = "/fotos-rutas/" + imagenAMostrar;
+        }
+
+    }
+</script>
+<script>
+
+    async function riesgo() {
+        document.getElementById('chartdiv').scrollIntoView({ block: "end", behavior: "smooth" });
+        const datos = {
+            bicicletas: document.getElementById("bicicletas").value,
+            motos: document.getElementById("motos").value,
+            peaton: document.getElementById("peaton").value,
+            via: document.getElementById("via").value,
+            deslizamiento: document.getElementById("deslizamiento").value,
+            obrasvia: document.getElementById("obrasvia").value,
+            velocidad: document.getElementById("velocidad").value,
+            alumbrado: document.getElementById("alumbrado").value,
+            separador: document.getElementById("separador").value,
+            calzadadiv: document.getElementById("calzadadiv1").value,
+            hora: document.getElementById("hora").value,
+            fecharuta: document.getElementById("fecharuta").value,
+            latitud: document.getElementById("txtLat").value,
+            longitud: document.getElementById("txtLng").value,
+            latitud1: document.getElementById("txtLat1").value,
+            longitud1: document.getElementById("txtLng1").value,
+            notas: document.getElementById("notas").value,
+            fotos: arraystring,
+            id: idglobal
+        }
+        console.log(datos);
+        const options = {
+            method: "POST",
+            body: JSON.stringify(datos),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }
+
+        const response = await fetch('/Riesgo', options);
+
+        const result = await response.json();
+        console.log(result);
+
+        var medidor = result.riesgo;
+        medidor = medidor.substring(0, medidor.length - 4)
+        valormedidor = parseFloat(medidor) * 10;
+        console.log(valormedidor);
+        window.removeEventListener('beforeunload', cerrar1)
+    };
+
+</script>
+
+
+<!-- SLIDERSSS -->
+
+<script>
+    const output = document.querySelector('#outbici')
+    const doThings = (event) => {
+        const { value, min, max, step, parentElement: parent } = event.target
+        const decimals = step && step.includes('.') ? step.split('.')[1] : 1
+        const percent = `${((value - min) / (max - min) * 100).toFixed(decimals)}%`
+        let text
+        parent.style.setProperty('--p', percent)
+        if (document.getElementById('bicicletas').value >= 0 && document.getElementById('bicicletas').value < 3) {
+            text = "There is a low bicycle flow."
+        } else if (document.getElementById('bicicletas').value >= 3 && document.getElementById('bicicletas').value < 7) {
+            text = "There is a Moderate bicycle flow.."
+        } else if (document.getElementById('bicicletas').value >= 7 && document.getElementById('bicicletas').value <= 10) {
+            text = "There is a High bicycle flow."
+        }
+        output.value = `value: ${value}  (${text})`
+    }
+
+    const output1 = document.querySelector('#outmoto')
+    const doThings1 = (event) => {
+        const { value, min, max, step, parentElement: parent } = event.target
+        const decimals1 = step && step.includes('.') ? step.split('.')[1] : 1
+        const percent1 = `${((value - min) / (max - min) * 100).toFixed(decimals1)}%`
+        parent.style.setProperty('--p', percent1)
+        let text1
+        parent.style.setProperty('--p', percent1)
+        if (document.getElementById('bicicletas').value >= 0 && document.getElementById('bicicletas').value < 3) {
+            text1 = "There is a low motorcycle flow."
+        } else if (document.getElementById('bicicletas').value >= 3 && document.getElementById('bicicletas').value < 7) {
+            text1 = "There is a Moderate motorcycle flow.."
+        } else if (document.getElementById('bicicletas').value >= 7 && document.getElementById('bicicletas').value <= 10) {
+            text1 = "There is a High motorcycle flow."
+        }
+        output1.value = `valor: ${value} (${text1})`
+    }
+
+    const output2 = document.querySelector('#outpeaton')
+    const doThings2 = (event) => {
+        const { value, min, max, step, parentElement: parent } = event.target
+        const decimals2 = step && step.includes('.') ? step.split('.')[1] : 1
+        const percent2 = `${((value - min) / (max - min) * 100).toFixed(decimals2)}%`
+        parent.style.setProperty('--p', percent2)
+        let text2
+        parent.style.setProperty('--p', percent2)
+        if (document.getElementById('bicicletas').value >= 0 && document.getElementById('bicicletas').value < 3) {
+            text2 = "There is a low pedestrians flow."
+        } else if (document.getElementById('bicicletas').value >= 3 && document.getElementById('bicicletas').value < 7) {
+            text2 = "There is a Moderate pedestrians flow.."
+        } else if (document.getElementById('bicicletas').value >= 7 && document.getElementById('bicicletas').value <= 10) {
+            text2 = "There is a High pedestrians flow."
+        }
+        output2.value = `valor: ${value} (${text2})`
+    }
+
+    const output3 = document.querySelector('#outvia')
+    const doThings3 = (event) => {
+        const { value, min, max, step, parentElement: parent } = event.target
+        const decimals3 = step && step.includes('.') ? step.split('.')[1] : 1
+        const percent3 = `${((value - min) / (max - min) * 100).toFixed(decimals3)}%`
+        parent.style.setProperty('--p', percent3)
+
+        output3.value = `valor: ${value} (${percent3})`
+    }
+
+    const output4 = document.querySelector('#outdeslizamiento')
+    const doThings4 = (event) => {
+        const { value, min, max, step, parentElement: parent } = event.target
+        const decimals4 = step && step.includes('.') ? step.split('.')[1] : 1
+        const percent4 = `${((value - min) / (max - min) * 100).toFixed(decimals4)}%`
+        parent.style.setProperty('--p', percent4)
+
+        output4.value = `valor: ${value} (${percent4})`
+    }
+
+    const output5 = document.querySelector('#outvelocidad')
+    const doThings5 = (event) => {
+        const { value, min, max, step, parentElement: parent } = event.target
+        const decimals5 = step && step.includes('.') ? step.split('.')[1] : 1
+        const percent5 = `${((value - min) / (max - min) * 100).toFixed(decimals5)}%`
+        parent.style.setProperty('--p', percent5)
+
+        output5.value = `valor: ${value} (${percent5})`
+    }
+
+    const output6 = document.querySelector('#outHora')
+    const doThings6 = (event) => {
+        const { value, min, max, step, parentElement: parent } = event.target
+        const decimals6 = step && step.includes('.') ? step.split('.')[1] : 1
+        const percent6 = `${((value - min) / (max - min) * 100).toFixed(decimals6)}%`
+        parent.style.setProperty('--p', percent6)
+
+        output6.value = `valor: ${value} (${percent6})`
+    }
+
+    const output7 = document.querySelector('#outalumbrado')
+    const doThings7 = (event) => {
+        const { value, min, max, step, parentElement: parent } = event.target
+        const decimals7 = step && step.includes('.') ? step.split('.')[1] : 1
+        const percent7 = `${((value - min) / (max - min) * 100).toFixed(decimals7)}%`
+        parent.style.setProperty('--p', percent7)
+
+        output7.value = `valor: ${value} (${percent7})`
+    }
+
+    const output8 = document.querySelector('#outseparador')
+    const doThings8 = (event) => {
+        const { value, min, max, step, parentElement: parent } = event.target
+        const decimals8 = step && step.includes('.') ? step.split('.')[1] : 1
+        const percent8 = `${((value - min) / (max - min) * 100).toFixed(decimals8)}%`
+        parent.style.setProperty('--p', percent8)
+
+        output8.value = `valor: ${value} (${percent8})`
+    }
+
+    const output9 = document.querySelector('#outseveridad')
+    const doThings9 = (event) => {
+        const { value, min, max, step, parentElement: parent } = event.target
+        const decimals9 = step && step.includes('.') ? step.split('.')[1] : 1
+        const percent9 = `${((value - min) / (max - min) * 100).toFixed(decimals9)}%`
+        parent.style.setProperty('--p', percent9)
+
+        output9.value = `valor: ${value} (${percent9})`
+    }
+
+
+</script>
+
+<script>
+    var loadFile = function (event) {
+        var image = document.getElementById('output');
+        for (images in image) {
+            image.src = URL.createObjectURL(event.target.files[images]);
+        }
+    };
+</script>
+
+
+<script>
+    function limpiarform() {
+        document.forms['formCase'].reset()
+    }
+</script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"
+    integrity="sha256-R4pqcOYV8lt7snxMQO/HSbVCFRPMdrhAFMH+vr9giYI=" crossorigin="anonymous"></script>
+<script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+<script>
+    let valormedidor = 0;
+    am4core.ready(function () {
+
+        // Themes begin
+        am4core.useTheme(am4themes_animated);
+        // Themes end
+
+        // create chart
+        var chart = am4core.create("chartdiv", am4charts.GaugeChart);
+        chart.innerRadius = am4core.percent(82);
+
+        /**
+         * Normal axis
+         */
+
+        var axis = chart.xAxes.push(new am4charts.ValueAxis());
+        axis.min = 0;
+        axis.max = 100;
+        axis.strictMinMax = true;
+        axis.renderer.radius = am4core.percent(80);
+        axis.renderer.inside = true;
+        axis.renderer.line.strokeOpacity = 1;
+        axis.renderer.ticks.template.disabled = false
+        axis.renderer.ticks.template.strokeOpacity = 1;
+        axis.renderer.ticks.template.length = 10;
+        axis.renderer.grid.template.disabled = true;
+        axis.renderer.labels.template.radius = 40;
+        axis.renderer.labels.template.adapter.add("text", function (text) {
+            return text + "%";
+        })
+
+        /**
+         * Axis for ranges
+         */
+
+        var colorSet = new am4core.ColorSet();
+
+        var axis2 = chart.xAxes.push(new am4charts.ValueAxis());
+        axis2.min = 0;
+        axis2.max = 100;
+        axis2.strictMinMax = true;
+        axis2.renderer.labels.template.disabled = true;
+        axis2.renderer.ticks.template.disabled = true;
+        axis2.renderer.grid.template.disabled = true;
+
+        var range0 = axis2.axisRanges.create();
+        range0.value = 0;
+        range0.endValue = 30;
+        range0.axisFill.fillOpacity = 1;
+        range0.axisFill.fill = am4core.color("green");
+        range0.label.text = "Low"
+        range0.label.inside = true;
+        range0.label.location = 0.5;
+        range0.label.radius = am4core.percent(15);
+        range0.label.paddingBottom = -5; // ~half font size
+        range0.label.fontSize = "0.8em";
+
+
+        var range1 = axis2.axisRanges.create();
+        range1.value = 30;
+        range1.endValue = 70;
+        range1.axisFill.fillOpacity = 1;
+        range1.axisFill.fill = am4core.color("orange");
+        range1.label.text = "Moderate"
+        range1.label.inside = true;
+        range1.label.location = 0.5;
+        range1.label.radius = am4core.percent(10);
+        range1.label.paddingBottom = -5; // ~half font size
+        range1.label.fontSize = "0.8em";
+
+        var range2 = axis2.axisRanges.create();
+        range2.value = 70;
+        range2.endValue = 100;
+        range2.axisFill.fillOpacity = 1;
+        range2.axisFill.fill = am4core.color("red");
+        range2.label.text = "High"
+        range2.label.inside = true;
+        range2.label.location = 0.5;
+        range2.label.radius = am4core.percent(15);
+        range2.label.paddingBottom = -5; // ~half font size
+        range2.label.fontSize = "0.8em";
+
+
+
+        /**
+         * Label
+         */
+
+        var label = chart.radarContainer.createChild(am4core.Label);
+        label.isMeasured = false;
+        label.fontSize = 20;
+        label.x = am4core.percent(50);
+        label.y = am4core.percent(100);
+        label.paddingBottom = 0;
+        label.horizontalCenter = "middle";
+        label.verticalCenter = "bottom";
+        label.text = "50%";
+
+        var label2 = chart.radarContainer.createChild(am4core.Label);
+        label2.isMeasured = false;
+        label2.fontSize = 20;
+        label2.x = am4core.percent(50);
+        label2.y = am4core.percent(100);
+        label2.paddingBottom = 150;
+        label2.horizontalCenter = "middle";
+        label2.verticalCenter = "bottom";
+        label2.text = "Percentage of risk";
+
+
+        /**
+         * Hand
+         */
+
+        var hand = chart.hands.push(new am4charts.ClockHand());
+        hand.axis = axis2;
+        hand.innerRadius = am4core.percent(20);
+        hand.startWidth = 10;
+        hand.pin.disabled = true;
+        hand.value = 50;
+
+        hand.events.on("propertychanged", function (ev) {
+            /*   range0.endValue = ev.target.value;
+              range1.value = ev.target.value; */
+            label.text = axis2.positionToValue(hand.currentPosition).toFixed(1);
+            axis2.invalidate();
+        });
+
+        setInterval(function () {
+            var value = valormedidor;
+            var animation = new am4core.Animation(hand, {
+                property: "value",
+                to: value
+            }, 1000, am4core.ease.cubicOut).start();
+        }, 2000);
+
+    }); // end am4core.ready()
+</script>
+
+<script>
+    var i = 1;
+
+    function addPanel() {
+        var currentPanel = "A" + i;
+        console.log("generando panel")
+        var div = document.createElement('div');
+        console.log(currentPanel)
+        div.id = currentPanel;
+        div.setAttribute('class', 'someClass');
+        div.innerHTML = document.getElementById('blockOfStuff').innerHTML;
+        document.getElementById('targetElement').appendChild(div);
+        document.getElementById(currentPanel).scrollIntoView({
+            block: 'start'
+        });
+        i++;
+
+    }
+</script>
+<script>
+    //Obtener fecha de hoy
+
+    let today = new Date();
+    let dd = today.getDate();
+    let mm = today.getMonth() + 1; //enero es 0!
+    let yyyy = today.getFullYear();
+
+    if (dd < 10) {
+        dd = "0" + dd;
+    }
+    if (mm < 10) {
+        mm = "0" + mm;
+    }
+
+    today = yyyy + "-" + mm + "-" + dd;
+
+    //Inicialziar el calendario con la fecha de hoy
+    document.getElementById("fecharuta").value = today;
+    document.getElementById("fecharuta").max = today;
+</script>
+<script>
+    async function casos() {
+        routePath = [];
+        var mapaconsult;
+        const consulta = { con: mapaconsult };
+        const options1 = {
+            method: "POST",
+            body: JSON.stringify(consulta),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        };
+
+
+
+        const response2 = await fetch('/mapageneral', options1);
+        result2 = await response2.json();
+        console.log(result2);
+
+
+
+        initHeatMap();
+        map.addListener('click', (e) => {
+            addRoutePoint(e.latLng)
+        })
+    }
+    function addRoutePoint(pos) {
+        var marker = new google.maps.Marker({
+            position: pos,
+            map: map
+        });
+        routePath.push(pos)
+        routeMarkers.push(marker)
+        drawRoute();
+    }
+    let routePath = [];
+    let routeMarkers = [];
+    let markers = [];
+    let polylines = [];
+    let routeSegments = []
+    function initHeatMap() {
+
+        var color;
+        var icon;
+        var descriptor
+        for (var i = 0; i < result2.length; i++) {
+            if (result2[i].riesgo <= 30) {
+
+                descriptor = "Low";
+                color = "#008000";
+                icon = "http://maps.google.com/mapfiles/ms/icons/green.png";
+            } else if (result2[i].riesgo > 30 && result2[i].riesgo <= 70) {
+
+                descriptor = "Moderate";
+                color = "#f6d866";
+                icon = "http://maps.google.com/mapfiles/ms/icons/orange.png";
+            } else if (result2[i].riesgo > 70 && result2[i].riesgo <= 100) {
+
+                color = "#ff0000";
+                descriptor = "High";
+                icon = "http://maps.google.com/mapfiles/ms/icons/red.png";
+            }
+            var pos = { lat: parseFloat(result2[i].latitud), lng: parseFloat(result2[i].longitud) };
+            var segment = [pos, { lat: parseFloat(result2[i].latitud1), lng: parseFloat(result2[i].longitud1) }];
+            DrawSection(segment, color);
+
+        }
+
+        console.log('pai entré a la fun')
+
+        if (heatmaps.length > 0) {
+            var capaheat = heatmaps[heatmaps.length - 1]
+            capaheat.setMap(null);
+        }
+        var heatmap = new google.maps.visualization.HeatmapLayer({
+
+        });;
+
+
+        //heatmap.setData(heatMapData);
+        //heatmap.setMap(map);
+        //heatmaps.push(heatmap)
+    }
+    function DrawSection(segment, color) {
+        var lineSymbol = {
+            path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+        };
+
+        var riskpath = new google.maps.Polyline({
+            path: segment,
+            geodesic: true,
+            strokeColor: color,
+            strokeOpacity: 1.0,
+            strokeWeight: 2,
+            icons: [
+                {
+                    icon: lineSymbol,
+                    offset: "100%",
+                    repeat: '20px'
+                },
+            ]
+        });
+
+        riskpath.setMap(map)
+        polylines.push(riskpath)
+    }
+
+    function drawRoute() {
+        var lineSymbol = {
+            path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+        };
+        if (route != null) {
+            route.setMap(null)
+        }
+        route = new google.maps.Polyline({
+            path: routePath,
+            geodesic: true,
+            strokeColor: "#000000",
+            strokeOpacity: 1.0,
+            strokeWeight: 2,
+            icons: [
+                {
+                    icon: lineSymbol,
+                    offset: "100%",
+                    repeat: '20px'
+                },
+            ]
+        });
+
+        route.setMap(map)
+    };
+    let route;
+</script>
+<script>
+
+    var select = document.getElementById("lista_product");
+    select.addEventListener('onchange', () => {
+        if (document.getElementById("lista_product").value == 2) {
+            console.log("entré")
+        }
+
+
+    })
+    function actualizar(option) {
+
+        if (option.value == 2) {
+            console.log("entré")
+            document.getElementById("producto").innerHTML = "Carbon disulfide"
+            document.getElementById("riesgoproducto").innerHTML = "H225 - Highly flammable liquid and vapor Content." + "<br> H315 - Causes skin irritation." +
+                "<br> H319 - Causes serious eye irritation." + "<br> H372 - Causes damage to organs through prolonged or repeated exposure." + "<br> H361fd - Suspected of causing eye irritation." +
+                "<br> H372 - Causes damage to organs through prolonged or repeated exposure." + "<br> H361fd - Suspected of damaging fertility. Suspected of damaging the unborn child. " + "<br> H332 - Harmful if inhaled."
+            document.getElementById("UN").innerHTML = "UN 1131 Carbon disulfide, Class 3 (6.1)"
+            document.getElementById("presentation").innerHTML = "Liquid"
+            document.getElementById("packing").innerHTML = "Isocontainer"
+            document.getElementById("labels").innerHTML = '<img src="/fotos-rutas/carbondisulfide.png"></img>'
+        }
+
+    }
+       /*  document.getElementById("fecharuta").innerHTML = fecharuta
+document.getElementById("Initcoord").innerHTML = result.latitud + ", " + result.longitud;
+document.getElementById("Finalcoord").innerHTML = result.latitud1 + ", " + result.longitud1;
+document.getElementById("riesgo").innerHTML = descriptor + " (" + result.riesgo + '%)';
+document.getElementById("notasb").innerHTML = result.notas; */
+</script>
+<script>
+    function evaluar() {
+        document.getElementById("chulo").style.display = "block";
+        document.getElementById("eval").style.display = "none";
+    }
+</script>
+
+</html>

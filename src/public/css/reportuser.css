@@ -6,7 +6,7 @@
 }
 
 body {
-    overflow: scroll;
+    overflow: hidden;
     font-family: 'Source Sans Pro', sans-serif;
     font-weight: 300;
     color: var(--primary);
@@ -121,7 +121,7 @@ a:hover {
 }
 
 #notas{
-  height: 150px;
+  height: 510px;
 }
 
 
@@ -861,4 +861,24 @@ a:hover {
     #imagen{
       width: 100%;
        max-width:auto;
+    }
+
+    #eval{
+      text-decoration: none;
+      color: #002a29;
+    }
+    
+    .modal-content{
+      height: 600px;
+      width:800px;
+      justify-content:center;
+      
+    }
+    .modal-body{
+      height:auto;
+      width:auto;
+      overflow:scroll;
+    }
+    #chulo{
+      width: 30px;
     }
