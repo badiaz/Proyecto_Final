@@ -112,6 +112,9 @@ app.get('/mainestilo', (request, response) => {
 app.get('/reportestilo', (request, response) => {
     response.sendFile(path.join(__dirname + '/public/css/report.css'));
 });
+app.get('/reportuser', (request, response) => {
+    response.sendFile(path.join(__dirname + '/public/css/reportuser.css'));
+});
 
 //Admin
 app.get('/admin', function (request, response) {

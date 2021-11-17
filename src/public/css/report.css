@@ -1,5 +1,5 @@
 body {
-  width: 1000px;
+  
   size: portrait
   
 }
@@ -11,12 +11,26 @@ body {
 #pdf {
   display: none;
 }
+#undo {
+  display: none;
+}
+#clear {
+  display: none;
+}
 
 #sidebar-container {
   display: none;
 }
 
-div.saltopagina {
+.saltopagina {
   display: block;
   page-break-before: always;
+}
+.saltopaginaup {
+  display: block;
+  page-break-after: always;
+}
+
+::-webkit-scrollbar {
+  display: none;
 }
