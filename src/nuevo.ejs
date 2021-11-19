@@ -215,13 +215,8 @@
                                             <tbody id="tableroute">
                                                 <!-- Filas generadas dinamicamente xd -->
                                                 <tr>
-                                                    <th scope="row">-</th>
-                                                    <td>-</td>
-                                                    <td><a id="eval" data-toggle="modal" data-target="#exampleModal"
-                                                            href="#contenido2">Assess
-                                                            Segment</a><img id="chulo" style="display:none;"
-                                                            src="img/green.png">
-                                                    </td>
+                                                    <th scope="row"></th>
+
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -283,7 +278,6 @@
                 </div>
                 <div class="modal-body">
                     <div id="contenido2" class="bg-grey w-100">
-
                         <section id="registro">
                             <div class="container">
                                 <div class="row">
@@ -367,51 +361,6 @@
                                                                         placeholder="Add notes to the case" width="50%"
                                                                         height="100px"></textarea>
                                                                 </div>
-                                                                <!-- <div class="form-group mb-4">
-                                                                    <label for="apellido" class="font-weight-bold">Route
-                                                                        Section
-                                                                        Location <p class="lead text-muted">Drag the
-                                                                            markers.
-                                                                        </p></label>
-                                                                    <div id="map"></div>
-                                                                </div>
-                                                                <div class="form-group mb-4">
-                                                                    <label for="latitude"
-                                                                        class="font-weight-bold">Initial
-                                                                        Latitude:</label>
-                                                                    <input id="txtLat" type="text"
-                                                                        class="form-control bg-grey" readonly="readonly"
-                                                                        value="10.9861045" name="latitud" width="50%"
-                                                                        height="100px">
-                                                                </div>
-                                                                <div class="form-group mb-4">
-                                                                    <label for="longitude"
-                                                                        class="font-weight-bold">Initial
-                                                                        Longitude:</label>
-                                                                    <input id="txtLng" type="text"
-                                                                        class="form-control bg-grey" readonly="readonly"
-                                                                        value="-74.80928094" name="longitud" width="50%"
-                                                                        height="100px">
-                                                                </div>
-                                                                <div class="form-group mb-4">
-                                                                    <label for="latitude" class="font-weight-bold">Final
-                                                                        Latitude:</label>
-                                                                    <input id="txtLat1" type="text"
-                                                                        class="form-control bg-grey" readonly="readonly"
-                                                                        value="10.9861045" name="latitud" width="50%"
-                                                                        height="100px">
-                                                                </div>
-                                                                <div class="form-group mb-4">
-                                                                    <label for="longitude"
-                                                                        class="font-weight-bold">Final
-                                                                        Longitude:</label>
-                                                                    <input id="txtLng1" type="text"
-                                                                        class="form-control bg-grey" readonly="readonly"
-                                                                        value="-74.80928094" name="longitud" width="50%"
-                                                                        height="100px">
-                                                                </div> -->
-
-
                                                             </div>
                                                         </div>
 
@@ -687,6 +636,7 @@
                             </div>
                         </section>
 
+
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -697,13 +647,14 @@
         </div>
     </div>
 </body>
+
 <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCEen29bixPCHvTa7DWIErzdWhPg8Zp60Y&callback=initMap"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script src="https://andreruffert.github.io/rangeslider.js/assets/rangeslider.js/dist/rangeslider.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.2/underscore-min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
-<script>
+<script id="1">
     let arraystring;
     let idglobal
 
@@ -719,7 +670,7 @@
 
 
 </script>
-<script>
+<script id="2">
     function analisis() {
 
         document.getElementById('imagenes').style.display = 'block';
@@ -738,9 +689,9 @@
 </script>
 
 
-<script>
+<script id="3">
     //initMap();
-    var map;
+    let map;
     var geocoder;
 
 
@@ -750,75 +701,17 @@
             zoom: 12, center: { lat: 10.9861045, lng: -74.80928094 },
             streetViewControl: false
         });
-        geocoder = new google.maps.Geocoder();
-
-        var marker = new google.maps.Marker({
-            position: myLatlng,
-            draggable: true,
-            map: map
+        //listener onclick -> añadir nuevo punto a la ruta dibujada  
+        map.addListener('click', (e) => {
+            addRoutePoint(e.latLng)
+            last = "c";
         });
-        var marker1 = new google.maps.Marker({
-            position: myLatlng,
-            draggable: true,
-            map: map
-        });
-        marker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png')
-        marker1.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png')
+        //listener click derecho -> dibujar
 
-        marker1.setMap(map);
-        marker.setMap(map);
-        // adds a listener to the marker
-        // gets the coords when drag event ends
-        // then updates the input with the new coords
-        google.maps.event.addListener(marker, 'dragend', function (evt) {
-            $("#txtLat").val(evt.latLng.lat().toFixed(6));
-            $("#txtLng").val(evt.latLng.lng().toFixed(6));
-
-            /* map.panTo(evt.latLng); */
-        });
-
-        google.maps.event.addListener(marker1, 'dragend', function (evt) {
-            $("#txtLat1").val(evt.latLng.lat().toFixed(6));
-            $("#txtLng1").val(evt.latLng.lng().toFixed(6));
-
-            /* map.panTo(evt.latLng); */
-        });
-
-        const infowindow = new google.maps.InfoWindow({
-            content: 'Initial point ',
-        });
-        const infowindow1 = new google.maps.InfoWindow({
-            content: 'Final point ',
-        });
-
-        google.maps.event.addListener(marker, 'mouseover', function (evt) {
-            infowindow.open({
-                anchor: marker,
-                map,
-                shouldFocus: false,
-            });
-
-        })
-        google.maps.event.addListener(marker, 'mouseout', function (evt) {
-            infowindow.close();
-        })
-        /* para marker2 */
-        google.maps.event.addListener(marker1, 'mouseover', function (evt) {
-            infowindow1.open({
-                anchor: marker1,
-                map,
-                shouldFocus: false,
-            });
-
-        })
-        google.maps.event.addListener(marker1, 'mouseout', function (evt) {
-            infowindow1.close();
-        })
-        casos();
     }
 </script>
 <!-- input -->
-<script>
+<script id="4">
     //DOM
 
 
@@ -934,7 +827,7 @@
 
 
 
-<script>
+<script id="5">
     let arrayfotos;
 
     formCase1.onsubmit = async (e) => {
@@ -965,7 +858,7 @@
 
     };
 </script>
-<script>
+<script id="6">
     //paso 1 --> crear el array de imagenes
     function mostrarfotos() {
 
@@ -1004,10 +897,11 @@
 
     }
 </script>
-<script>
+<script id="7">
 
     async function riesgo() {
         document.getElementById('chartdiv').scrollIntoView({ block: "end", behavior: "smooth" });
+        var sg = segments[index - 1]
         const datos = {
             bicicletas: document.getElementById("bicicletas").value,
             motos: document.getElementById("motos").value,
@@ -1021,10 +915,10 @@
             calzadadiv: document.getElementById("calzadadiv1").value,
             hora: document.getElementById("hora").value,
             fecharuta: document.getElementById("fecharuta").value,
-            latitud: document.getElementById("txtLat").value,
-            longitud: document.getElementById("txtLng").value,
-            latitud1: document.getElementById("txtLat1").value,
-            longitud1: document.getElementById("txtLng1").value,
+            latitud: sg[0].lat(),
+            longitud: sg[0].lng(),
+            latitud1: sg[1].lat(),
+            longitud1: sg[1].lng(),
             notas: document.getElementById("notas").value,
             fotos: arraystring,
             id: idglobal
@@ -1044,10 +938,21 @@
         console.log(result);
 
         var medidor = result.riesgo;
-        medidor = medidor.substring(0, medidor.length - 4)
-        valormedidor = parseFloat(medidor) * 10;
+        medidor = parseFloat(medidor) * 10
+        valormedidor = medidor.toFixed(2);
         console.log(valormedidor);
         window.removeEventListener('beforeunload', cerrar1)
+        var riesgotabla = document.getElementById("riesgo" + index);
+
+        riesgotabla.innerHTML = valormedidor + " %";
+        evaluar();
+        index++
+        if (index <= segments.length) {
+            var assesstabla = document.getElementById("tda" + index);
+            assesstabla.innerHTML = '<td>' + '<a id="assess' + index + '" data-toggle="modal" data-target="#exampleModal" href="#contenido2">Assess Segment</a>' + '<img id="chulo' + index + '"  style="display:none; width: 30px"src="img/green.png">' + '</td>'
+        }
+        /* document.getElementById("contenido2").innerHTML = modal; */
+        $('contenido2').load();
     };
 
 </script>
@@ -1055,7 +960,7 @@
 
 <!-- SLIDERSSS -->
 
-<script>
+<script id="8">
     const output = document.querySelector('#outbici')
     const doThings = (event) => {
         const { value, min, max, step, parentElement: parent } = event.target
@@ -1182,27 +1087,21 @@
 
 </script>
 
-<script>
+<!-- <script>
     var loadFile = function (event) {
         var image = document.getElementById('output');
         for (images in image) {
             image.src = URL.createObjectURL(event.target.files[images]);
         }
     };
-</script>
+</script> -->
 
 
-<script>
-    function limpiarform() {
-        document.forms['formCase'].reset()
-    }
-</script>
+
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-    crossorigin="anonymous"></script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
     integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
     crossorigin="anonymous"></script>
@@ -1214,7 +1113,7 @@
 <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
 <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
 <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
-<script>
+<script id="10">
     let valormedidor = 0;
     am4core.ready(function () {
 
@@ -1353,26 +1252,8 @@
     }); // end am4core.ready()
 </script>
 
-<script>
-    var i = 1;
 
-    function addPanel() {
-        var currentPanel = "A" + i;
-        console.log("generando panel")
-        var div = document.createElement('div');
-        console.log(currentPanel)
-        div.id = currentPanel;
-        div.setAttribute('class', 'someClass');
-        div.innerHTML = document.getElementById('blockOfStuff').innerHTML;
-        document.getElementById('targetElement').appendChild(div);
-        document.getElementById(currentPanel).scrollIntoView({
-            block: 'start'
-        });
-        i++;
-
-    }
-</script>
-<script>
+<script id="11">
     //Obtener fecha de hoy
 
     let today = new Date();
@@ -1411,120 +1292,8 @@
         const response2 = await fetch('/mapageneral', options1);
         result2 = await response2.json();
         console.log(result2);
-
-
-
-        initHeatMap();
-        map.addListener('click', (e) => {
-            addRoutePoint(e.latLng)
-        })
-    }
-    function addRoutePoint(pos) {
-        var marker = new google.maps.Marker({
-            position: pos,
-            map: map
-        });
-        routePath.push(pos)
-        routeMarkers.push(marker)
-        drawRoute();
-    }
-    let routePath = [];
-    let routeMarkers = [];
-    let markers = [];
-    let polylines = [];
-    let routeSegments = []
-    function initHeatMap() {
-
-        var color;
-        var icon;
-        var descriptor
-        for (var i = 0; i < result2.length; i++) {
-            if (result2[i].riesgo <= 30) {
-
-                descriptor = "Low";
-                color = "#008000";
-                icon = "http://maps.google.com/mapfiles/ms/icons/green.png";
-            } else if (result2[i].riesgo > 30 && result2[i].riesgo <= 70) {
-
-                descriptor = "Moderate";
-                color = "#f6d866";
-                icon = "http://maps.google.com/mapfiles/ms/icons/orange.png";
-            } else if (result2[i].riesgo > 70 && result2[i].riesgo <= 100) {
-
-                color = "#ff0000";
-                descriptor = "High";
-                icon = "http://maps.google.com/mapfiles/ms/icons/red.png";
-            }
-            var pos = { lat: parseFloat(result2[i].latitud), lng: parseFloat(result2[i].longitud) };
-            var segment = [pos, { lat: parseFloat(result2[i].latitud1), lng: parseFloat(result2[i].longitud1) }];
-            DrawSection(segment, color);
-
-        }
-
-        console.log('pai entré a la fun')
-
-        if (heatmaps.length > 0) {
-            var capaheat = heatmaps[heatmaps.length - 1]
-            capaheat.setMap(null);
-        }
-        var heatmap = new google.maps.visualization.HeatmapLayer({
-
-        });;
-
-
-        //heatmap.setData(heatMapData);
-        //heatmap.setMap(map);
-        //heatmaps.push(heatmap)
-    }
-    function DrawSection(segment, color) {
-        var lineSymbol = {
-            path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
-        };
-
-        var riskpath = new google.maps.Polyline({
-            path: segment,
-            geodesic: true,
-            strokeColor: color,
-            strokeOpacity: 1.0,
-            strokeWeight: 2,
-            icons: [
-                {
-                    icon: lineSymbol,
-                    offset: "100%",
-                    repeat: '20px'
-                },
-            ]
-        });
-
-        riskpath.setMap(map)
-        polylines.push(riskpath)
     }
 
-    function drawRoute() {
-        var lineSymbol = {
-            path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
-        };
-        if (route != null) {
-            route.setMap(null)
-        }
-        route = new google.maps.Polyline({
-            path: routePath,
-            geodesic: true,
-            strokeColor: "#000000",
-            strokeOpacity: 1.0,
-            strokeWeight: 2,
-            icons: [
-                {
-                    icon: lineSymbol,
-                    offset: "100%",
-                    repeat: '20px'
-                },
-            ]
-        });
-
-        route.setMap(map)
-    };
-    let route;
 </script>
 <script>
 
@@ -1558,10 +1327,587 @@ document.getElementById("riesgo").innerHTML = descriptor + " (" + result.riesgo 
 document.getElementById("notasb").innerHTML = result.notas; */
 </script>
 <script>
-    function evaluar() {
-        document.getElementById("chulo").style.display = "block";
-        document.getElementById("eval").style.display = "none";
+    let routePath = [];
+    let segments = [];
+    let currentSegment = [];
+    let polylines = [];
+    let SnappedSegments = [];
+    let last;
+    var apiKey = 'AIzaSyCEen29bixPCHvTa7DWIErzdWhPg8Zp60Y'
+    //listener onclick -> añadir nuevo punto a la ruta dibujada
+
+
+
+    //Añadir punto a la ruta + dibujar la ruta
+    function addRoutePoint(pos) {
+        routePath.push(pos)
+        drawRoute();
+        last = "rc";
     }
+
+    //listener click derecho -> dibujar 
+
+    function addSegment(pos) {
+        currentSegment.push(pos)
+        if (currentSegment.length > 1) {
+            segments.push(currentSegment)
+            var sg = segments[0];
+            var sg1 = segments[1];
+
+            drawSegment(currentSegment)
+
+        }
+    }
+
+    function addSegmentHtml() {
+        //AQUI EL HTML
+    }
+
+    function drawSegment(seg) {
+        var route = new google.maps.Polyline({
+            path: seg,
+            geodesic: true,
+            strokeColor: "#000000",
+            strokeWeight: 8,
+            strokeOpacity: 1,
+            map: null
+
+        });
+        var path = route.getPath();
+        placeIdArray = [];
+        runSnapToSegment(path);
+
+
+    };
+
+
+    function drawRoute() {
+        var route = new google.maps.Polyline({
+            path: routePath,
+            geodesic: true,
+            strokeColor: "#000000",
+            strokeWeight: 8,
+            strokeOpacity: 1,
+            map: null
+
+        });
+        var path = route.getPath();
+        placeIdArray = [];
+        runSnapToRoad(path);
+    };
+
+    //////// BUTTONS FUNCTIONS ////
+    function undoSegment() {
+        if (last == "c") {
+            routePath.pop();
+            drawRoute();
+        } else {
+            if (currentSegment.length > 0) {
+                currentSegment.pop();
+            } else {
+                currentSegment = segments.pop();
+                currentSegment.pop();
+                var route = SnappedSegments.pop();
+                route.setMap(null);
+            }
+        }
+    }
+
+    //Función limpiar la ruta
+    function clearSegment() {
+        polylines[0].setMap(null)
+        routePath = [];
+        currentSegment = [];
+        segments = [];
+        for (i in SnappedSegments) {
+            var route = i;
+            route.setMap(null)
+        }
+        SnappedSegments = []
+
+    }
+
+</script>
+<script>
+    //////SNAP TO ROAD FUNCTIONS //////
+    //Ajusta la ruta creada por el usuario a los caminos más apropiados
+    function runSnapToRoad(path) {
+        var pathValues = [];
+        for (var i = 0; i < path.getLength(); i++) {
+            pathValues.push(path.getAt(i).toUrlValue());
+        }
+
+        $.get('https://roads.googleapis.com/v1/snapToRoads', {
+            interpolate: true,
+            key: apiKey,
+            path: pathValues.join('|')
+        }, function (data) {
+            processSnapToRoadResponse(data);
+            drawSnappedPolyline();
+        });
+    }
+
+    //Ajusta el segmento de ruta definido por el usuario a los caminos más apropiados
+    function runSnapToSegment(path) {
+        var pathValues = [];
+        for (var i = 0; i < path.getLength(); i++) {
+            pathValues.push(path.getAt(i).toUrlValue());
+        }
+
+        $.get('https://roads.googleapis.com/v1/snapToRoads', {
+            interpolate: true,
+            key: apiKey,
+            path: pathValues.join('|')
+        }, function (data) {
+            processSnapToRoadResponse(data);
+            drawSnappedSegment();
+        });
+    }
+
+    // Procesa la respuesta de la función anterior (RunSnapToRoad)
+    function processSnapToRoadResponse(data) {
+        snappedCoordinates = [];
+        placeIdArray = [];
+        for (var i = 0; i < data.snappedPoints.length; i++) {
+            var latlng = new google.maps.LatLng(
+                data.snappedPoints[i].location.latitude,
+                data.snappedPoints[i].location.longitude);
+            snappedCoordinates.push(latlng);
+            placeIdArray.push(data.snappedPoints[i].placeId);
+        }
+    }
+
+    // Dibuja la polylinea ajustada al camino (después de procesar la respuesta)
+    function drawSnappedPolyline() {
+        console.log("polylines")
+        if (polylines.length > 0) {
+            polylines[length - 1].setMap(null)
+        }
+        var snappedPolyline = new google.maps.Polyline({
+            path: snappedCoordinates,
+            geodesic: true,
+            strokeColor: "#0f2547",
+            strokeOpacity: 1.0,
+            strokeWeight: 5,
+            zIndex: 998,
+
+        });
+        snappedPolyline.setMap(map);
+        snappedPolyline.addListener('rightclick', (e) => {
+            if (currentSegment.length > 1) {
+                currentSegment.pop();
+                currentSegment.pop();
+            }
+            addSegment(e.latLng)
+        })
+        polylines[0] = snappedPolyline;
+
+    }
+
+    function drawSnappedSegment() {
+        console.log(currentSegment)
+
+        var snappedPolyline = new google.maps.Polyline({
+            path: snappedCoordinates,
+            geodesic: true,
+            strokeColor: "#a1ccae",
+            strokeOpacity: 1.0,
+            strokeWeight: 5,
+            zIndex: 1000,
+
+        });
+        snappedPolyline.setMap(map);
+        SnappedSegments.push(snappedPolyline);
+        console.log(SnappedSegments[0].getPath())
+        insertTable();
+    }
+</script>
+<script>
+    let index = 1;
+    function evaluar() {
+        document.getElementById("chulo" + index).style.display = "block";
+        document.getElementById("assess" + index).style.display = "none";
+    }
+
+    //insertar en la tabla
+
+    function insertTable(res1, res2, res3) {
+        console.log("executed")
+
+        var table = document.getElementById('tableroute');
+        var tr = document.createElement('tr');
+        if (segments.length > 1) {
+            var assess = '<td id="tda' + segments.length + '">' + "Pending" + '</td>'
+        } else {
+            var assess = '<td>' + '<a id="assess1" data-toggle="modal" data-target="#exampleModal" href="#contenido2">Assess Segment</a>' + '<img id="chulo1" style="display:none width:30px;"src="img/green.png">' + '</td>'
+        }
+        tr.innerHTML = '<th>' + segments.length + '<td id="riesgo' + segments.length + '">' + res1 + "%" + '</td>' + assess;
+        table.appendChild(tr);
+    };
+
+    function assessLink() {
+        document.getElementById("assess" + index.length)
+    }
+</script>
+<script>
+    var modal = ` <section id="registro">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-lg-12 my-4">
+                                        <div class="card rounded-0">
+                                            <div class="card-header bg-light">
+                                                <h5 class="d-inline-block font-weight-bold mb-0">Route section
+                                                    information
+                                                </h5>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="container">
+                                                    <form id="formCase1" enctype="multipart/form-data">
+                                                        <div class="row">
+                                                            <div class="col-lg-6 my-4">
+
+                                                                <div class="form-group mb-4">
+                                                                    <label for="fecha_nac" class="font-weight-bold">Date
+                                                                        of
+                                                                        analysis</label>
+                                                                    <input type="date" class="form-control w-10"
+                                                                        id="fecharuta" name="fecharuta"
+                                                                        onkeydown="return false" />
+                                                                </div>
+
+                                                                <!-- <div class="drop-zone">
+                                              <span class="drop-zone__prompt">Drag or click here to attach an image</span>
+                                              <input type="file" name="fotos" class="drop-zone__input" accept="image/*" id="file"
+                                                multiple="multiple">
+                                            </div>
+                                            <img id="output" /> -->
+                                                                <div id="upload" class="upload">
+                                                                    <div class="upload-files">
+                                                                        <header>
+                                                                            <p>
+                                                                                <i class="fa fa-cloud-upload"
+                                                                                    aria-hidden="true"></i>
+                                                                                <span class="up">up</span>
+                                                                                <span class="load">load</span>
+                                                                            </p>
+                                                                        </header>
+                                                                        <div class="body" id="drop">
+                                                                            <i class="fa fa-file-text-o pointer-none"
+                                                                                aria-hidden="true"></i>
+                                                                            <p class="pointer-none"><b>Drag and drop</b>
+                                                                                your
+                                                                                images here <br /> or <a href=""
+                                                                                    id="triggerFile">browse</a> to begin
+                                                                                the
+                                                                                upload</p>
+                                                                            <input type="file" name="fotos"
+                                                                                accept="image/*" id="file"
+                                                                                multiple="multiple" />
+                                                                        </div>
+                                                                        <footer>
+                                                                            <div class="divider">
+                                                                                <span>
+                                                                                    <AR>FILES</AR>
+                                                                                </span>
+                                                                            </div>
+                                                                            <div class="list-files">
+                                                                                <!--   template   -->
+                                                                                <button type="button"
+                                                                                    class="importar">UPDATE
+                                                                                    FILES</button>
+                                                                            </div>
+
+                                                                        </footer>
+                                                                    </div>
+                                                                </div>
+
+
+                                                            </div>
+                                                            <div class="col-lg-6 my-4">
+                                                                <div class="form-group mb-4">
+                                                                    <label for="notas"
+                                                                        class="font-weight-bold">Additional
+                                                                        Notes</label>
+                                                                    <textarea id=notas type="text"
+                                                                        class="form-control bg-grey" name="notas"
+                                                                        placeholder="Add notes to the case" width="50%"
+                                                                        height="100px"></textarea>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <button type="submit" class="btn btn-primary mt-4 mb-4 w-25">
+                                                            Register
+                                                            section</button>
+
+
+
+                                                </div>
+
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        <section id="imagenes" class="imagenes" style="display:none">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-lg-12 my-4">
+                                        <div class="card rounded-0">
+                                            <div class="card-header bg-light">
+                                                <h5 class="d-inline-block font-weight-bold mb-0">Images <p
+                                                        class="lead text-muted">All images must
+                                                        be part of the same section of the route at the same instant in
+                                                        time.
+                                                        Please complete the
+                                                        information taking into account all images.
+                                                    </p>
+                                                </h5>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="container">
+                                                    <span id="mostrarimagenes"></span>
+                                                    <img id='imagen' src='/fotos-rutas/'><br>
+                                                    <input class="btn btn-primary mt-4 mb-4 w-25" type="button"
+                                                        id="anterior" value="<<">
+                                                    <input class="btn btn-primary mt-4 mb-4 w-25" type="button"
+                                                        id="siguiente" value=">>">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        </section>
+                        <section id="analisis" class="analisis" style="display:none">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-lg-12 my-4">
+                                        <div class="card rounded-0">
+                                            <div class="card-header bg-light">
+                                                <h5 class="d-inline-block font-weight-bold mb-0">Route Section Analysis
+                                                </h5>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="container">
+
+                                                    <div class="row">
+                                                        <div class="col-lg-6 my-4">
+                                                            <label for="flujo_carretara"
+                                                                class="font-weight-bold">Vehicular
+                                                                and
+                                                                pedestrian flow</label>
+                                                            <div class="Divisor_variables">
+                                                                <div class="form-group mb-4">
+                                                                    <label class="heat-slider heat-slider--v">
+                                                                        <span
+                                                                            class="heat-slider--label font-weight-bold">Number
+                                                                            of Bicycles:</span>
+                                                                        <span class="heat-slider--input">
+                                                                            <input id="bicicletas" name="bicicletas"
+                                                                                type="range" value="0" min="0" max="10"
+                                                                                oninput="doThings(event)" />
+                                                                        </span>
+                                                                    </label>
+                                                                    <output id="outbici">Please scroll to
+                                                                        select...</output>
+                                                                </div>
+                                                                <div class="form-group mb-4">
+                                                                    <label class="heat-slider heat-slider--v">
+                                                                        <span
+                                                                            class="heat-slider--label font-weight-bold">Number
+                                                                            of motorcycles:</span>
+                                                                        <span class="heat-slider--input">
+                                                                            <input id="motos" type="range" name="motos"
+                                                                                value="0" min="0" max="10"
+                                                                                oninput="doThings1(event)" />
+                                                                        </span>
+                                                                    </label>
+                                                                    <output id="outmoto">Please scroll to
+                                                                        select...</output>
+                                                                </div>
+                                                                <div class="form-group mb-4">
+                                                                    <label class="heat-slider heat-slider--v">
+                                                                        <span
+                                                                            class="heat-slider--label font-weight-bold">Number
+                                                                            of Pedestrians:</span>
+                                                                        <span class="heat-slider--input">
+                                                                            <input id="peaton" type="range"
+                                                                                name="peaton" value="0" min="0" max="10"
+                                                                                oninput="doThings2(event)" />
+                                                                        </span>
+                                                                    </label>
+                                                                    <output id="outpeaton">Please scroll to
+                                                                        select...</output>
+                                                                </div>
+                                                            </div>
+                                                            <br><br><br>
+                                                            <label for="flujo_carretara"
+                                                                class="font-weight-bold">Conditions
+                                                                of
+                                                                the road section:</label>
+                                                            <div class="Divisor_variables">
+                                                                <div class="form-group mb-4">
+                                                                    <label class="heat-sliderinv heat-sliderinv--v">
+                                                                        <span
+                                                                            class="heat-sliderinv--label font-weight-bold">On
+                                                                            a scale of rate the condition of
+                                                                            the road:</span>
+                                                                        <span class="heat-sliderinv--input">
+                                                                            <input id="via" type="range" name="via"
+                                                                                value="0" min="0" max="10"
+                                                                                oninput="doThings3(event)" />
+                                                                        </span>
+                                                                    </label>
+                                                                    <output id="outvia">Please scroll to
+                                                                        select...</output>
+                                                                </div>
+                                                                <div class="form-group mb-4">
+                                                                    <label class="heat-slider heat-slider--v">
+                                                                        <span
+                                                                            class="heat-slider--label font-weight-bold">On
+                                                                            a
+                                                                            scale of, how good is the skid
+                                                                            resistance of the road:</span>
+                                                                        <span class="heat-slider--input">
+                                                                            <input id="deslizamiento" type="range"
+                                                                                name="deslizamiento" value="0" min="0"
+                                                                                max="10" oninput="doThings4(event)" />
+                                                                        </span>
+                                                                    </label>
+                                                                    <output id="outdeslizamiento">Please scroll to
+                                                                        select...</output>
+                                                                </div>
+                                                                <div class="form-group mb-4">
+                                                                    <label class="heat-slider heat-slider--v">
+                                                                        <span
+                                                                            class="heat-slider--label font-weight-bold">On
+                                                                            a
+                                                                            scale of 0 to 10, rate the
+                                                                            severity of the roadworks:</span>
+                                                                        <span class="heat-slider--input">
+                                                                            <input id="obrasvia" type="range"
+                                                                                name="obrasvia" value="0" min="0"
+                                                                                max="10" step="1"
+                                                                                oninput="doThings9(event)" />
+                                                                        </span>
+                                                                    </label>
+                                                                    <output id="outseveridad">Please scroll to
+                                                                        select...</output>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-6 my-4">
+                                                            <label for="flujo_carretara"
+                                                                class="font-weight-bold">Elements
+                                                                and
+                                                                signaling of the
+                                                                road</label>
+                                                            <div class="Divisor_variables">
+                                                                <div class="form-group mb-4">
+                                                                    <label class="heat-slider heat-slider--v">
+                                                                        <span
+                                                                            class="heat-slider--label font-weight-bold">Select
+                                                                            the Speed limit of the road the
+                                                                            road:</span>
+                                                                        <span class="heat-slider--input">
+                                                                            <input id="velocidad" type="range"
+                                                                                name="velocidad" value="0" min="0"
+                                                                                max="100" step="10"
+                                                                                oninput="doThings5(event)" />
+                                                                        </span>
+                                                                    </label>
+                                                                    <output id="outvelocidad">Please scroll to
+                                                                        select...</output>
+                                                                </div>
+
+                                                                <div class="form-group mb-4">
+                                                                    <label class="heat-sliderinv heat-sliderinv--v">
+                                                                        <span
+                                                                            class="heat-sliderinv--label font-weight-bold">On
+                                                                            a scale of rate the quality of
+                                                                            street lighting:</span>
+                                                                        <span class="heat-sliderinv--input">
+                                                                            <input id="alumbrado" type="range"
+                                                                                name="alumbrado" value="0" min="0"
+                                                                                max="10" oninput="doThings7(event)" />
+                                                                        </span>
+                                                                    </label>
+                                                                    <output id="outalumbrado">Please scroll to
+                                                                        select...</output>
+                                                                </div>
+                                                                <div class="form-group mb-4">
+                                                                    <label class="heat-sliderinv heat-sliderinv--v">
+                                                                        <span
+                                                                            class="heat-sliderinv--label font-weight-bold">On
+                                                                            a scale of 0 to 10, rate the
+                                                                            quality of road median (separator):</span>
+                                                                        <span class="heat-sliderinv--input">
+                                                                            <input id="separador" type="range"
+                                                                                name="separador" value="0" min="0"
+                                                                                max="10" step="1"
+                                                                                oninput="doThings8(event)" />
+                                                                        </span>
+                                                                    </label>
+                                                                    <output id="outseparador">Please scroll to
+                                                                        select...</output>
+                                                                </div>
+
+                                                                <div class="form-group mb-4">
+                                                                    <label for="sexo" class="font-weight-bold">Does the
+                                                                        road
+                                                                        have centreline rumble
+                                                                        strips?</label>
+                                                                </div>
+                                                                <div class="form-group mb-4">
+                                                                    <div class="btn-group btn-group-toggle"
+                                                                        data-toggle="buttons">
+                                                                        <label class="btn btn-primary active">
+                                                                            <input type="radio" name="calzadadiv"
+                                                                                id="calzadadiv1" value="1" checked>
+                                                                            Present
+                                                                        </label>
+                                                                        <label class="btn btn-primary">
+                                                                            <input type="radio" name="calzadadiv"
+                                                                                id="calzadadiv2" value="2"> Not Present
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group mb-4">
+                                                                    <label class="heat-slider heat-slider--v">
+                                                                        <span
+                                                                            class="heat-slider--label font-weight-bold">Select
+                                                                            the tentative departure
+                                                                            time:</span>
+                                                                        <span class="heat-slider--input">
+                                                                            <input id="hora" type="range" name="hora"
+                                                                                value="0" min="0" max="24" step="1"
+                                                                                oninput="doThings6(event)" />
+                                                                        </span>
+                                                                    </label>
+                                                                    <output id="outHora">Please scroll to
+                                                                        select...</output>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <button type="button" onclick="riesgo()"
+                                                        class="btn btn-primary mt-4 mb-4 w-25">Assess route
+                                                        section</button>
+                                                    <!-- <button onclick="addPanel()" class="btn btn-primary mt-4 mb-4 w-25"> Añadir segmento + </button> -->
+
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    `;
 </script>
 
 </html>

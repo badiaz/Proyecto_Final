@@ -1,0 +1,183 @@
+<script>
+     let routePath =[];
+     let segments= [];
+     let currentSegment = [];
+     let polylines = [];
+     let SnappedSegments = [];
+     let last;
+    //listener onclick -> añadir nuevo punto a la ruta dibujada
+     map.addListener('click', (e) => {
+        addRoutePoint(e.latLng)
+        last = "c";
+      });
+
+    //Añadir punto a la ruta + dibujar la ruta
+    function addRoutePoint(pos){
+        routePath.push(pos)
+        drawRoute();
+        last = "rc";
+    }
+
+    //listener click derecho -> dibujar 
+    map.addListener('rightclick', (e) => {
+        addSegment(e.latLng)
+    })
+    function addSegment(pos){
+        currentSegment.push(pos)
+        if (currentSegment.length > 0 ){
+            segments.push(currentSegment)
+            drawSegment(currentSegment)
+        }
+    }
+
+    function addSegmentHtml() {
+        //AQUI EL HTML
+    }
+   
+    function drawSegment(seg){
+        var route = new google.maps.Polyline({
+        path: seg,
+        geodesic: true,
+        strokeColor: "#000000",
+        strokeWeight: 8,
+        strokeOpacity: 1,
+        map: null
+                 
+      });
+    var path = route.getPath();
+    placeIdArray = [];
+    runSnapToSegment(path);
+    };
+
+
+    function drawRoute(){
+        var route = new google.maps.Polyline({
+        path: routePath,
+        geodesic: true,
+        strokeColor: "#000000",
+        strokeWeight: 8,
+        strokeOpacity: 1,
+        map: null
+                 
+      });
+    var path = route.getPath();
+    placeIdArray = [];
+    runSnapToRoad(path);
+    };
+
+//////// BUTTONS FUNCTIONS ////
+    function undoSegment(){
+    if (last == "c"){
+        routePath.pop();
+        drawRoute();
+    }else{
+        if (currentSegment.length > 0){
+            currentSegment.pop();
+        }else{
+            currentSegment = segments.pop();
+            currentSegment.pop();
+          var route = SnappedSegments.pop();
+            route.setMap(null);
+        }
+    }
+}
+
+    //Función limpiar la ruta
+    function clearSegment(){
+    polylines[0].setMap(null)
+    routePath= [];
+    currentSegment = [];
+    segments = [];
+    for (i in SnappedSegments) {
+       var route = i;
+        route.setMap(null)
+    }
+    SnappedSegments = []
+    
+}
+
+</script>
+<script>
+//////SNAP TO ROAD FUNCTIONS //////
+    //Ajusta la ruta creada por el usuario a los caminos más apropiados
+    function runSnapToRoad(path) {
+      var pathValues = [];
+      for (var i = 0; i < path.getLength(); i++) {
+        pathValues.push(path.getAt(i).toUrlValue());
+      }
+    
+      $.get('https://roads.googleapis.com/v1/snapToRoads', {
+        interpolate: true,
+        key: apiKey,
+        path: pathValues.join('|')
+      }, function(data) {
+        processSnapToRoadResponse(data);
+        drawSnappedPolyline();
+      });
+    }
+
+    //Ajusta el segmento de ruta definido por el usuario a los caminos más apropiados
+    function runSnapToSegment(path) {
+      var pathValues = [];
+      for (var i = 0; i < path.getLength(); i++) {
+        pathValues.push(path.getAt(i).toUrlValue());
+      }
+    
+      $.get('https://roads.googleapis.com/v1/snapToRoads', {
+        interpolate: true,
+        key: apiKey,
+        path: pathValues.join('|')
+      }, function(data) {
+        processSnapToRoadResponse(data);
+        drawSnappedSegment();
+      });
+    }
+    
+    // Procesa la respuesta de la función anterior (RunSnapToRoad)
+    function processSnapToRoadResponse(data) {
+      snappedCoordinates = [];
+      placeIdArray = [];
+      for (var i = 0; i < data.snappedPoints.length; i++) {
+        var latlng = new google.maps.LatLng(
+            data.snappedPoints[i].location.latitude,
+            data.snappedPoints[i].location.longitude);
+        snappedCoordinates.push(latlng);
+        placeIdArray.push(data.snappedPoints[i].placeId);
+      }
+    }
+    
+    // Dibuja la polylinea ajustada al camino (después de procesar la respuesta)
+    function drawSnappedPolyline() {
+      if (polylines.length >0){
+          polylines[length-1].setMap(null)
+      }
+      var snappedPolyline = new google.maps.Polyline({
+        path: snappedCoordinates,
+        geodesic: true,
+        strokeColor: "#0f2547",
+        strokeOpacity: 1.0,
+        strokeWeight: 8,
+        zIndex: 998,
+      
+      });
+      snappedPolyline.setMap(map);
+      polylines[0]=snappedPolyline;
+    }
+     
+    function drawSnappedSegment() {
+      if (polylines.length >0){
+          polylines[length-1].setMap(null)
+      }
+      var snappedPolyline = new google.maps.Polyline({
+        path: snappedCoordinates,
+        geodesic: true,
+        strokeColor: "#00000",
+        strokeOpacity: 1.0,
+        strokeWeight: 8,
+        zIndex: 998,
+      
+      });
+      snappedPolyline.setMap(map);
+      SnappedSegments.push(snappedPolyline);
+    }
+</script>
