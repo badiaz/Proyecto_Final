@@ -879,6 +879,7 @@ a:hover {
       width:auto;
       overflow:scroll;
     }
-    #chulo{
+    .chulo{
       width: 30px;
+      display:none
     }

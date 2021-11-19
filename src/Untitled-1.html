@@ -1,183 +1,615 @@
 <script>
-     let routePath =[];
-     let segments= [];
-     let currentSegment = [];
-     let polylines = [];
-     let SnappedSegments = [];
-     let last;
-    //listener onclick -> añadir nuevo punto a la ruta dibujada
-     map.addListener('click', (e) => {
-        addRoutePoint(e.latLng)
-        last = "c";
-      });
+  let routePath = [];
+  let segments = [];
+  let currentSegment = [];
+  let polylines = [];
+  let SnappedSegments = [];
+  let last;
+  //listener onclick -> añadir nuevo punto a la ruta dibujada
+  map.addListener('click', (e) => {
+    addRoutePoint(e.latLng)
+    last = "c";
+  });
 
-    //Añadir punto a la ruta + dibujar la ruta
-    function addRoutePoint(pos){
-        routePath.push(pos)
-        drawRoute();
-        last = "rc";
-    }
+  //Añadir punto a la ruta + dibujar la ruta
+  function addRoutePoint(pos) {
+    routePath.push(pos)
+    drawRoute();
+    last = "rc";
+  }
 
-    //listener click derecho -> dibujar 
-    map.addListener('rightclick', (e) => {
-        addSegment(e.latLng)
-    })
-    function addSegment(pos){
-        currentSegment.push(pos)
-        if (currentSegment.length > 0 ){
-            segments.push(currentSegment)
-            drawSegment(currentSegment)
-        }
+  //listener click derecho -> dibujar 
+  map.addListener('rightclick', (e) => {
+    addSegment(e.latLng)
+  })
+  function addSegment(pos) {
+    currentSegment.push(pos)
+    if (currentSegment.length > 0) {
+      segments.push(currentSegment)
+      drawSegment(currentSegment)
     }
+  }
 
-    function addSegmentHtml() {
-        //AQUI EL HTML
-    }
-   
-    function drawSegment(seg){
-        var route = new google.maps.Polyline({
-        path: seg,
-        geodesic: true,
-        strokeColor: "#000000",
-        strokeWeight: 8,
-        strokeOpacity: 1,
-        map: null
-                 
-      });
+  function addSegmentHtml() {
+    //AQUI EL HTML
+  }
+
+  function drawSegment(seg) {
+    var route = new google.maps.Polyline({
+      path: seg,
+      geodesic: true,
+      strokeColor: "#000000",
+      strokeWeight: 8,
+      strokeOpacity: 1,
+      map: null
+
+    });
     var path = route.getPath();
     placeIdArray = [];
     runSnapToSegment(path);
-    };
+  };
 
 
-    function drawRoute(){
-        var route = new google.maps.Polyline({
-        path: routePath,
-        geodesic: true,
-        strokeColor: "#000000",
-        strokeWeight: 8,
-        strokeOpacity: 1,
-        map: null
-                 
-      });
+  function drawRoute() {
+    var route = new google.maps.Polyline({
+      path: routePath,
+      geodesic: true,
+      strokeColor: "#000000",
+      strokeWeight: 8,
+      strokeOpacity: 1,
+      map: null
+
+    });
     var path = route.getPath();
     placeIdArray = [];
     runSnapToRoad(path);
-    };
+  };
 
-//////// BUTTONS FUNCTIONS ////
-    function undoSegment(){
-    if (last == "c"){
-        routePath.pop();
-        drawRoute();
-    }else{
-        if (currentSegment.length > 0){
-            currentSegment.pop();
-        }else{
-            currentSegment = segments.pop();
-            currentSegment.pop();
-          var route = SnappedSegments.pop();
-            route.setMap(null);
-        }
+  //////// BUTTONS FUNCTIONS ////
+  function undoSegment() {
+    if (last == "c") {
+      routePath.pop();
+      drawRoute();
+    } else {
+      if (currentSegment.length > 0) {
+        currentSegment.pop();
+      } else {
+        currentSegment = segments.pop();
+        currentSegment.pop();
+        var route = SnappedSegments.pop();
+        route.setMap(null);
+      }
     }
-}
+  }
 
-    //Función limpiar la ruta
-    function clearSegment(){
+  //Función limpiar la ruta
+  function clearSegment() {
     polylines[0].setMap(null)
-    routePath= [];
+    routePath = [];
     currentSegment = [];
     segments = [];
     for (i in SnappedSegments) {
-       var route = i;
-        route.setMap(null)
+      var route = i;
+      route.setMap(null)
     }
     SnappedSegments = []
-    
-}
+
+  }
 
 </script>
 <script>
-//////SNAP TO ROAD FUNCTIONS //////
-    //Ajusta la ruta creada por el usuario a los caminos más apropiados
-    function runSnapToRoad(path) {
-      var pathValues = [];
-      for (var i = 0; i < path.getLength(); i++) {
-        pathValues.push(path.getAt(i).toUrlValue());
-      }
-    
-      $.get('https://roads.googleapis.com/v1/snapToRoads', {
-        interpolate: true,
-        key: apiKey,
-        path: pathValues.join('|')
-      }, function(data) {
-        processSnapToRoadResponse(data);
-        drawSnappedPolyline();
-      });
+  //////SNAP TO ROAD FUNCTIONS //////
+  //Ajusta la ruta creada por el usuario a los caminos más apropiados
+  function runSnapToRoad(path) {
+    var pathValues = [];
+    for (var i = 0; i < path.getLength(); i++) {
+      pathValues.push(path.getAt(i).toUrlValue());
     }
 
-    //Ajusta el segmento de ruta definido por el usuario a los caminos más apropiados
-    function runSnapToSegment(path) {
-      var pathValues = [];
-      for (var i = 0; i < path.getLength(); i++) {
-        pathValues.push(path.getAt(i).toUrlValue());
+    $.get('https://roads.googleapis.com/v1/snapToRoads', {
+      interpolate: true,
+      key: apiKey,
+      path: pathValues.join('|')
+    }, function (data) {
+      processSnapToRoadResponse(data);
+      drawSnappedPolyline();
+    });
+  }
+
+  //Ajusta el segmento de ruta definido por el usuario a los caminos más apropiados
+  function runSnapToSegment(path) {
+    var pathValues = [];
+    for (var i = 0; i < path.getLength(); i++) {
+      pathValues.push(path.getAt(i).toUrlValue());
+    }
+
+    $.get('https://roads.googleapis.com/v1/snapToRoads', {
+      interpolate: true,
+      key: apiKey,
+      path: pathValues.join('|')
+    }, function (data) {
+      processSnapToRoadResponse(data);
+      drawSnappedSegment();
+    });
+  }
+
+  // Procesa la respuesta de la función anterior (RunSnapToRoad)
+  function processSnapToRoadResponse(data) {
+    snappedCoordinates = [];
+    placeIdArray = [];
+    for (var i = 0; i < data.snappedPoints.length; i++) {
+      var latlng = new google.maps.LatLng(
+        data.snappedPoints[i].location.latitude,
+        data.snappedPoints[i].location.longitude);
+      snappedCoordinates.push(latlng);
+      placeIdArray.push(data.snappedPoints[i].placeId);
+    }
+  }
+
+  // Dibuja la polylinea ajustada al camino (después de procesar la respuesta)
+  function drawSnappedPolyline() {
+    if (polylines.length > 0) {
+      polylines[length - 1].setMap(null)
+    }
+    var snappedPolyline = new google.maps.Polyline({
+      path: snappedCoordinates,
+      geodesic: true,
+      strokeColor: "#0f2547",
+      strokeOpacity: 1.0,
+      strokeWeight: 8,
+      zIndex: 998,
+
+    });
+    snappedPolyline.setMap(map);
+    polylines[0] = snappedPolyline;
+  }
+
+  function drawSnappedSegment() {
+    if (polylines.length > 0) {
+      polylines[length - 1].setMap(null)
+    }
+    var snappedPolyline = new google.maps.Polyline({
+      path: snappedCoordinates,
+      geodesic: true,
+      strokeColor: "#00000",
+      strokeOpacity: 1.0,
+      strokeWeight: 8,
+      zIndex: 998,
+
+    });
+    snappedPolyline.setMap(map);
+    SnappedSegments.push(snappedPolyline);
+  }
+</script>
+
+
+<script>
+  function iniciar() {
+    let arraystring;
+    let idglobal
+
+
+    let cerrar1 = function cerrar(e) {
+
+      e.preventDefault();
+      e.returnValue = '';
+
+    }
+    window.addEventListener('beforeunload', cerrar1)
+
+
+    function analisis() {
+
+      document.getElementById('imagenes').style.display = 'block';
+      document.getElementById('analisis').style.display = 'block';
+      document.getElementById('registro').style.display = 'none';
+      document.getElementById('imagenes').scrollIntoView({ block: "end", behavior: "smooth" });
+      setTimeout(() => {
+        swal({
+          title: "Route Section Images Uploaded Successfully",
+          text: "Route Section ID:  " + idglobal + " \n \n Please complete the following information to property register the case.",
+          icon: "success",
+        });
+      }, 1500)
+
+    }
+
+
+    //dropd
+    //APP
+    let App = {};
+    App.init = (function () {
+      var $ = document.querySelector.bind(document);
+      //Init
+      function handleFileSelect(evt) {
+        const files = evt.target.files; // FileList object
+
+        //files template
+        let template = `${Object.keys(files)
+          .map(file => `<div class="file file--${file}">
+       <div class="name"><span>${files[file].name}</span></div>
+       <div class="progress active"></div>
+       <div class="done">
+      <a href="" target="_blank">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 1000 1000">
+          <g><path id="path" d="M500,10C229.4,10,10,229.4,10,500c0,270.6,219.4,490,490,490c270.6,0,490-219.4,490-490C990,229.4,770.6,10,500,10z M500,967.7C241.7,967.7,32.3,758.3,32.3,500C32.3,241.7,241.7,32.3,500,32.3c258.3,0,467.7,209.4,467.7,467.7C967.7,758.3,758.3,967.7,500,967.7z M748.4,325L448,623.1L301.6,477.9c-4.4-4.3-11.4-4.3-15.8,0c-4.4,4.3-4.4,11.3,0,15.6l151.2,150c0.5,1.3,1.4,2.6,2.5,3.7c4.4,4.3,11.4,4.3,15.8,0l308.9-306.5c4.4-4.3,4.4-11.3,0-15.6C759.8,320.7,752.7,320.7,748.4,325z"</g>
+          </svg>
+                          </a>
+       </div>
+      </div>`)
+          .join("")}`;
+
+        $("#drop").classList.add("hidden");
+        $("footer").classList.add("hasFiles");
+        $(".importar").classList.add("active");
+        setTimeout(() => {
+          $(".list-files").innerHTML = template;
+        }, 1000);
+
+        Object.keys(files).forEach(file => {
+          let load = 2000 + (file * 2000); // fake load
+          setTimeout(() => {
+            $(`.file--${file}`).querySelector(".progress").classList.remove("active");
+            $(`.file--${file}`).querySelector(".done").classList.add("anim");
+          }, load);
+        });
       }
-    
-      $.get('https://roads.googleapis.com/v1/snapToRoads', {
-        interpolate: true,
-        key: apiKey,
-        path: pathValues.join('|')
-      }, function(data) {
-        processSnapToRoadResponse(data);
-        drawSnappedSegment();
+
+      // trigger input
+      $("#triggerFile").addEventListener("click", evt => {
+        evt.preventDefault();
+        $("input[type=file]").click();
       });
-    }
-    
-    // Procesa la respuesta de la función anterior (RunSnapToRoad)
-    function processSnapToRoadResponse(data) {
-      snappedCoordinates = [];
-      placeIdArray = [];
-      for (var i = 0; i < data.snappedPoints.length; i++) {
-        var latlng = new google.maps.LatLng(
-            data.snappedPoints[i].location.latitude,
-            data.snappedPoints[i].location.longitude);
-        snappedCoordinates.push(latlng);
-        placeIdArray.push(data.snappedPoints[i].placeId);
-      }
-    }
-    
-    // Dibuja la polylinea ajustada al camino (después de procesar la respuesta)
-    function drawSnappedPolyline() {
-      if (polylines.length >0){
-          polylines[length-1].setMap(null)
-      }
-      var snappedPolyline = new google.maps.Polyline({
-        path: snappedCoordinates,
-        geodesic: true,
-        strokeColor: "#0f2547",
-        strokeOpacity: 1.0,
-        strokeWeight: 8,
-        zIndex: 998,
-      
+
+      // drop events
+      $("#drop").ondragleave = evt => {
+        $("#drop").classList.remove("active");
+        evt.preventDefault();
+      };
+      $("#drop").ondragover = $("#drop").ondragenter = evt => {
+        $("#drop").classList.add("active");
+        evt.preventDefault();
+      };
+      $("#drop").ondrop = evt => {
+        console.log(evt.dataTransfer.files)
+        $("input[type=file]").files = evt.dataTransfer.files;
+        const files = evt.dataTransfer.files; // FileList object
+
+        //files template
+        let template = `${Object.keys(files)
+          .map(file => `<div class="file file--${file}">
+       <div class="name"><span>${files[file].name}</span></div>
+       <div class="progress active"></div>
+       <div class="done">
+      <a href="" target="_blank">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 1000 1000">
+          <g><path id="path" d="M500,10C229.4,10,10,229.4,10,500c0,270.6,219.4,490,490,490c270.6,0,490-219.4,490-490C990,229.4,770.6,10,500,10z M500,967.7C241.7,967.7,32.3,758.3,32.3,500C32.3,241.7,241.7,32.3,500,32.3c258.3,0,467.7,209.4,467.7,467.7C967.7,758.3,758.3,967.7,500,967.7z M748.4,325L448,623.1L301.6,477.9c-4.4-4.3-11.4-4.3-15.8,0c-4.4,4.3-4.4,11.3,0,15.6l151.2,150c0.5,1.3,1.4,2.6,2.5,3.7c4.4,4.3,11.4,4.3,15.8,0l308.9-306.5c4.4-4.3,4.4-11.3,0-15.6C759.8,320.7,752.7,320.7,748.4,325z"</g>
+          </svg>
+                          </a>
+       </div>
+      </div>`)
+          .join("")}`;
+
+        $("#drop").classList.add("hidden");
+        $("footer").classList.add("hasFiles");
+        $(".importar").classList.add("active");
+        setTimeout(() => {
+          $(".list-files").innerHTML = template;
+        }, 1000);
+
+        Object.keys(files).forEach(file => {
+          let load = 2000 + (file * 2000); // fake load
+          setTimeout(() => {
+            $(`.file--${file}`).querySelector(".progress").classList.remove("active");
+            $(`.file--${file}`).querySelector(".done").classList.add("anim");
+          }, load);
+        });
+
+        $("footer").classList.add("hasFiles");
+        $("#drop").classList.remove("active");
+        evt.preventDefault();
+      };
+
+      //upload more
+      $(".importar").addEventListener("click", () => {
+        $(".list-files").innerHTML = "";
+        $("footer").classList.remove("hasFiles");
+        $(".importar").classList.remove("active");
+        setTimeout(() => {
+          $("#drop").classList.remove("hidden");
+        }, 500);
       });
-      snappedPolyline.setMap(map);
-      polylines[0]=snappedPolyline;
-    }
-     
-    function drawSnappedSegment() {
-      if (polylines.length >0){
-          polylines[length-1].setMap(null)
+
+      // input change
+      $("input[type=file]").addEventListener("change", handleFileSelect);
+    })();
+
+    let arrayfotos;
+
+    formCase1.onsubmit = async (e) => {
+
+      e.preventDefault();
+
+      var input = document.getElementsByName('fotos');
+      console.log(input[0].files)
+      if (input[0].files.length == 0) {
+        swal('Please update images')
+      } else {
+
+        let response = await fetch('/inforuta', {
+          method: 'POST',
+          body: new FormData(formCase1)
+        });
+        let result = await response.json();
+        console.log(result.fotos)
+        arrayfotos = result.fotos;
+        idglobal = result.id + 1;
+        arraystring = arrayfotos.join(',')
+        console.log(idglobal)
+        analisis();
+        mostrarfotos();
+
       }
-      var snappedPolyline = new google.maps.Polyline({
-        path: snappedCoordinates,
-        geodesic: true,
-        strokeColor: "#00000",
-        strokeOpacity: 1.0,
-        strokeWeight: 8,
-        zIndex: 998,
-      
-      });
-      snappedPolyline.setMap(map);
-      SnappedSegments.push(snappedPolyline);
+
+
+    };
+
+    function mostrarfotos() {
+
+      let arrayImagenes = arrayfotos;
+
+      console.log('este es el array  ' + arrayImagenes)
+      //que imagen mostramos
+      var imagenActual = 0;
+
+      //Cada 2 segundos se ejecute esta funcion
+      var temporizador;
+      /* temporizador = setInterval(cambiarImagen, 3000) */
+
+      //paso 2: listeners de los botones de anterior y siguiente
+      document.getElementById("anterior").addEventListener("click", cambiarImagen);
+      document.getElementById("siguiente").addEventListener("click", cambiarImagen);
+      document.getElementById("siguiente").click();
+
+      //paso 3: Definir la función
+      function cambiarImagen() {
+        var boton = this.id;
+        if (boton == 'anterior') {
+          imagenActual--;
+          if (imagenActual < 0) {
+            imagenActual = arrayImagenes.length - 1;
+          }
+        } else {
+          imagenActual++;
+          if (imagenActual == arrayImagenes.length) {
+            imagenActual = 0;
+          }
+        }
+        var imagenAMostrar = arrayImagenes[imagenActual];
+        document.getElementById('imagen').src = "/fotos-rutas/" + imagenAMostrar;
+      }
+
     }
+
+    async function riesgo() {
+      document.getElementById('chartdiv').scrollIntoView({ block: "end", behavior: "smooth" });
+      var sg = segments[index - 1]
+      const datos = {
+        bicicletas: document.getElementById("bicicletas").value,
+        motos: document.getElementById("motos").value,
+        peaton: document.getElementById("peaton").value,
+        via: document.getElementById("via").value,
+        deslizamiento: document.getElementById("deslizamiento").value,
+        obrasvia: document.getElementById("obrasvia").value,
+        velocidad: document.getElementById("velocidad").value,
+        alumbrado: document.getElementById("alumbrado").value,
+        separador: document.getElementById("separador").value,
+        calzadadiv: document.getElementById("calzadadiv1").value,
+        hora: document.getElementById("hora").value,
+        fecharuta: document.getElementById("fecharuta").value,
+        latitud: sg[0].lat(),
+        longitud: sg[0].lng(),
+        latitud1: sg[1].lat(),
+        longitud1: sg[1].lng(),
+        notas: document.getElementById("notas").value,
+        fotos: arraystring,
+        id: idglobal
+      }
+      console.log(datos);
+      const options = {
+        method: "POST",
+        body: JSON.stringify(datos),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      }
+
+      const response = await fetch('/Riesgo', options);
+
+      const result = await response.json();
+      console.log(result);
+
+      var medidor = result.riesgo;
+      medidor = parseFloat(medidor) * 10
+      valormedidor = medidor.toFixed(2);
+      console.log(valormedidor);
+      window.removeEventListener('beforeunload', cerrar1)
+      var riesgotabla = document.getElementById("riesgo" + index);
+
+      riesgotabla.innerHTML = valormedidor + " %";
+      evaluar();
+      index++
+      if (index <= segments.length) {
+        var assesstabla = document.getElementById("tda" + index);
+        assesstabla.innerHTML = '<td>' + '<a id="assess' + index + '" data-toggle="modal" data-target="#exampleModal" href="#contenido2">Assess Segment</a>' + '<img id="chulo' + index + '"  style="display:none; width: 30px"src="img/green.png">' + '</td>'
+      }
+      /* document.getElementById("contenido2").innerHTML = modal; */
+      $('contenido2').load();
+    };
+
+    const output = document.querySelector('#outbici')
+    const doThings = (event) => {
+      const { value, min, max, step, parentElement: parent } = event.target
+      const decimals = step && step.includes('.') ? step.split('.')[1] : 1
+      const percent = `${((value - min) / (max - min) * 100).toFixed(decimals)}%`
+      let text
+      parent.style.setProperty('--p', percent)
+      if (document.getElementById('bicicletas').value >= 0 && document.getElementById('bicicletas').value < 3) {
+        text = "There is a low bicycle flow."
+      } else if (document.getElementById('bicicletas').value >= 3 && document.getElementById('bicicletas').value < 7) {
+        text = "There is a Moderate bicycle flow.."
+      } else if (document.getElementById('bicicletas').value >= 7 && document.getElementById('bicicletas').value <= 10) {
+        text = "There is a High bicycle flow."
+      }
+      output.value = `value: ${value}  (${text})`
+    }
+
+    const output1 = document.querySelector('#outmoto')
+    const doThings1 = (event) => {
+      const { value, min, max, step, parentElement: parent } = event.target
+      const decimals1 = step && step.includes('.') ? step.split('.')[1] : 1
+      const percent1 = `${((value - min) / (max - min) * 100).toFixed(decimals1)}%`
+      parent.style.setProperty('--p', percent1)
+      let text1
+      parent.style.setProperty('--p', percent1)
+      if (document.getElementById('bicicletas').value >= 0 && document.getElementById('bicicletas').value < 3) {
+        text1 = "There is a low motorcycle flow."
+      } else if (document.getElementById('bicicletas').value >= 3 && document.getElementById('bicicletas').value < 7) {
+        text1 = "There is a Moderate motorcycle flow.."
+      } else if (document.getElementById('bicicletas').value >= 7 && document.getElementById('bicicletas').value <= 10) {
+        text1 = "There is a High motorcycle flow."
+      }
+      output1.value = `valor: ${value} (${text1})`
+    }
+
+    const output2 = document.querySelector('#outpeaton')
+    const doThings2 = (event) => {
+      const { value, min, max, step, parentElement: parent } = event.target
+      const decimals2 = step && step.includes('.') ? step.split('.')[1] : 1
+      const percent2 = `${((value - min) / (max - min) * 100).toFixed(decimals2)}%`
+      parent.style.setProperty('--p', percent2)
+      let text2
+      parent.style.setProperty('--p', percent2)
+      if (document.getElementById('bicicletas').value >= 0 && document.getElementById('bicicletas').value < 3) {
+        text2 = "There is a low pedestrians flow."
+      } else if (document.getElementById('bicicletas').value >= 3 && document.getElementById('bicicletas').value < 7) {
+        text2 = "There is a Moderate pedestrians flow.."
+      } else if (document.getElementById('bicicletas').value >= 7 && document.getElementById('bicicletas').value <= 10) {
+        text2 = "There is a High pedestrians flow."
+      }
+      output2.value = `valor: ${value} (${text2})`
+    }
+
+    const output3 = document.querySelector('#outvia')
+    const doThings3 = (event) => {
+      const { value, min, max, step, parentElement: parent } = event.target
+      const decimals3 = step && step.includes('.') ? step.split('.')[1] : 1
+      const percent3 = `${((value - min) / (max - min) * 100).toFixed(decimals3)}%`
+      parent.style.setProperty('--p', percent3)
+
+      output3.value = `valor: ${value} (${percent3})`
+    }
+
+    const output4 = document.querySelector('#outdeslizamiento')
+    const doThings4 = (event) => {
+      const { value, min, max, step, parentElement: parent } = event.target
+      const decimals4 = step && step.includes('.') ? step.split('.')[1] : 1
+      const percent4 = `${((value - min) / (max - min) * 100).toFixed(decimals4)}%`
+      parent.style.setProperty('--p', percent4)
+
+      output4.value = `valor: ${value} (${percent4})`
+    }
+
+    const output5 = document.querySelector('#outvelocidad')
+    const doThings5 = (event) => {
+      const { value, min, max, step, parentElement: parent } = event.target
+      const decimals5 = step && step.includes('.') ? step.split('.')[1] : 1
+      const percent5 = `${((value - min) / (max - min) * 100).toFixed(decimals5)}%`
+      parent.style.setProperty('--p', percent5)
+
+      output5.value = `valor: ${value} (${percent5})`
+    }
+
+    const output6 = document.querySelector('#outHora')
+    const doThings6 = (event) => {
+      const { value, min, max, step, parentElement: parent } = event.target
+      const decimals6 = step && step.includes('.') ? step.split('.')[1] : 1
+      const percent6 = `${((value - min) / (max - min) * 100).toFixed(decimals6)}%`
+      parent.style.setProperty('--p', percent6)
+
+      output6.value = `valor: ${value} (${percent6})`
+    }
+
+    const output7 = document.querySelector('#outalumbrado')
+    const doThings7 = (event) => {
+      const { value, min, max, step, parentElement: parent } = event.target
+      const decimals7 = step && step.includes('.') ? step.split('.')[1] : 1
+      const percent7 = `${((value - min) / (max - min) * 100).toFixed(decimals7)}%`
+      parent.style.setProperty('--p', percent7)
+
+      output7.value = `valor: ${value} (${percent7})`
+    }
+
+    const output8 = document.querySelector('#outseparador')
+    const doThings8 = (event) => {
+      const { value, min, max, step, parentElement: parent } = event.target
+      const decimals8 = step && step.includes('.') ? step.split('.')[1] : 1
+      const percent8 = `${((value - min) / (max - min) * 100).toFixed(decimals8)}%`
+      parent.style.setProperty('--p', percent8)
+
+      output8.value = `valor: ${value} (${percent8})`
+    }
+
+    const output9 = document.querySelector('#outseveridad')
+    const doThings9 = (event) => {
+      const { value, min, max, step, parentElement: parent } = event.target
+      const decimals9 = step && step.includes('.') ? step.split('.')[1] : 1
+      const percent9 = `${((value - min) / (max - min) * 100).toFixed(decimals9)}%`
+      parent.style.setProperty('--p', percent9)
+
+      output9.value = `valor: ${value} (${percent9})`
+    }
+
+    let today = new Date();
+    let dd = today.getDate();
+    let mm = today.getMonth() + 1; //enero es 0!
+    let yyyy = today.getFullYear();
+
+    if (dd < 10) {
+      dd = "0" + dd;
+    }
+    if (mm < 10) {
+      mm = "0" + mm;
+    }
+
+    today = yyyy + "-" + mm + "-" + dd;
+
+    //Inicialziar el calendario con la fecha de hoy
+    document.getElementById("fecharuta").value = today;
+    document.getElementById("fecharuta").max = today;
+
+
+    async function casos() {
+      routePath = [];
+      var mapaconsult;
+      const consulta = { con: mapaconsult };
+      const options1 = {
+        method: "POST",
+        body: JSON.stringify(consulta),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      };
+
+
+
+      const response2 = await fetch('/mapageneral', options1);
+      result2 = await response2.json();
+      console.log(result2);
+    }
+
+  }
+
+
+
 </script>
