@@ -1,357 +1,149 @@
-<section id="registro">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12 my-4">
-                <div class="card rounded-0">
-                    <div class="card-header bg-light">
-                        <h5 class="d-inline-block font-weight-bold mb-0">Route section
-                            information
-                        </h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="container">
-                            <form id="formCase1" enctype="multipart/form-data">
-                                <div class="row">
-                                    <div class="col-lg-6 my-4">
-
-                                        <div class="form-group mb-4">
-                                            <label for="fecha_nac" class="font-weight-bold">Date
-                                                of
-                                                analysis</label>
-                                            <input type="date" class="form-control w-10"
-                                                id="fecharuta" name="fecharuta"
-                                                onkeydown="return false" />
-                                        </div>
-
-                                        <!-- <div class="drop-zone">
-                      <span class="drop-zone__prompt">Drag or click here to attach an image</span>
-                      <input type="file" name="fotos" class="drop-zone__input" accept="image/*" id="file"
-                        multiple="multiple">
-                    </div>
-                    <img id="output" /> -->
-                                        <div id="upload" class="upload">
-                                            <div class="upload-files">
-                                                <header>
-                                                    <p>
-                                                        <i class="fa fa-cloud-upload"
-                                                            aria-hidden="true"></i>
-                                                        <span class="up">up</span>
-                                                        <span class="load">load</span>
-                                                    </p>
-                                                </header>
-                                                <div class="body" id="drop">
-                                                    <i class="fa fa-file-text-o pointer-none"
-                                                        aria-hidden="true"></i>
-                                                    <p class="pointer-none"><b>Drag and drop</b>
-                                                        your
-                                                        images here <br /> or <a href=""
-                                                            id="triggerFile">browse</a> to begin
-                                                        the
-                                                        upload</p>
-                                                    <input type="file" name="fotos"
-                                                        accept="image/*" id="file"
-                                                        multiple="multiple" />
-                                                </div>
-                                                <footer>
-                                                    <div class="divider">
-                                                        <span>
-                                                            <AR>FILES</AR>
-                                                        </span>
-                                                    </div>
-                                                    <div class="list-files">
-                                                        <!--   template   -->
-                                                        <button type="button"
-                                                            class="importar">UPDATE
-                                                            FILES</button>
-                                                    </div>
-
-                                                </footer>
-                                            </div>
-                                        </div>
-
-
-                                    </div>
-                                    <div class="col-lg-6 my-4">
-                                        <div class="form-group mb-4">
-                                            <label for="notas"
-                                                class="font-weight-bold">Additional
-                                                Notes</label>
-                                            <textarea id=notas type="text"
-                                                class="form-control bg-grey" name="notas"
-                                                placeholder="Add notes to the case" width="50%"
-                                                height="100px"></textarea>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <button type="submit" class="btn btn-primary mt-4 mb-4 w-25">
-                                    Register
-                                    section</button>
-
-
-
-                        </div>
-
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
+<div class="upload-files">
+    <header>
+        <p>
+            <i class="fa fa-cloud-upload"
+                aria-hidden="true"></i>
+            <span class="up">up</span>
+            <span class="load">load</span>
+        </p>
+    </header>
+    <div class="body" id="drop">
+        <i class="fa fa-file-text-o pointer-none"
+            aria-hidden="true"></i>
+        <p class="pointer-none"><b>Drag and drop</b>
+            your
+            images here <br /> or <a href=""
+                id="triggerFile">browse</a> to begin
+            the
+            upload</p>
+        <input type="file" name="fotos"
+            accept="image/*" id="file"
+            multiple="multiple" />
     </div>
-</section>
-<section id="imagenes" class="imagenes" style="display:none">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12 my-4">
-                <div class="card rounded-0">
-                    <div class="card-header bg-light">
-                        <h5 class="d-inline-block font-weight-bold mb-0">Images <p
-                                class="lead text-muted">All images must
-                                be part of the same section of the route at the same instant in
-                                time.
-                                Please complete the
-                                information taking into account all images.
-                            </p>
-                        </h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="container">
-                            <span id="mostrarimagenes"></span>
-                            <img id='imagen' src='/fotos-rutas/'><br>
-                            <input class="btn btn-primary mt-4 mb-4 w-25" type="button"
-                                id="anterior" value="<<">
-                            <input class="btn btn-primary mt-4 mb-4 w-25" type="button"
-                                id="siguiente" value=">>">
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <footer id="footer">
+        <div class="divider">
+            <span>
+                <AR>FILES</AR>
+            </span>
         </div>
-</section>
-<section id="analisis" class="analisis" style="display:none">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12 my-4">
-                <div class="card rounded-0">
-                    <div class="card-header bg-light">
-                        <h5 class="d-inline-block font-weight-bold mb-0">Route Section Analysis
-                        </h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="container">
-
-                            <div class="row">
-                                <div class="col-lg-6 my-4">
-                                    <label for="flujo_carretara"
-                                        class="font-weight-bold">Vehicular
-                                        and
-                                        pedestrian flow</label>
-                                    <div class="Divisor_variables">
-                                        <div class="form-group mb-4">
-                                            <label class="heat-slider heat-slider--v">
-                                                <span
-                                                    class="heat-slider--label font-weight-bold">Number
-                                                    of Bicycles:</span>
-                                                <span class="heat-slider--input">
-                                                    <input id="bicicletas" name="bicicletas"
-                                                        type="range" value="0" min="0" max="10"
-                                                        oninput="doThings(event)" />
-                                                </span>
-                                            </label>
-                                            <output id="outbici">Please scroll to
-                                                select...</output>
-                                        </div>
-                                        <div class="form-group mb-4">
-                                            <label class="heat-slider heat-slider--v">
-                                                <span
-                                                    class="heat-slider--label font-weight-bold">Number
-                                                    of motorcycles:</span>
-                                                <span class="heat-slider--input">
-                                                    <input id="motos" type="range" name="motos"
-                                                        value="0" min="0" max="10"
-                                                        oninput="doThings1(event)" />
-                                                </span>
-                                            </label>
-                                            <output id="outmoto">Please scroll to
-                                                select...</output>
-                                        </div>
-                                        <div class="form-group mb-4">
-                                            <label class="heat-slider heat-slider--v">
-                                                <span
-                                                    class="heat-slider--label font-weight-bold">Number
-                                                    of Pedestrians:</span>
-                                                <span class="heat-slider--input">
-                                                    <input id="peaton" type="range"
-                                                        name="peaton" value="0" min="0" max="10"
-                                                        oninput="doThings2(event)" />
-                                                </span>
-                                            </label>
-                                            <output id="outpeaton">Please scroll to
-                                                select...</output>
-                                        </div>
-                                    </div>
-                                    <br><br><br>
-                                    <label for="flujo_carretara"
-                                        class="font-weight-bold">Conditions
-                                        of
-                                        the road section:</label>
-                                    <div class="Divisor_variables">
-                                        <div class="form-group mb-4">
-                                            <label class="heat-sliderinv heat-sliderinv--v">
-                                                <span
-                                                    class="heat-sliderinv--label font-weight-bold">On
-                                                    a scale of rate the condition of
-                                                    the road:</span>
-                                                <span class="heat-sliderinv--input">
-                                                    <input id="via" type="range" name="via"
-                                                        value="0" min="0" max="10"
-                                                        oninput="doThings3(event)" />
-                                                </span>
-                                            </label>
-                                            <output id="outvia">Please scroll to
-                                                select...</output>
-                                        </div>
-                                        <div class="form-group mb-4">
-                                            <label class="heat-slider heat-slider--v">
-                                                <span
-                                                    class="heat-slider--label font-weight-bold">On
-                                                    a
-                                                    scale of, how good is the skid
-                                                    resistance of the road:</span>
-                                                <span class="heat-slider--input">
-                                                    <input id="deslizamiento" type="range"
-                                                        name="deslizamiento" value="0" min="0"
-                                                        max="10" oninput="doThings4(event)" />
-                                                </span>
-                                            </label>
-                                            <output id="outdeslizamiento">Please scroll to
-                                                select...</output>
-                                        </div>
-                                        <div class="form-group mb-4">
-                                            <label class="heat-slider heat-slider--v">
-                                                <span
-                                                    class="heat-slider--label font-weight-bold">On
-                                                    a
-                                                    scale of 0 to 10, rate the
-                                                    severity of the roadworks:</span>
-                                                <span class="heat-slider--input">
-                                                    <input id="obrasvia" type="range"
-                                                        name="obrasvia" value="0" min="0"
-                                                        max="10" step="1"
-                                                        oninput="doThings9(event)" />
-                                                </span>
-                                            </label>
-                                            <output id="outseveridad">Please scroll to
-                                                select...</output>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 my-4">
-                                    <label for="flujo_carretara"
-                                        class="font-weight-bold">Elements
-                                        and
-                                        signaling of the
-                                        road</label>
-                                    <div class="Divisor_variables">
-                                        <div class="form-group mb-4">
-                                            <label class="heat-slider heat-slider--v">
-                                                <span
-                                                    class="heat-slider--label font-weight-bold">Select
-                                                    the Speed limit of the road the
-                                                    road:</span>
-                                                <span class="heat-slider--input">
-                                                    <input id="velocidad" type="range"
-                                                        name="velocidad" value="0" min="0"
-                                                        max="100" step="10"
-                                                        oninput="doThings5(event)" />
-                                                </span>
-                                            </label>
-                                            <output id="outvelocidad">Please scroll to
-                                                select...</output>
-                                        </div>
-
-                                        <div class="form-group mb-4">
-                                            <label class="heat-sliderinv heat-sliderinv--v">
-                                                <span
-                                                    class="heat-sliderinv--label font-weight-bold">On
-                                                    a scale of rate the quality of
-                                                    street lighting:</span>
-                                                <span class="heat-sliderinv--input">
-                                                    <input id="alumbrado" type="range"
-                                                        name="alumbrado" value="0" min="0"
-                                                        max="10" oninput="doThings7(event)" />
-                                                </span>
-                                            </label>
-                                            <output id="outalumbrado">Please scroll to
-                                                select...</output>
-                                        </div>
-                                        <div class="form-group mb-4">
-                                            <label class="heat-sliderinv heat-sliderinv--v">
-                                                <span
-                                                    class="heat-sliderinv--label font-weight-bold">On
-                                                    a scale of 0 to 10, rate the
-                                                    quality of road median (separator):</span>
-                                                <span class="heat-sliderinv--input">
-                                                    <input id="separador" type="range"
-                                                        name="separador" value="0" min="0"
-                                                        max="10" step="1"
-                                                        oninput="doThings8(event)" />
-                                                </span>
-                                            </label>
-                                            <output id="outseparador">Please scroll to
-                                                select...</output>
-                                        </div>
-
-                                        <div class="form-group mb-4">
-                                            <label for="sexo" class="font-weight-bold">Does the
-                                                road
-                                                have centreline rumble
-                                                strips?</label>
-                                        </div>
-                                        <div class="form-group mb-4">
-                                            <div class="btn-group btn-group-toggle"
-                                                data-toggle="buttons">
-                                                <label class="btn btn-primary active">
-                                                    <input type="radio" name="calzadadiv"
-                                                        id="calzadadiv1" value="1" checked>
-                                                    Present
-                                                </label>
-                                                <label class="btn btn-primary">
-                                                    <input type="radio" name="calzadadiv"
-                                                        id="calzadadiv2" value="2"> Not Present
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="form-group mb-4">
-                                            <label class="heat-slider heat-slider--v">
-                                                <span
-                                                    class="heat-slider--label font-weight-bold">Select
-                                                    the tentative departure
-                                                    time:</span>
-                                                <span class="heat-slider--input">
-                                                    <input id="hora" type="range" name="hora"
-                                                        value="0" min="0" max="24" step="1"
-                                                        oninput="doThings6(event)" />
-                                                </span>
-                                            </label>
-                                            <output id="outHora">Please scroll to
-                                                select...</output>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <button type="button" onclick="riesgo()"
-                                class="btn btn-primary mt-4 mb-4 w-25">Assess route
-                                section</button>
-                            <!-- <button onclick="addPanel()" class="btn btn-primary mt-4 mb-4 w-25"> Añadir segmento + </button> -->
-
-
-
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="list-files">
+            <!--   template   -->
+            <button type="button"
+                class="importar">UPDATE
+                FILES</button>
         </div>
-    </div>
-</section>
+
+    </footer>
+</div>
+<script id="4">
+    //DOM
+
+
+    //APP
+    let App = {};
+    App.init = (function () {
+        var $ = document.querySelector.bind(document);
+        //Init
+        function handleFileSelect(evt) {
+            const files = evt.target.files; // FileList object
+
+            //files template
+            let template = `${Object.keys(files)
+                .map(file => `<div class="file file--${file}">
+       <div class="name"><span>${files[file].name}</span></div>
+       <div class="progress active"></div>
+       <div class="done">
+      <a href="" target="_blank">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 1000 1000">
+          <g><path id="path" d="M500,10C229.4,10,10,229.4,10,500c0,270.6,219.4,490,490,490c270.6,0,490-219.4,490-490C990,229.4,770.6,10,500,10z M500,967.7C241.7,967.7,32.3,758.3,32.3,500C32.3,241.7,241.7,32.3,500,32.3c258.3,0,467.7,209.4,467.7,467.7C967.7,758.3,758.3,967.7,500,967.7z M748.4,325L448,623.1L301.6,477.9c-4.4-4.3-11.4-4.3-15.8,0c-4.4,4.3-4.4,11.3,0,15.6l151.2,150c0.5,1.3,1.4,2.6,2.5,3.7c4.4,4.3,11.4,4.3,15.8,0l308.9-306.5c4.4-4.3,4.4-11.3,0-15.6C759.8,320.7,752.7,320.7,748.4,325z"</g>
+          </svg>
+                          </a>
+       </div>
+      </div>`)
+                .join("")}`;
+
+            $("#drop").classList.add("hidden");
+            $("footer").classList.add("hasFiles");
+            $(".importar").classList.add("active");
+            setTimeout(() => {
+                $(".list-files").innerHTML = template;
+            }, 1000);
+
+            Object.keys(files).forEach(file => {
+                let load = 2000 + (file * 2000); // fake load
+                setTimeout(() => {
+                    $(`.file--${file}`).querySelector(".progress").classList.remove("active");
+                    $(`.file--${file}`).querySelector(".done").classList.add("anim");
+                }, load);
+            });
+        }
+
+        // trigger input
+        $("#triggerFile").addEventListener("click", evt => {
+            evt.preventDefault();
+            $("input[type=file]").click();
+        });
+
+        // drop events
+        $("#drop").ondragleave = evt => {
+            $("#drop").classList.remove("active");
+            evt.preventDefault();
+        };
+        $("#drop").ondragover = $("#drop").ondragenter = evt => {
+            $("#drop").classList.add("active");
+            evt.preventDefault();
+        };
+        $("#drop").ondrop = evt => {
+            console.log(evt.dataTransfer.files)
+            $("input[type=file]").files = evt.dataTransfer.files;
+            const files = evt.dataTransfer.files; // FileList object
+
+            //files template
+            let template = `${Object.keys(files)
+                .map(file => `<div class="file file--${file}">
+       <div class="name"><span>${files[file].name}</span></div>
+       <div class="progress active"></div>
+       <div class="done">
+      <a href="" target="_blank">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 1000 1000">
+          <g><path id="path" d="M500,10C229.4,10,10,229.4,10,500c0,270.6,219.4,490,490,490c270.6,0,490-219.4,490-490C990,229.4,770.6,10,500,10z M500,967.7C241.7,967.7,32.3,758.3,32.3,500C32.3,241.7,241.7,32.3,500,32.3c258.3,0,467.7,209.4,467.7,467.7C967.7,758.3,758.3,967.7,500,967.7z M748.4,325L448,623.1L301.6,477.9c-4.4-4.3-11.4-4.3-15.8,0c-4.4,4.3-4.4,11.3,0,15.6l151.2,150c0.5,1.3,1.4,2.6,2.5,3.7c4.4,4.3,11.4,4.3,15.8,0l308.9-306.5c4.4-4.3,4.4-11.3,0-15.6C759.8,320.7,752.7,320.7,748.4,325z"</g>
+          </svg>
+                          </a>
+       </div>
+      </div>`)
+                .join("")}`;
+
+            $("#drop").classList.add("hidden");
+            $("footer").classList.add("hasFiles");
+            $(".importar").classList.add("active");
+            setTimeout(() => {
+                $(".list-files").innerHTML = template;
+            }, 1000);
+
+            Object.keys(files).forEach(file => {
+                let load = 2000 + (file * 2000); // fake load
+                setTimeout(() => {
+                    $(`.file--${file}`).querySelector(".progress").classList.remove("active");
+                    $(`.file--${file}`).querySelector(".done").classList.add("anim");
+                }, load);
+            });
+
+            $("footer").classList.add("hasFiles");
+            $("#drop").classList.remove("active");
+            evt.preventDefault();
+        };
+
+        //upload more
+        $(".importar").addEventListener("click", () => {
+            $(".list-files").innerHTML = "";
+            $("footer").classList.remove("hasFiles");
+            $(".importar").classList.remove("active");
+            setTimeout(() => {
+                $("#drop").classList.remove("hidden");
+            }, 500);
+        });
+
+        // input change
+        $("input[type=file]").addEventListener("change", handleFileSelect);
+    })();
+</script>
