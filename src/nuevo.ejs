@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
         integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link rel="stylesheet" href="reportestilo" media="print">
     <link rel="stylesheet" href="reportuser">
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;600&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
@@ -67,201 +68,201 @@
             <!-- Fin Navbar -->
 
             <!-- Page Content -->
-            <div id="content" class="bg-grey w-100">
-                <section class="bg-light py-3">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-lg-6 col-md-6">
-                                <h1 class="font-weight-bold mb-0">Welcome User</h1>
-                                <p class="lead text-muted">This tool performs a risk assessment associated with the
-                                    transportation of
-                                    hazardous chemical hazardous chemical material along a given route using a fuzzy
-                                    logic system.
-                                    <br><br> Below, you will be able to enter the required information:
-                                </p>
-                            </div>
-
-                            <div class="col-lg-6 col-md-6 ">
-                                <div id="chartdiv"></div>
-                                <!-- <button class="btn btn-primary w-100 align-self-center">Descargar reporte de hoy</button> -->
-                            </div>
+            <!-- <div id="content" class="bg-grey w-100"> -->
+            <section class="bg-light py-3">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6">
+                            <h1 class="font-weight-bold mb-0">Welcome User</h1>
+                            <p class="lead text-muted">This tool performs a risk assessment associated with the
+                                transportation of
+                                hazardous chemical hazardous chemical material along a given route using a fuzzy
+                                logic system.
+                                <br><br> Below, you will be able to enter the required information:
+                            </p>
                         </div>
 
+                        <div class="col-lg-6 col-md-6 ">
+                            <div id="chartdiv"></div>
+                            <!-- <button class="btn btn-primary w-100 align-self-center">Descargar reporte de hoy</button> -->
+                        </div>
                     </div>
-                </section>
-                <div id="contenido">
-                    <section>
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-lg-8 my-2">
-                                    <div class="card rounded-0">
-                                        <div id="selectpro" class="card-header bg-light">
-                                            <h5 class="font-weight-bold mb-4">Product</h5>
-                                            <h6 class="mb-3">Select the product to be transported</h6>
-                                            <select oninput="actualizar(this)" class="custom-select mb-4"
-                                                id="lista_product" name="lista_estados">
-                                                <option value="1">-</option>
-                                                <option value="2">Carbon disulfide</option>
-                                                <!-- <option value="3">Tratamiento en hospital</option>
+
+                </div>
+            </section>
+            <div id="contenido">
+                <section>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-lg-8 my-2">
+                                <div class="card rounded-0">
+                                    <div id="selectpro" class="card-header bg-light">
+                                        <h5 class="font-weight-bold mb-4">Product</h5>
+                                        <h6 class="mb-3">Select the product to be transported</h6>
+                                        <select oninput="actualizar(this)" class="custom-select mb-4" id="lista_product"
+                                            name="lista_estados">
+                                            <option value="1">-</option>
+                                            <option value="2">Carbon disulfide</option>
+                                            <!-- <option value="3">Tratamiento en hospital</option>
                                                         <option value="4">En UCI</option>
                                                         <option value="1">Curado</option>
                                                         <option value="5">Fallecido</option> -->
-                                            </select>
-                                            <input onclick="save()" class="btn btn-primary" type="button" id="pdf"
-                                                value="Save Report">
-                                        </div>
-                                        <div class="card-body">
-                                            <h5 class="font-weight-bold mb-4">Route Generator</h5>
-                                            <h6 class="mb-3"></h6>
-                                            <input onclick="undoSegment()" class="btn btn-primary" type="button"
-                                                id="undo" value="Undo Segment">
-                                            <input onclick="clearSegment()" class="btn btn-primary" type="button"
-                                                id="clear" value="Clear Segment">
-                                            <br><br>
-                                            <div id="map"></div>
-
-                                        </div>
+                                        </select>
+                                        <input onclick="printPDF()" class="btn btn-primary" type="button" id="pdf"
+                                            value="Save Report">
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="font-weight-bold mb-4">Route Generator</h5>
+                                        <h6 class="mb-3"></h6>
+                                        <input onclick="undoSegment()" class="btn btn-primary" type="button" id="undo"
+                                            value="Undo Segment">
+                                        <input onclick="clearSegment()" class="btn btn-primary" type="button" id="clear"
+                                            value="Clear Segment">
+                                        <br><br>
+                                        <div id="map"></div>
 
                                     </div>
+
                                 </div>
                             </div>
                         </div>
-                    </section>
-                    <section>
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-lg-8 my-4">
-                                    <div class="card rounded-0">
-                                        <div class="card-header bg-light">
-                                            <h5 class="font-weight-bold mb-0">Route Information</h5>
-                                        </div>
-                                        <div class="card-body">
-                                            <table class="table">
-                                                <!-- <thead class="thead-dark">
+                    </div>
+                </section>
+                <section>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-lg-8 my-4">
+                                <div class="card rounded-0">
+                                    <div class="card-header bg-light">
+                                        <h5 class="font-weight-bold mb-0">Route Information</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <table class="table">
+                                            <!-- <thead class="thead-dark">
                                                                 <tr>
                                                                     <th scope="col"></th>
                                                                     <th scope="col"></th>
                                                                 </tr>
                                                             </thead> -->
-                                                <tbody id="table">
-                                                    <!-- Filas generadas dinamicamente xd -->
-                                                    <tr>
-                                                        <th scope="row">Product to be transported</th>
-                                                        <td>
-                                                            <h6 class="mb-0" id="producto">-</h6>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row"> Risk product </th>
-                                                        <td>
-                                                            <h6 class="mb-0" id="riesgoproducto">-</h6>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row"> UN Number </th>
-                                                        <td>
-                                                            <h6 class="mb-0" id="UN">-</h6>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row"> Presentation </th>
-                                                        <td>
-                                                            <h6 class="mb-0" id="presentation">-</h6>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row"> Packing </th>
-                                                        <td>
-                                                            <h6 class="mb-0" id="packing">-</h6>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row"> Labels </th>
-                                                        <td>
-                                                            <h6 class="mb-0" id="labels">-</h6>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row"> Total Risk </th>
-                                                        <td>
-                                                            <h6 class="mb-0" id="risk">-</h6>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                    </section>
-
-                    <div class="container-fluid saltopagina">
-                        <div class="row">
-                            <div class="col-lg-8">
-                                <div class="card rounded-0">
-                                    <div class="card-header bg-light">
-                                        <h5 class="font-weight-bold mb-0">Selected route segments</h5>
-                                    </div>
-                                    <div class="card-body">
-                                        <table class="table">
-                                            <thead class="thead-dark">
-                                                <tr>
-                                                    <th scope="col">Segment ID</th>
-                                                    <th scope="col">Risk level</th>
-                                                    <th scope="col">Notes</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody id="tableroute">
+                                            <tbody id="table">
                                                 <!-- Filas generadas dinamicamente xd -->
                                                 <tr>
-                                                    <th scope="row"></th>
-
+                                                    <th scope="row">Product to be transported</th>
+                                                    <td>
+                                                        <h6 class="mb-0" id="producto">-</h6>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row"> Risk product </th>
+                                                    <td>
+                                                        <h6 class="mb-0" id="riesgoproducto">-</h6>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row"> UN Number </th>
+                                                    <td>
+                                                        <h6 class="mb-0" id="UN">-</h6>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row"> Presentation </th>
+                                                    <td>
+                                                        <h6 class="mb-0" id="presentation">-</h6>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row"> Packing </th>
+                                                    <td>
+                                                        <h6 class="mb-0" id="packing">-</h6>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row"> Labels </th>
+                                                    <td>
+                                                        <h6 class="mb-0" id="labels">-</h6>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row"> Total Risk </th>
+                                                    <td>
+                                                        <h6 class="mb-0" id="risk">-</h6>
+                                                    </td>
                                                 </tr>
                                             </tbody>
                                         </table>
+
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                </section>
 
-                    <section>
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-lg-8 my-4">
-                                    <div class="card rounded-0">
-                                        <div class="card-header bg-light">
-                                            <h5 class="font-weight-bold mb-0">Images</h5>
-                                        </div>
-                                        <div class="card-body">
-                                            <table class="table">
-                                                <!-- <thead class="thead-dark">
+                <div class="container-fluid saltopagina">
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <div class="card rounded-0">
+                                <div class="card-header bg-light">
+                                    <h5 class="font-weight-bold mb-0">Selected route segments</h5>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table">
+                                        <thead class="thead-dark">
+                                            <tr>
+                                                <th scope="col">Segment ID</th>
+                                                <th scope="col">Risk level</th>
+                                                <th scope="col">Notes</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tableroute">
+                                            <!-- Filas generadas dinamicamente xd -->
+                                            <tr>
+                                                <th scope="row"></th>
+
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <section>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-lg-8 my-4">
+                                <div class="card rounded-0">
+                                    <div class="card-header bg-light">
+                                        <h5 class="font-weight-bold mb-0">Images</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <table class="table">
+                                            <!-- <thead class="thead-dark">
                                                           <tr>
                                                               <th scope="col"></th>
                                                               <th scope="col"></th>
                                                           </tr>
                                                       </thead> -->
-                                                <tbody id="tablafotos">
-                                                    <!-- Filas generadas dinamicamente xd -->
+                                            <tbody id="tablafotos">
+                                                <!-- Filas generadas dinamicamente xd -->
 
 
-                                                </tbody>
-                                            </table>
+                                            </tbody>
+                                        </table>
 
-                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </section>
-                    <!-- Button trigger modal -->
-                    <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                    </div>
+                </section>
+                <!-- Button trigger modal -->
+                <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
                         Launch demo modal
                     </button> -->
-                </div>
-
             </div>
+
+            <!-- </div> -->
 
         </div>
     </div>
@@ -648,12 +649,14 @@
     </div>
 </body>
 
+
 <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCEen29bixPCHvTa7DWIErzdWhPg8Zp60Y&callback=initMap"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script src="https://andreruffert.github.io/rangeslider.js/assets/rangeslider.js/dist/rangeslider.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.2/underscore-min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
+
 <script id="1">
     let arraystring;
     let idglobal
@@ -714,13 +717,13 @@
         endMarker = new google.maps.Marker({ map: map });
 
         //listener click derecho -> dibujar
-         infowindow = new google.maps.InfoWindow({
+        infowindow = new google.maps.InfoWindow({
             content: 'Initial point ',
         });
-         infowindow1 = new google.maps.InfoWindow({
+        infowindow1 = new google.maps.InfoWindow({
             content: 'Final point ',
         });
-        
+
     }
 </script>
 <!-- input -->
@@ -1645,7 +1648,7 @@ document.getElementById("notasb").innerHTML = result.notas; */
     function updateSegment() {
         var risk = document.getElementById('riesgo' + index).innerHTML;
         var temp = risk.split(' ');
-        risk = parseFloat(risk[0]);
+        risk = parseFloat(temp[0]);
         if (risk > 70 && risk <= 100) {
             SnappedSegments[index - 1].setOptions({ strokeColor: "#ff0000" });
         } else if (risk > 30 && risk <= 70) {
@@ -1653,6 +1656,15 @@ document.getElementById("notasb").innerHTML = result.notas; */
         } else {
             SnappedSegments[index - 1].setOptions({ strokeColor: "#008000" });
         }
+    }
+
+    function zoomToObject(obj) {
+        var bounds = new google.maps.LatLngBounds();
+        var points = obj.getPath().getArray();
+        for (var n = 0; n < points.length; n++) {
+            bounds.extend(points[n]);
+        }
+        map.fitBounds(bounds);
     }
 </script>
 <script>
@@ -1696,6 +1708,18 @@ document.getElementById("notasb").innerHTML = result.notas; */
             img.appendChild(tr)
         }
     }
+    function printPDF() {
+        console.log("hola")
+        zoomToObject(polylines[0])
+        var delayInMilliseconds = 1000; //1 second
+
+        setTimeout(function () {
+            window.print(); //your code to be executed after 1 second
+        }, delayInMilliseconds);
+        
+        
+    }
+
 </script>
 <script>
 
