@@ -203,6 +203,9 @@
                             <div class="card rounded-0">
                                 <div class="card-header bg-light">
                                     <h5 class="font-weight-bold mb-0">Selected route segments</h5>
+                                    <br>
+                                        <input onclick="ruta()" class="btn btn-primary" type="button" id="undo"
+                                            value="End Route analysis">
                                 </div>
                                 <div class="card-body">
                                     <table class="table">
@@ -659,7 +662,9 @@
 
 <script id="1">
     let arraystring;
-    let idglobal
+    let idglobal;
+    let idsegrut = [];
+
 
 
     let cerrar1 = function cerrar(e) {
@@ -871,7 +876,7 @@
             console.log(idglobal)
             analisis();
             mostrarfotos();
-
+            idsegrut.push(idglobal);
         }
 
 
@@ -1286,7 +1291,7 @@
         range2.label.paddingBottom = -5; // ~half font size
         range2.label.fontSize = "0.8em";
 
-
+        
 
         /**
          * Label
@@ -1364,11 +1369,58 @@
     document.getElementById("fecharuta").value = today;
     document.getElementById("fecharuta").max = today;
 </script>
+
 <script>
-    async function casos() {
-        routePath = [];
-        var mapaconsult;
-        const consulta = { con: mapaconsult };
+    let idruta = 1;
+    async function ruta() {
+        
+        var rutaconsulta=[];
+        var segmentosconsulta=[];
+        for(var i=0; i<=routePath.length-1; i++){
+            rutaconsulta[i] = {lat: routePath[i].lat(), lng: routePath[i].lng()};
+            var rutatemp = rutatemp + '—' + JSON.stringify(rutaconsulta[i]);
+            
+        }
+        rutatemp = rutatemp.split('undefined—');
+        rutatemp = rutatemp[1];
+        for (var i=0;i<=segments.length-1;i++){
+            var temp = segments[i];
+            console.log(temp[0].lat())
+        }
+        
+        for (var i=0;i<=segments.length-1;i++){
+            var temp = segments[i];
+            console.log(segments[i])
+            segmentosconsulta[i]={lat:temp[0].lat(), lng:temp[0].lng(),lat1:temp[1].lat(),lng1:temp[1].lng()};
+            var segtemp = segtemp + '—' + JSON.stringify(segmentosconsulta[i]);
+        }
+        segtemp = segtemp.split('undefined—');
+        segtemp = segtemp[1];
+        
+        let riskSeg = [];
+        for (var i=1; i<=index-1; i++){
+            var tablaRiesgo = document.getElementById("riesgo" + i).innerHTML
+            tablaRiesgo = tablaRiesgo.split(" ")
+            tablaRiesgo = tablaRiesgo[0]
+            riskSeg.push(tablaRiesgo)
+            
+        }
+        riskSeg = riskSeg.join("—")
+        console.log(riskSeg)
+        console.log(segmentosconsulta)
+
+        idsegrut = idsegrut.join("—")
+
+        var mapaconsult={
+            idruta: idruta,
+            polylines: rutatemp,
+            segments: segtemp,
+            risk: riskSeg,
+            idsrut: idsegrut
+
+        };
+        const consulta =  mapaconsult;
+        console.log(consulta);
         const options1 = {
             method: "POST",
             body: JSON.stringify(consulta),
@@ -1377,12 +1429,14 @@
             }
         };
 
+        console.log(options1.body);
 
 
-        const response2 = await fetch('/mapageneral', options1);
+        const response2 = await fetch('/ruta', options1);
         result2 = await response2.json();
         console.log(result2);
     }
+
 
 </script>
 <script>
@@ -1446,7 +1500,7 @@ document.getElementById("notasb").innerHTML = result.notas; */
             var sg1 = segments[1];
 
             drawSegment(currentSegment)
-
+            currentSegment=[];
         }
     }
 

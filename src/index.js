@@ -492,7 +492,7 @@ callback = function (response) {
 app.post('/consultaID', (req, res) => {
     var nombre = req.body.con;
     console.log(nombre);
-    let sql = `SELECT * FROM inforuta WHERE id = ${req.body.con}`;
+    let sql = `SELECT * FROM ruta WHERE idruta = ${req.body.con}`;
     client.query(sql)
         .then(raw => {
             console.log("estas son, crack. Pilla: ")
@@ -1103,4 +1103,35 @@ app.post('/informe', (req, res) => {
         .catch(e => console.log(e))
     console.log(fecharuta)
 
+});
+
+app.post('/ruta', (req, res) => {
+    var polylinestr = req.body;
+    console.log(polylinestr)
+      let sql = `INSERT INTO public.ruta(idruta,polyline, segment, risk, idsegrut) VALUES ('${req.body.idruta}','${req.body.polylines}','${req.body.segments}','${req.body.risk}','${req.body.idsrut}') RETURNING *`;
+    client.query(sql)
+ 
+
+
+
+})
+
+app.post('/consultaSeg', (req, res) => {
+    var nombre = req.body.con;
+    console.log(nombre);
+    let sql = `SELECT * FROM inforuta WHERE id in (${req.body.con})`;
+    client.query(sql)
+        .then(raw => {
+            console.log("estas son, crack. Pilla: ")
+            console.log(raw.rows)
+            if (raw.rows[0] == undefined) {
+                var resultado = { id: 0 }
+                res.json(resultado)
+            } else {
+                res.json(raw.rows[0]);
+            }
+
+
+        })
+        .catch(e => console.log(e))
 });
