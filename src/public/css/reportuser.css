@@ -884,3 +884,22 @@ a:hover {
       width: 30px;
       display:none
     }
+
+    #textomapa{
+      text-align:justify;
+    }
+    #textointro{
+      text-align:justify;
+    }
+
+    
+    #clear{
+      float:right;
+      margin-right: 10px;
+    }
+    #undo {
+      float:right;
+    }
+    #end {
+      float:right;
+    }
