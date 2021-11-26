@@ -908,11 +908,15 @@ a:hover {
     }
 
     #riskh{
-      width: 100%;
-      /* size:content; */
+      width: 70%;
+      
     }
 
     #pdf{
       float:right;
       margin-left:10px;
+    }
+
+    #head1{
+      height: 240px;
     }
