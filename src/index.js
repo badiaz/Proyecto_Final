@@ -172,7 +172,7 @@ app.post('/login', (req, res) => {
                 } else if (username == results.usuario && contra == results.contra && 2 == results.rol) {
                     req.session.loggedin1 = true;
                     req.session.username = username;
-                    res.redirect(301, '/registro_caso');
+                    res.redirect(301, '/Route_analysis');
 
                 } else if (username == results.usuario && contra == results.contra && 3 == results.rol) {
                     req.session.loggedin2 = true;

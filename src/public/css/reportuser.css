@@ -27,6 +27,7 @@ a:hover {
  div.saltopagina {
   display: none;  
 }
+
  
 .bg-primary { background-color: var(--primary) !important;  }
 .bg-fondo{
@@ -111,7 +112,7 @@ a:hover {
     z-index: 0;
 }
 
-#map2 {
+#mapB {
     height: 400px;
     top: 0;
     left: 0;
@@ -909,6 +910,9 @@ a:hover {
     #riskh{
       width: 100%;
       /* size:content; */
-      
+    }
 
+    #pdf{
+      float:right;
+      margin-left:10px;
     }
