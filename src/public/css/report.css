@@ -1,6 +1,11 @@
+/* @page{size:100% 100%; margin:0px;} */
+
+
 body {
   
-  size: portrait
+  height: 100%;
+  line-height: unset; 
+  
   
 }
 
@@ -19,9 +24,31 @@ body {
 #clear {
   display: none;
 }
-
+#end {
+  display: none;
+}
 #sidebar-container {
   display: none;
+}
+
+#textointro{
+  display: none;
+}
+#textomapa{
+  display: none;
+}
+#textoassess{
+  display: none;
+}
+#btnassess{
+  display: none;
+}
+#riskh{
+  display:block;
+}
+
+#weluser{
+  display:none;
 }
 
 .saltopagina {

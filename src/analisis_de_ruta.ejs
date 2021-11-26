@@ -73,13 +73,16 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-lg-6 col-md-6">
-                            <h1 class="font-weight-bold mb-0">Welcome User</h1>
+                            <img id="riskh" src="/img/risktool-h.png" class="riskh" style="display:none;">
+                            <h1 id="weluser" class="font-weight-bold mb-0">Welcome User</h1>
+                            
                             <p id="textointro" class="lead text-muted">This tool performs a risk assessment associated with the
                                 transportation of
                                 hazardous chemical hazardous chemical material along a given route using a fuzzy
                                 logic system.
                                 <br><br> Below, you will be able to enter the required information:
                             </p>
+                            
                         </div>
 
                         <div class="col-lg-6 col-md-6 ">
@@ -129,7 +132,7 @@
                                         <br><br>
                                         <div id="map"></div>
                                         <br>
-                                        <input onclick="toEvaluar()" class="btn btn-primary" type="button" id="letassess"
+                                        <input id="btnassess" onclick="toEvaluar()" class="btn btn-primary" type="button" id="letassess"
                                         value="Let's Assess!!">
                                     </div>
 
@@ -249,7 +252,7 @@
                         </div>
                     </div>
                 </div>
-
+                
                 <section id="fotosevaluacion" style="display:none;">
                     <div class="container-fluid">
                         <div class="row">
@@ -905,8 +908,12 @@
             document.getElementById("rutaid").innerHTML = idglobal;
             analisis();
             mostrarfotos();
-            idsegrut.push(idglobal);
+            var segid=result.idsegrut.split("—")
+                segid = segid[segid.length-1];
+                segid = segid+1+(idsegrut.length+1);
+            idsegrut.push(segid);
         }
+
 
 
     };
@@ -1347,11 +1354,11 @@
 
         var label2 = chart.radarContainer.createChild(am4core.Label);
         label2.isMeasured = false;
-        label2.fontSize = 20;
+        label2.fontSize = 15;
         label2.x = am4core.percent(50);
         label2.y = am4core.percent(100);
-        label2.paddingBottom = 150;
-        label2.horizontalCenter = "middle";
+        label2.paddingBottom = -160;
+        label2.horizontalCenter = "middle"; 
         label2.verticalCenter = "bottom";
         label2.text = "Percentage of risk";
 
@@ -1412,7 +1419,7 @@
 <script>
     let idruta = 1;
     async function ruta() {
-        
+        header()
         var rutaconsulta=[];
         var segmentosconsulta=[];
         for(var i=0; i<=routePath.length-1; i++){
@@ -1475,7 +1482,7 @@
         result2 = await response2.json();
         console.log(result2);
 
-
+        
     }
 
 
@@ -1829,6 +1836,12 @@ document.getElementById("notasb").innerHTML = result.notas; */
      document.getElementById("evaluacion").style.display = 'block'
      document.getElementById("fotosevaluacion").style.display = 'block'
      document.getElementById("fotosevaluacion").scrollIntoView({block: "end", behavior: "smooth"});
+ }
+
+ function header(){
+    document.getElementById("weluser").style.display = 'none';
+     document.getElementById("textointro").style.display = 'none';
+     document.getElementById("riskh").style.display = 'block';
  }
 </script>
 

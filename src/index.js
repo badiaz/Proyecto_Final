@@ -409,7 +409,7 @@ app.post('/inforuta', (req, res) => {
         .then(raw => {
             console.log("este es el id, crack. Pilla: ")
             console.log(raw.rows[0].idruta)
-            fotosfile3 = { fotos: fotosfile3, id: raw.rows[0].idruta }
+            fotosfile3 = { fotos: fotosfile3, id: raw.rows[0].idruta, idsegrut: raw.rows[0].idsegrut}
             res.json(fotosfile3);
             res.status(204);
         })
@@ -452,7 +452,7 @@ app.post('/Riesgo', (req, res) => {
     https.request(options, callback).end();
     console.log(req.body)
 
-    var Process = spawn('python', ["PruebaPf.py", bicicletas, motos, peaton, via, velocidad, alumbrado, hora]);
+    var Process = spawn('python', ["PruebaPf.py", bicicletas, motos, peaton, via, velocidad, hora, alumbrado, calzadadiv, obrasvia, deslizamiento, separador]);
 
     Process.stdout.on('data', (data) => {
         var calriesgo = { riesgo: data.toString('utf8') }
