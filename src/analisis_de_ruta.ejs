@@ -12,6 +12,7 @@
     <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/41bcea2ae3.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css">
+    <link rel="image_src" href="https://i.postimg.cc/wTC1XTN5/logo-sin-fondo.png">
     <!--SWAL-->
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
@@ -27,12 +28,11 @@
                 <h3>RISK TOOL</h3>
             </div>
             <div class="menu">
-                <a href="/registro_caso" class="d-block text-light p-3 border-0"><i
+                <a href="/Route_analysis" class="d-block text-light p-3 border-0"><i
                         class="icon ion-md-map lead mr-2"></i>
                     Route section analysis</a>
-                <a href="/general" class="d-block text-light p-3 border-0"><i class="icon ion-md-map lead mr-2"></i>
-                    General map</a>
-                <a href="/busqueda" class="d-block text-light p-3 border-0"><i class="icon ion-md-search lead mr-2"></i>
+                
+                <a href="/Search_Id" class="d-block text-light p-3 border-0"><i class="icon ion-md-search lead mr-2"></i>
                     Search by ID</a>
             </div>
         </div>
@@ -824,7 +824,7 @@
                 evt.preventDefault();
             };
             $("#drop").ondrop = evt => {
-                console.log(evt.dataTransfer.files)
+                
                 $("input[type=file]").files = evt.dataTransfer.files;
                 const files = evt.dataTransfer.files; // FileList object
 
@@ -890,7 +890,7 @@
         e.preventDefault();
 
         var input = document.getElementsByName('fotos');
-        console.log(input[0].files)
+        
         if (input[0].files.length == 0) {
             swal('Please update images')
         } else {
@@ -900,11 +900,11 @@
                 body: new FormData(formCase1)
             });
             let result = await response.json();
-            console.log(result.fotos)
+            
             arrayfotos = result.fotos;
             idglobal = result.id + 1;
             arraystring = arrayfotos.join(',')
-            console.log(idglobal)
+            
             document.getElementById("rutaid").innerHTML = idglobal;
             analisis();
             mostrarfotos();
@@ -924,7 +924,7 @@
 
         let arrayImagenes = arrayfotos;
 
-        console.log('este es el array  ' + arrayImagenes)
+        
         //que imagen mostramos
         var imagenActual = 0;
 
@@ -983,7 +983,7 @@
             fotos: arraystring,
             id: idsegrut[length-1]
         }
-        console.log(datos);
+        
         const options = {
             method: "POST",
             body: JSON.stringify(datos),
@@ -995,12 +995,12 @@
         const response = await fetch('/Riesgo', options);
 
         const result = await response.json();
-        console.log(result);
+        
 
         var medidor = result.riesgo;
         medidor = parseFloat(medidor) * 10
         valormedidor = medidor.toFixed(2);
-        console.log(valormedidor);
+        
         window.removeEventListener('beforeunload', cerrar1)
         var riesgotabla = document.getElementById("riesgo" + index);
         var sum = 0;
@@ -1010,10 +1010,10 @@
             
         }
         var riesgototprom = sum/riesgovector.length;
-        console.log(riesgototprom)
+        
         document.getElementById("risk").innerHTML = riesgototprom+ " %";
         riesgotabla.innerHTML = valormedidor + " %";
-        console.log(document.getElementById("riesgo" + index).innerHTML);
+        
         evaluar();
         insertImages(arrayfotos, index);
         updateSegment()
@@ -1106,7 +1106,7 @@
         const decimals = step && step.includes('.') ? step.split('.')[1] : 1
         const percent = `${((value - min) / (max - min) * 100).toFixed(decimals)}%`
         let text
-        console.log(parent)
+        
         parent.style.setProperty('--p', percent)
         if (document.getElementById('bicicletas').value >= 0 && document.getElementById('bicicletas').value < 3) {
             text = "There is a low bicycle flow."
@@ -1431,12 +1431,12 @@
         rutatemp = rutatemp[1];
         for (var i=0;i<=segments.length-1;i++){
             var temp = segments[i];
-            console.log(temp[0].lat())
+            
         }
         
         for (var i=0;i<=segments.length-1;i++){
             var temp = segments[i];
-            console.log(segments[i])
+            
             segmentosconsulta[i]={lat:temp[0].lat(), lng:temp[0].lng(),lat1:temp[1].lat(),lng1:temp[1].lng()};
             var segtemp = segtemp + '—' + JSON.stringify(segmentosconsulta[i]);
         }
@@ -1452,8 +1452,7 @@
             
         }
         riskSeg = riskSeg.join("—")
-        console.log(riskSeg)
-        console.log(segmentosconsulta)
+        
 
         idsegrut = idsegrut.join("—")
 
@@ -1466,7 +1465,7 @@
 
         };
         const consulta =  mapaconsult;
-        console.log(consulta);
+        
         const options1 = {
             method: "POST",
             body: JSON.stringify(consulta),
@@ -1475,12 +1474,11 @@
             }
         };
 
-        console.log(options1.body);
-
+        
 
         const response2 = await fetch('/ruta', options1);
         result2 = await response2.json();
-        console.log(result2);
+        
 
         
     }
@@ -1492,7 +1490,7 @@
     var select = document.getElementById("lista_product");
     select.addEventListener('onchange', () => {
         if (document.getElementById("lista_product").value == 2) {
-            console.log("entré")
+           
         }
 
 
@@ -1500,7 +1498,7 @@
     function actualizar(option) {
 
         if (option.value == 2) {
-            console.log("entré")
+           
             document.getElementById("producto").innerHTML = "Carbon disulfide"
             document.getElementById("riesgoproducto").innerHTML = "H225 - Highly flammable liquid and vapor Content." + "<br> H315 - Causes skin irritation." +
                 "<br> H319 - Causes serious eye irritation." + "<br> H372 - Causes damage to organs through prolonged or repeated exposure." + "<br> H361fd - Suspected of causing eye irritation." +
@@ -1603,7 +1601,7 @@ document.getElementById("notasb").innerHTML = result.notas; */
                 currentSegment.pop();
                 var route = SnappedSegments.pop();
                 route.setMap(null);
-                console.log(index2)
+                
                 index2 = index2-1;
                 var element1 = document.getElementById("riesgo"+index2).parentElement
                 element1.innerHTML = null;
@@ -1679,7 +1677,7 @@ document.getElementById("notasb").innerHTML = result.notas; */
 
     // Dibuja la polylinea ajustada al camino (después de procesar la respuesta)
     function drawSnappedPolyline() {
-        console.log("polylines")
+       
         if (polylines.length > 0) {
             polylines[length - 1].setMap(null)
         }
@@ -1736,7 +1734,7 @@ document.getElementById("notasb").innerHTML = result.notas; */
     }
 
     function drawSnappedSegment() {
-        console.log(currentSegment)
+        
 
         var snappedPolyline = new google.maps.Polyline({
             path: snappedCoordinates,
@@ -1749,7 +1747,7 @@ document.getElementById("notasb").innerHTML = result.notas; */
         });
         snappedPolyline.setMap(map);
         SnappedSegments.push(snappedPolyline);
-        console.log(SnappedSegments[0].getPath())
+        
         insertTable();
     }
 
@@ -1785,7 +1783,7 @@ document.getElementById("notasb").innerHTML = result.notas; */
     //insertar en la tabla
 
     function insertTable(res1, res2, res3) {
-        console.log("executed")
+       
 
         var table = document.getElementById('tableroute');
         var tr = document.createElement('tr');
@@ -1805,9 +1803,9 @@ document.getElementById("notasb").innerHTML = result.notas; */
     }
 
     function insertImages(result, index) {
-        console.log(result)
+        
         fotos = result
-        console.log(fotos)
+        
         img = document.getElementById('tablafotos');
         var tr = document.createElement('tr');
         tr.innerHTML = '<th>' + "ID:    " + index + '</th>';
@@ -1819,7 +1817,7 @@ document.getElementById("notasb").innerHTML = result.notas; */
         }
     }
     function printPDF() {
-        console.log("hola")
+        
         zoomToObject(polylines[0])
         var delayInMilliseconds = 1000; //1 second
 

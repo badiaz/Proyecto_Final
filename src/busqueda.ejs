@@ -39,13 +39,11 @@
           <h3>RISK TOOL</h3>
         </div>
         <div class="menu">
-          <a href="/registro_caso" class="d-block text-light p-3 border-0"
+          <a href="/Route_analysis" class="d-block text-light p-3 border-0"
             ><i class="icon ion-md-map lead mr-2"></i> Route section analysis</a
           >
-          <a href="/general" class="d-block text-light p-3 border-0"
-            ><i class="icon ion-md-map lead mr-2"></i> General map</a
-          >
-          <a href="/busqueda" class="d-block text-light p-3 border-0"
+
+          <a href="/Search_Id" class="d-block text-light p-3 border-0"
             ><i class="icon ion-md-search lead mr-2"></i> Search by ID</a
           >
         </div>
@@ -131,7 +129,7 @@
                       </h5>
                     </div>
                     <div class="card-body pt-2">
-                     <!--  <div class="d-flex border-bottom py-2">
+                      <!--  <div class="d-flex border-bottom py-2">
                         <div class="d-flex mr-3">
                           <h2 class="align-self-center mb-0">
                             <i class="icon ion-md-pricetag"></i>
@@ -220,8 +218,12 @@
                     <div class="card-body pt-2">
                       <div class="d-flex border-bottom py-2">
                         <div class="d-flex mr-3">
-                          <h2 class="align-self-center mb-0"><img src="https://i.postimg.cc/CK63bCPg/green.png"
-                              width="25px"></h2>
+                          <h2 class="align-self-center mb-0">
+                            <img
+                              src="https://i.postimg.cc/CK63bCPg/green.png"
+                              width="25px"
+                            />
+                          </h2>
                         </div>
                         <div class="align-self-center">
                           <h6 class="d-inline-block mb-0">Low Risk</h6>
@@ -238,8 +240,12 @@
                       </div> -->
                       <div class="d-flex border-bottom py-2">
                         <div class="d-flex mr-3">
-                          <h2 class="align-self-center mb-0"><img src="https://i.postimg.cc/j2hv4tx7/yellow.png"
-                              width="25px"></h2>
+                          <h2 class="align-self-center mb-0">
+                            <img
+                              src="https://i.postimg.cc/j2hv4tx7/yellow.png"
+                              width="25px"
+                            />
+                          </h2>
                         </div>
                         <div class="align-self-center">
                           <h6 class="d-inline-block mb-0">Moderate Risk</h6>
@@ -256,8 +262,12 @@
                       </div> -->
                       <div class="d-flex border-bottom py-2 mb-3">
                         <div class="d-flex mr-3">
-                          <h2 class="align-self-center mb-0"><img src="https://i.postimg.cc/ZRkCkPqx/red.png"
-                              width="25px"></h2>
+                          <h2 class="align-self-center mb-0">
+                            <img
+                              src="https://i.postimg.cc/ZRkCkPqx/red.png"
+                              width="25px"
+                            />
+                          </h2>
                         </div>
                         <div class="align-self-center">
                           <h6 class="d-inline-block mb-0">High Risk</h6>
@@ -404,11 +414,11 @@
 
           const response1 = await fetch("/consultaID", options1);
           result = await response1.json();
-          console.log(result);
+          
           drawConsultedRoute(result);
 
           querySegment(result);
-          zoomToObject(polylines[0])
+          zoomToObject(polylines[0]);
         }
       }
 
@@ -426,7 +436,7 @@
 
         const response2 = await fetch("/consultaSeg", options2);
         result2 = await response2.json();
-        console.log(result2);
+        
         procesarSegments(result, result2);
       }
 
@@ -486,13 +496,13 @@
       function mostrarfotos() {
         let arrayImagenes = arrayfotos;
 
-        console.log("este es el array  " + arrayImagenes);
+        
         //que imagen mostramos
         var imagenActual = 0;
 
         //Cada 2 segundos se ejecute esta funcion
         var temporizador;
-        /* temporizador = setInterval(cambiarImagen, 3000) */
+        
 
         //paso 2: listeners de los botones de anterior y siguiente
         document
@@ -541,38 +551,20 @@
           ];
 
           if (risk > 70 && risk <= 100) {
-            console.log(SnappedSegments);
+            
             color = "#ff0000";
           } else if (risk > 30 && risk <= 70) {
             color = "#f6d866";
           } else {
             color = "#008000";
           }
-          console.log(color);
+          
           drawSegment(tempseg3, color, res2[i]);
         }
-        console.log(tempseg);
+        
       }
 
-      /* function updateSegment(res) {
-        var risk = res.risk;
-        var temp = risk.split("—");
-        console.log(temp.length);
-        for (var i = 0; i <= temp.length - 1; i++) {
-          var tempcolores = SnappedSegments[i];
-          console.log(tempcolores);
-          risk = parseFloat(temp[i]);
-          var color;
-          if (risk > 70 && risk <= 100) {
-            console.log(SnappedSegments);
-            color = "#ff0000";
-          } else if (risk > 30 && risk <= 70) {
-            color = "#f6d866";
-          } else {
-            color = "#008000";
-          }
-        }
-      } */
+      
 
       function drawSegment(seg, color, res2) {
         var route = new google.maps.Polyline({
@@ -648,7 +640,7 @@
 
       // Dibuja la polylinea ajustada al camino (después de procesar la respuesta)
       function drawSnappedPolyline() {
-        console.log("polylines");
+        
         if (polylines.length > 0) {
           polylines[length - 1].setMap(null);
         }
@@ -691,7 +683,7 @@
           icon = "http://maps.google.com/mapfiles/ms/icons/red.png";
         }
         snappedPolyline.addListener("mouseover", () => {
-         /*  document.getElementById("id").innerHTML = result.id; */
+          /*  document.getElementById("id").innerHTML = result.id; */
           document.getElementById("fecharuta").innerHTML = fecharuta;
           document.getElementById("Initcoord").innerHTML =
             result.latitud + ", " + result.longitud;
@@ -703,7 +695,7 @@
         });
         snappedPolyline.setMap(map);
         SnappedSegments.push(snappedPolyline);
-        console.log(SnappedSegments[0].getPath());
+        
       }
 
       function zoomToObject(obj) {

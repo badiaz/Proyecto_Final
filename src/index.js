@@ -115,19 +115,9 @@ app.get('/reportuser', (request, response) => {
     response.sendFile(path.join(__dirname + '/public/css/reportuser.css'));
 });
 
-//Admin
-app.get('/admin', function (request, response) {
-    console.log(request.session)
-
-    if (request.session.loggedin2 == true) {
-        return response.render(path.join(__dirname + '/admin.ejs'));
-    } else {
-        return response.render(path.join(__dirname + '/login.ejs'));
-    }
-});
 
 //Ayudante (Registro caso)
-app.get('/registro_caso', function (request, response) {
+app.get('/Route_analysis', function (request, response) {
 
     if (request.session.loggedin1) {
         return response.render(path.join(__dirname + '/analisis_de_ruta.ejs'));
@@ -136,39 +126,12 @@ app.get('/registro_caso', function (request, response) {
     }
 });
 
-//Ayudante (Obtener caso)
-app.get('/report', function (request, response) {
-
-    if (request.session.loggedin1) {
-        return response.render(path.join(__dirname + '/report.ejs'));
-    } else {
-        return response.render(path.join(__dirname + '/login.ejs'));
-    }
-});
-
-//Medico (General)
-app.get('/general', function (request, response) {
-
-    if (request.session.loggedin1) {
-        return response.render(path.join(__dirname + '/general.ejs'));
-    } else {
-        return response.render(path.join(__dirname + '/login.ejs'));
-    }
-});
 
 //Medico (Busqueda)
-app.get('/busqueda', function (request, response) {
+app.get('/Search_Id', function (request, response) {
     request.session.loggedin = true;
     if (request.session.loggedin) {
         return response.render(path.join(__dirname + '/busqueda.ejs'));
-    } else {
-        return response.render(path.join(__dirname + '/login.ejs'));
-    }
-});
-app.get('/nuevo', function (request, response) {
-    request.session.loggedin = true;
-    if (request.session.loggedin) {
-        return response.render(path.join(__dirname + '/nuevo.ejs'));
     } else {
         return response.render(path.join(__dirname + '/login.ejs'));
     }
@@ -181,39 +144,16 @@ app.post('/form', (req, res) => {
     client
         .query(sql)
         .then(raw => {
-            console.log("Anotado, crack. Pilla: ")
-            console.log(raw.rows[0])
+            
         })
         .catch(e => console.log(e))
     res.status(204).send();
 });
 
-app.post('/estado', (req, res) => {
-    var data = req.body.con;
-    var id = data[0];
-    var fecha = data[1];
-    var estado = data[2];
-    let post = [id, fecha, estado];
-    let sql = `INSERT INTO public.estado (
-        id, fecha, estado) VALUES (
-        '${id}'::bigint, '${fecha}'::date, ${estado}::bigint)
-         returning *;`;
 
-    client
-        .query(sql)
-        .then(raw => {
-            console.log("Anotado, crack. Pilla: ")
-            console.log(raw.rows)
-            res.json(raw.rows)
-        })
-        .catch(e => {
-            console.log("Nada mi rey, como que no.");
-            console.log(e)
-        })
-});
 
 app.post('/login', (req, res) => {
-    console.log(req.body)
+    
     var username = req.body.username;
     var contra = req.body.contra;
     let results;
@@ -253,132 +193,9 @@ app.post('/login', (req, res) => {
 
 });
 
-app.post('/logeado_ayudante', (req, res) => {
-    console.log(req.body)
-    let sql = `INSERT INTO casos(nombre, apellido, cedula, sexo, fechanac, direc, dirt, resultado, fechaex) VALUES('${req.body.nombre}','${req.body.apellido}',${req.body.cedula},${req.body.sexo},'${req.body.fechanac}','${req.body.direc}','${req.body.dirt}','${req.body.resultado}','${req.body.fechaex}' ) RETURNING *`;
-
-    let post = [req.body.nombre, req.body.apellido, req.body.cedula, req.body.rol, req.body.usuario, req.body.contra];
-    client.query(sql)
-
-        .then(raw => {
-            //     console.log("Anotado, crack. Pilla: ")
-            //     console.log(raw.rows[0])
-            var buffer = raw.rows[0];
-            var id = buffer.id
-            //     var estado = buffer.resultado
-            //     var fecha = buffer.fechaex;
-            let sql1 = `INSERT INTO public.estado (id, fecha, estado) VALUES ('${id}'::bigint, '${req.body.fechaex}'::date, ${req.body.resultado}::bigint) returning *`;
-            //     let sql1 = `INSERT INTO estado(id, fecha, estado) VALUES(${id},${fecha},${estado}) RETURNING *`;
-            //     client
-            //         .query(sql1)
-            client.query(sql1)
-        })
-        .catch(e => console.log(e))
-    res.status(204).send();
-});
-
-app.post('/tabla', (req, res) => {
-    var nombre = req.body.con;
-    sql = ` SELECT * FROM estado
-              WHERE id = '${nombre}'
-              ORDER BY estado.fecha DESC
-              `;
-    client
-        .query(sql)
-        .then(raw => {
-            var data = raw.rows[0];
-            id = data.id;
-            res.json(raw.rows);
-            console.log('Tabla enviada.')
-
-        })
-
-});
-
-//Buscar caso
-app.post('/gest_caso', (req, res) => {
-    var nombre = req.body.con;
-    var id;
-    let sql = ` SELECT * FROM casos
-              WHERE id = '${parseInt(nombre)}' OR cedula = '${parseInt(nombre)}'
-              ORDER BY casos.fechaex DESC
-              LIMIT 1`;
-    client
-        .query(sql)
-        .then(raw => {
-            var data = raw.rows[0];
-            id = data.id;
-            res.json(raw.rows[0]);
-            console.log('caso enviado')
-
-        })
-        .catch(e => {
-            let sql1 = ` SELECT * FROM casos
-              WHERE nombre LIKE '${nombre}' OR apellido LIKE '${nombre}'
-              ORDER BY casos.fechaex DESC
-              LIMIT 1`;
-            client
-                .query(sql1)
-                .then(raw => {
-                    res.json(raw.rows[0]);
-                    console.log('caso enviado')
-                })
-                .catch(e => { console.log(e) });
-        });
-});
-
-app.post('/casos', (req, res) => {
-
-    let sql1 = `SELECT  estado.id, estado.estado, MAX(fecha) 
-    from estado 
-    GROUP BY estado.id, estado.estado
-    order by estado.id ASC, MAX DESC; `
-    var data;
-    client
-        .query(sql1)
-        .then(raw => {
-            console.log(raw.rows)
-            res.json(raw.rows);
-        })
-        .catch(e => console.log(e))
-});
-
-
-
-
-app.post('/mapaplan2', (req, res) => {
-    var idcaso = req.body.con;
-    let sql = `SELECT es.fecha, es.estado FROM estado es WHERE es.id = ${req.body.con} `;
-    let query = database.query(sql, (err, result) => {
-        if (err) { throw err; }
-        res.end(JSON.stringify(result));
-        console.log(result)
-    });
-});
-
-server.listen(15002, () => {
+server.listen(80, () => {
     console.log('Servidor abierto en puerto 15002');
 });
-
-app.post('/resumencasos', (req, res) => {
-    let sql = `SELECT resultado,COUNT(resultado) FROM casos group by resultado`
-    client
-        .query(sql)
-        .then(raw => res.json(raw.rows))
-});
-app.post('/resumenestados', (req, res) => {
-    let sql = `SELECT estado, COUNT(estado) FROM estado group by estado`
-    client
-        .query(sql)
-        .then(raw => res.json(raw.rows))
-});
-app.post('/resumencasospordia', (req, res) => {
-    let sql = 'SELECT COUNT(fechaex), resultado, fechaex FROM casos group by fechaex, resultado'
-    client
-        .query(sql)
-        .then(raw => res.json(raw.rows))
-});
-
 
 app.post('/inforuta', (req, res) => {
 
@@ -558,9 +375,6 @@ app.post('/ruta', (req, res) => {
       let sql = `INSERT INTO public.ruta(idruta,polyline, segment, risk, idsegrut) VALUES ('${req.body.idruta}','${req.body.polylines}','${req.body.segments}','${req.body.risk}','${req.body.idsrut}') RETURNING *`;
     client.query(sql)
  
-
-
-
 })
 
 app.post('/consultaSeg', (req, res) => {
