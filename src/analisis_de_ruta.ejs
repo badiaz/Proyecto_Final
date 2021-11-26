@@ -909,8 +909,8 @@
             analisis();
             mostrarfotos();
             var segid=result.idsegrut.split("—")
-                segid = segid[segid.length-1];
-                segid = segid+1+(idsegrut.length+1);
+                segid = parseFloat(segid[segid.length-1]);
+                segid = segid+1+(idsegrut.length);
             idsegrut.push(segid);
         }
 
