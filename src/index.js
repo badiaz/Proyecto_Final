@@ -144,7 +144,7 @@ app.post('/form', (req, res) => {
     client
         .query(sql)
         .then(raw => {
-            
+
         })
         .catch(e => console.log(e))
     res.status(204).send();
@@ -153,7 +153,7 @@ app.post('/form', (req, res) => {
 
 
 app.post('/login', (req, res) => {
-    
+
     var username = req.body.username;
     var contra = req.body.contra;
     let results;
@@ -225,7 +225,7 @@ app.post('/inforuta', (req, res) => {
         .then(raw => {
             console.log("este es el id, crack. Pilla: ")
             console.log(raw.rows[0].idruta)
-            fotosfile3 = { fotos: fotosfile3, id: raw.rows[0].idruta, idsegrut: raw.rows[0].idsegrut}
+            fotosfile3 = { fotos: fotosfile3, id: raw.rows[0].idruta, idsegrut: raw.rows[0].idsegrut }
             res.json(fotosfile3);
             res.status(204);
         })
@@ -267,22 +267,28 @@ app.post('/Riesgo', (req, res) => {
     };
     https.request(options, callback).end();
     console.log(req.body)
+    try {
 
-    var Process = spawn('python', ["PruebaPf.py", bicicletas, motos, peaton, via, velocidad, hora, alumbrado, calzadadiv, obrasvia, deslizamiento, separador]);
 
-    Process.stdout.on('data', (data) => {
-        var calriesgo = { riesgo: data.toString('utf8') }
-        console.log(calriesgo);
-        res.json(calriesgo);
-        var medidor = data.toString('utf8');
-        medidor = medidor.substring(0, medidor.length - 4)
-        var valormedidor = parseFloat(medidor) * 10;
-        console.log('papi mira ve  ' + valormedidor);
-        let sql = `INSERT INTO public.inforuta(id,fecharuta, latitud, longitud, notas, fotos, riesgo,geocode,latitud1,longitud1) VALUES('${req.body.id}','${req.body.fecharuta}','${req.body.latitud}','${req.body.longitud}','${req.body.notas}','${req.body.fotos}','${valormedidor}','${geocoded.results[0].formatted_address}','${req.body.latitud1}','${req.body.longitud1}') RETURNING *`;
-        client.query(sql)
+        var Process = spawn('python', ["PruebaPf.py", bicicletas, motos, peaton, via, velocidad, hora, alumbrado, calzadadiv, obrasvia, deslizamiento, separador]);
 
-    });
+        Process.stdout.on('data', (data) => {
+            var calriesgo = { riesgo: data.toString('utf8') }
+            console.log(calriesgo);
+            res.json(calriesgo);
+            var medidor = data.toString('utf8');
+            medidor = medidor.substring(0, medidor.length - 4)
+            var valormedidor = parseFloat(medidor) * 10;
+            console.log('papi mira ve  ' + valormedidor);
+            let sql = `INSERT INTO public.inforuta(id,fecharuta, latitud, longitud, notas, fotos, riesgo,geocode,latitud1,longitud1) VALUES('${req.body.id}','${req.body.fecharuta}','${req.body.latitud}','${req.body.longitud}','${req.body.notas}','${req.body.fotos}','${valormedidor}','${geocoded.results[0].formatted_address}','${req.body.latitud1}','${req.body.longitud1}') RETURNING *`;
+            client.query(sql)
 
+        });
+    } catch (error) {
+        console.error(error);
+        // expected output: ReferenceError: nonExistentFunction is not defined
+        // Note - error messages will vary depending on browser
+    }
 
 })
 
@@ -372,9 +378,9 @@ app.post('/mapageneral', (req, res) => {
 app.post('/ruta', (req, res) => {
     var polylinestr = req.body;
     console.log(polylinestr)
-      let sql = `INSERT INTO public.ruta(idruta,polyline, segment, risk, idsegrut) VALUES ('${req.body.idruta}','${req.body.polylines}','${req.body.segments}','${req.body.risk}','${req.body.idsrut}') RETURNING *`;
+    let sql = `INSERT INTO public.ruta(idruta,polyline, segment, risk, idsegrut) VALUES ('${req.body.idruta}','${req.body.polylines}','${req.body.segments}','${req.body.risk}','${req.body.idsrut}') RETURNING *`;
     client.query(sql)
- 
+
 })
 
 app.post('/consultaSeg', (req, res) => {
