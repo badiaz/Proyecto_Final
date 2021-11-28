@@ -25,214 +25,135 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 	<!--ip-->
 
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+	<script type="module" src="https://unpkg.com/ionicons@5.2.3/dist/ionicons/ionicons.esm.js"></script>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 		integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 	<link rel="preconnect" href="https://fonts.gstatic.com">
 	<link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200;600&display=swap" rel="stylesheet">
-	<script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
+
 	<script src="https://www.gstatic.com/charts/loader.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 </head>
 
 <body>
-    <main>
-      <div class="big-wrapper light">
-        <img src="./img/shape.png" alt="" class="shape" />
+	<main>
+		<div class="big-wrapper light">
+			
 
-        <header>
-          <div class="container">
-            <div class="logo">
-              <img src="https://i.postimg.cc/wTC1XTN5/logo-sin-fondo.png" alt="Logo" />
-              <h3>RISK TOOL</h3>
-            </div>
+			<header>
+				<div class="container">
+					<div class="logo">
+						<img src="https://i.postimg.cc/wTC1XTN5/logo-sin-fondo.png" alt="Logo" />
+						<h3>RISK TOOL</h3>
+					</div>
 
-            <div class="links">
-              <ul>
-                <li><a href="/">Home</a></li>
-                <!-- <li><a href="#">Pricing</a></li>
+					<div class="links">
+						<ul>
+							<li><a href="/">Home</a></li>
+							<!-- <li><a href="#">Pricing</a></li>
                 <li><a href="#">Testimonials</a></li> -->
-                <li><a href="login" class="btn">Log In</a></li>
-              </ul>
-            </div>
+							<li><a href="login" class="btn">Log In</a></li>
+						</ul>
+					</div>
 
-            <div class="overlay"></div>
+					<div class="overlay"></div>
 
-            <div class="hamburger-menu">
-              <div class="bar"></div>
-            </div>
-          </div>
-        </header>
+					<div class="hamburger-menu">
+						<div class="bar"></div>
+					</div>
+				</div>
+			</header>
 
-        <div class="showcase-area">
-          <div class="container">
-            <div class="left">
-              <div class="big-title">
-                <h1>Saving lives,</h1>
-                <h1>One trip at a time.</h1>
-              </div>
-              <p class="text">
-                
-              </p>
-              <!-- <div class="cta">
+			<div class="showcase-area">
+				<div class="container">
+					<div class="left">
+						<div class="big-title">
+							<h1>Saving lives,</h1>
+							<h1>One trip at a time.</h1>
+						</div>
+						<p class="text">
+
+						</p>
+						<!-- <div class="cta">
                 <a href="#" class="btn">Get started</a>
               </div> -->
-            </div>
+					</div>
 
-            <div class="right">
-              <img src="https://i.postimg.cc/GtbQhxL2/camionsf1.png" alt="Person Image" class="person" />
-            </div>
-          </div>
-        </div>
+					<div class="right">
+						<img src="https://i.postimg.cc/GtbQhxL2/camionsf1.png" alt="Person Image" class="person" />
+					</div>
+				</div>
+			</div>
 
-        <div class="bottom-area">
-          <div class="container">
-            <button class="toggle-btn">
-              <i class="far fa-moon"></i>
-              <i class="far fa-sun"></i>
-            </button>
-          </div>
-        </div>
-      </div>
-    </main>
+			<div class="bottom-area">
+				<div class="container">
+					<button class="toggle-btn">
+						<i class="far fa-moon"></i>
+						<i class="far fa-sun"></i>
+					</button>
+				</div>
+			</div>
+		</div>
+	</main>
 
-    <!-- JavaScript Files -->
+	<!-- JavaScript Files -->
 
-    <script src="https://kit.fontawesome.com/a81368914c.js"></script>
-    <script src="./app.js"></script>
-  </body>
-<script>
-	//Solicitudes a la DB
-	//1. Casos positivos y negativos
-	async function landing() {
-		const consulta = { con: 'total examenes positivos y negativos' };
-		const options1 = {
-			method: "POST",
-			body: JSON.stringify(consulta),
-			headers: {
-				"Content-Type": "application/json"
-			}
-		};
+	<script src="https://kit.fontawesome.com/a81368914c.js"></script>
+	
+</body>
 
-		const response1 = await fetch('/resumencasos', options1);
-		result1 = await response1.json();
-		console.log(result1)
-		const response2 = await fetch('/resumenestados', options1);
-		result2 = await response2.json();
-		const response3 = await fetch('/resumencasospordia', options1);
-		result3 = await response3.json();
-
-
-
-		var ctx1 = document.getElementById('myChart1');
-		var ctx2 = document.getElementById('myChart2');
-		var ctx3 = document.getElementById('myChart3');
-		var ctx4 = document.getElementById('myChart4');
-
-
-
-
-		var myPieChart = new Chart(ctx1, {
-			type: 'pie',
-			data: {
-				labels: ["Casos positivos", "Casos negativos"],
-				datasets: [{
-					data: [result1[1].count, result1[0].count],
-					backgroundColor: ["#ff0000", "#008f39"]
-				}]
-			},
-			options: {
-				responsive: true
-			}
-		});
-
-
-
-		// Gráfica total de infectados (en tratamiento casa, en tratamiento hospital, en UCI, muertos)
-
-		var myPieChart2 = new Chart(ctx2, {
-			type: 'pie',
-			data: {
-				labels: ["Tratamiento Casa", "Tratamiento Hospital", "UCI", "Muerto"],
-				datasets: [{
-					data: [result2[2].count, result2[3].count, result2[4].count, result2[5].count],
-					backgroundColor: ["#FFB600", "#FF6400", "#003EFF", "#000000"]
-				}]
-			},
-			options: {
-				responsive: true
-			}
-		});
-		infectados = parseFloat(result2[2].count) + parseFloat(result2[3].count) + parseFloat(result2[4].count);
-		console.log(result2)
-		console.log(infectados)
-		var myPieChart3 = new Chart(ctx3, {
-			type: 'pie',
-			data: {
-				labels: ["Infectados", "Curados", "Muertos"],
-				datasets: [{
-					data: [infectados, result2[1].count, result2[4].count],
-					backgroundColor: ["#ff0000", "#000000", "#008f39"]
-				}]
-			},
-			options: {
-				responsive: true
-			}
-		});
-	}
-	landing();
-</script>
 <script>
 	// Select The Elements
-var toggle_btn;
-var big_wrapper;
-var hamburger_menu;
+	var toggle_btn;
+	var big_wrapper;
+	var hamburger_menu;
 
-function declare() {
-  toggle_btn = document.querySelector(".toggle-btn");
-  big_wrapper = document.querySelector(".big-wrapper");
-  hamburger_menu = document.querySelector(".hamburger-menu");
-}
+	function declare() {
+		toggle_btn = document.querySelector(".toggle-btn");
+		big_wrapper = document.querySelector(".big-wrapper");
+		hamburger_menu = document.querySelector(".hamburger-menu");
+	}
 
-const main = document.querySelector("main");
+	const main = document.querySelector("main");
 
-declare();
+	declare();
 
-let dark = false;
+	let dark = false;
 
-function toggleAnimation() {
-  // Clone the wrapper
-  dark = !dark;
-  let clone = big_wrapper.cloneNode(true);
-  if (dark) {
-    clone.classList.remove("light");
-    clone.classList.add("dark");
-  } else {
-    clone.classList.remove("dark");
-    clone.classList.add("light");
-  }
-  clone.classList.add("copy");
-  main.appendChild(clone);
+	function toggleAnimation() {
+		// Clone the wrapper
+		dark = !dark;
+		let clone = big_wrapper.cloneNode(true);
+		if (dark) {
+			clone.classList.remove("light");
+			clone.classList.add("dark");
+		} else {
+			clone.classList.remove("dark");
+			clone.classList.add("light");
+		}
+		clone.classList.add("copy");
+		main.appendChild(clone);
 
-  document.body.classList.add("stop-scrolling");
+		document.body.classList.add("stop-scrolling");
 
-  clone.addEventListener("animationend", () => {
-    document.body.classList.remove("stop-scrolling");
-    big_wrapper.remove();
-    clone.classList.remove("copy");
-    // Reset Variables
-    declare();
-    events();
-  });
-}
+		clone.addEventListener("animationend", () => {
+			document.body.classList.remove("stop-scrolling");
+			big_wrapper.remove();
+			clone.classList.remove("copy");
+			// Reset Variables
+			declare();
+			events();
+		});
+	}
 
-function events() {
-  toggle_btn.addEventListener("click", toggleAnimation);
-  hamburger_menu.addEventListener("click", () => {
-    big_wrapper.classList.toggle("active");
-  });
-}
+	function events() {
+		toggle_btn.addEventListener("click", toggleAnimation);
+		hamburger_menu.addEventListener("click", () => {
+			big_wrapper.classList.toggle("active");
+		});
+	}
 
-events();
+	events();
 </script>
+
 </html>

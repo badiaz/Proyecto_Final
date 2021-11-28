@@ -139,7 +139,7 @@ app.get('/Search_Id', function (request, response) {
 
 
 app.post('/form', (req, res) => {
-    let sql = `INSERT INTO usuarios(nombre, apellido, cedula, rol, usuario, contra) VALUES('${req.body.nombre}','${req.body.apellido}',${req.body.cedula},2,'${req.body.usuario}','${req.body.contra}' ) RETURNING *`;
+    let sql = `INSERT INTO usuarios1 (nombre, apellido, cedula, rol, usuario, contra) VALUES('${req.body.nombre}','${req.body.apellido}',${req.body.cedula},2,'${req.body.usuario}','${req.body.contra}' ) RETURNING *`;
     let post = [req.body.nombre, req.body.apellido, req.body.cedula, req.body.rol, req.body.usuario, req.body.contra];
     client
         .query(sql)
@@ -158,7 +158,7 @@ app.post('/login', (req, res) => {
     var contra = req.body.contra;
     let results;
     if (username && contra) {
-        let sql = `SELECT * FROM usuarios WHERE usuario = '${username}' AND contra = '${contra}'`;
+        let sql = `SELECT * FROM usuarios1 WHERE usuario = '${username}' AND contra = '${contra}'`;
         client.query(sql)
             .then(raw => {
                 results = raw.rows[0];

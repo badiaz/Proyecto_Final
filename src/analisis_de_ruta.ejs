@@ -31,10 +31,14 @@
                 <a href="javascript:;" onclick="cambioAnalysis()" class="d-block text-light p-3 border-0"><i
                         class="icon ion-md-map lead mr-2"></i>
                     Route section analysis</a>
+                <a href="javascript:location.reload()" class="d-block text-light p-3 border-0"><i
+                        class="icon ion-md-refresh lead mr-2"></i>
+                    New Assessment</a>
 
                 <a href="javascript:;" onclick="cambioSearch()" class="d-block text-light p-3 border-0"><i
                         class="icon ion-md-search lead mr-2"></i>
                     Search by ID</a>
+
             </div>
         </div>
         <!-- Fin sidebar -->
@@ -85,7 +89,7 @@
                         </div>
                     </div>
                 </section>
-    
+
                 <section>
                     <div class="container-fluid">
                         <div class="row">
@@ -110,7 +114,7 @@
                             <h6 class="mb-0" id="id"></h6>
                           </div>
                         </div> -->
-    
+
                                         <div class="d-flex border-bottom py-2">
                                             <div class="d-flex mr-3">
                                                 <h2 class="align-self-center mb-0">
@@ -281,7 +285,7 @@
                         </div>
                     </div>
                 </section>
-    
+
             </div>
             <!-- <div id="content" class="bg-grey w-100"> -->
             <section id="head1" class="bg-light py-3">
@@ -327,7 +331,7 @@
                                                         <option value="1">Curado</option>
                                                         <option value="5">Fallecido</option> -->
                                         </select>
-                                        
+
                                     </div>
                                     <div class="card-body">
                                         <h5 class="font-weight-bold mb-4">Route Generator</h5>
@@ -448,9 +452,9 @@
 
                                     </p>
                                     <input onclick="printPDF()" class="btn btn-primary" type="button" id="pdf"
-                                            value="Save Report">
-                                    <input onclick="ruta(); swalIt();" class="btn btn-primary" type="button" id="end"
-                                        value="End and Save Route">
+                                        value="Save Report">
+                                    <input id="endall" onclick="ruta(); swalIt();" class="btn btn-primary" type="button"
+                                        id="end" value="End and Save Route">
                                 </div>
                                 <div class="card-body">
                                     <table class="table">
@@ -470,7 +474,7 @@
                                         </tbody>
                                     </table>
                                     <br>
-                                    
+
                                 </div>
                             </div>
                         </div>
@@ -516,7 +520,7 @@
 
         </div>
 
-        
+
     </div>
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -739,7 +743,7 @@
                                                                             class="heat-sliderinv--label font-weight-bold">On
                                                                             a scale of rate the condition of
                                                                             the road:</span>
-                                                                        <span class="heat-sliderinv--input">
+                                                                        <span class="heat-slider--input">
                                                                             <input id="via" type="range" name="via"
                                                                                 value="0" min="0" max="10"
                                                                                 oninput="doThings3(event)" />
@@ -911,7 +915,7 @@
 
 <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCEen29bixPCHvTa7DWIErzdWhPg8Zp60Y&callback=initMap">
-</script>
+    </script>
 <!-- <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCEen29bixPCHvTa7DWIErzdWhPg8Zp60Y&callback=initMapB">
 </script> -->
@@ -921,6 +925,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
 
 <script id="1">
+
     let arraystring;
     let idglobal;
     let idsegrut = [];
@@ -999,10 +1004,10 @@
         });
 
         mapB = new google.maps.Map(document.getElementById("mapB"), {
-        zoom: 13,
-        center: { lat: 10.9861045, lng: -74.80928094 },
-        streetViewControl: false,
-      });
+            zoom: 13,
+            center: { lat: 10.9861045, lng: -74.80928094 },
+            streetViewControl: false,
+        });
     }
 </script>
 <!-- input -->
@@ -1010,6 +1015,7 @@
     //DOM
 
     inputagain()
+
     //APP
 
     function inputagain() {
@@ -1312,30 +1318,43 @@
                                                                         </footer>
                                                                     </div>`
         inputagain();
+
         document.getElementById("bicicletas").value = 0;
         document.getElementById('bicicletas').parentElement.style.setProperty('--p', '0%')
+        document.querySelector('#outbici').value = `Please scroll to select...`
         document.getElementById("motos").value = 0;
         document.getElementById('motos').parentElement.style.setProperty('--p', '0%')
+        document.querySelector('#outmoto').value = `Please scroll to select...`
         document.getElementById("peaton").value = 0;
         document.getElementById('peaton').parentElement.style.setProperty('--p', '0%')
+        document.querySelector('#outpeaton').value = `Please scroll to select...`
         document.getElementById("via").value = 0;
         document.getElementById('via').parentElement.style.setProperty('--p', '0%')
+        document.querySelector('#outvia').value = `Please scroll to select...`
         document.getElementById("deslizamiento").value = 0;
         document.getElementById('deslizamiento').parentElement.style.setProperty('--p', '0%')
+        document.querySelector('#outdeslizamiento').value = `Please scroll to select...`
         document.getElementById("obrasvia").value = 0;
         document.getElementById('obrasvia').parentElement.style.setProperty('--p', '0%')
+        document.querySelector('#outseveridad').value = `Please scroll to select...`
         document.getElementById("velocidad").value = 0;
         document.getElementById('velocidad').parentElement.style.setProperty('--p', '0%')
+        document.querySelector('#outvelocidad').value = `Please scroll to select...`
         document.getElementById("alumbrado").value = 0;
         document.getElementById('alumbrado').parentElement.style.setProperty('--p', '0%')
+        document.querySelector('#outalumbrado').value = `Please scroll to select...`
         document.getElementById("separador").value = 0;
         document.getElementById('separador').parentElement.style.setProperty('--p', '0%')
+        document.querySelector('#outseparador').value = `Please scroll to select...`
         document.getElementById("calzadadiv1").value = 0;
         document.getElementById('calzadadiv1').parentElement.style.setProperty('--p', '0%')
         document.getElementById("hora").value = 0;
         document.getElementById('hora').parentElement.style.setProperty('--p', '0%')
+        document.querySelector('#outHora').value = `Please scroll to select...`
 
     };
+
+
 
 </script>
 
@@ -1343,6 +1362,7 @@
 <!-- SLIDERSSS -->
 
 <script id="8">
+
     const output = document.querySelector('#outbici')
     const doThings = (event) => {
         const { value, min, max, step, parentElement: parent } = event.target
@@ -1369,14 +1389,14 @@
         parent.style.setProperty('--p', percent1)
         let text1
         parent.style.setProperty('--p', percent1)
-        if (document.getElementById('bicicletas').value >= 0 && document.getElementById('bicicletas').value < 3) {
+        if (document.getElementById('motos').value >= 0 && document.getElementById('motos').value < 3) {
             text1 = "There is a low motorcycle flow."
-        } else if (document.getElementById('bicicletas').value >= 3 && document.getElementById('bicicletas').value < 7) {
+        } else if (document.getElementById('motos').value >= 3 && document.getElementById('motos').value < 7) {
             text1 = "There is a Moderate motorcycle flow.."
-        } else if (document.getElementById('bicicletas').value >= 7 && document.getElementById('bicicletas').value <= 10) {
+        } else if (document.getElementById('motos').value >= 7 && document.getElementById('motos').value <= 10) {
             text1 = "There is a High motorcycle flow."
         }
-        output1.value = `valor: ${value} (${text1})`
+        output1.value = `value: ${value} (${text1})`
     }
 
     const output2 = document.querySelector('#outpeaton')
@@ -1384,17 +1404,17 @@
         const { value, min, max, step, parentElement: parent } = event.target
         const decimals2 = step && step.includes('.') ? step.split('.')[1] : 1
         const percent2 = `${((value - min) / (max - min) * 100).toFixed(decimals2)}%`
-        parent.style.setProperty('--p', percent2)
+        
         let text2
         parent.style.setProperty('--p', percent2)
-        if (document.getElementById('bicicletas').value >= 0 && document.getElementById('bicicletas').value < 3) {
+        if (document.getElementById('peaton').value >= 0 && document.getElementById('peaton').value < 3) {
             text2 = "There is a low pedestrians flow."
-        } else if (document.getElementById('bicicletas').value >= 3 && document.getElementById('bicicletas').value < 7) {
+        } else if (document.getElementById('peaton').value >= 3 && document.getElementById('peaton').value < 7) {
             text2 = "There is a Moderate pedestrians flow.."
-        } else if (document.getElementById('bicicletas').value >= 7 && document.getElementById('bicicletas').value <= 10) {
+        } else if (document.getElementById('peaton').value >= 7 && document.getElementById('peaton').value <= 10) {
             text2 = "There is a High pedestrians flow."
         }
-        output2.value = `valor: ${value} (${text2})`
+        output2.value = `value: ${value} (${text2})`
     }
 
     const output3 = document.querySelector('#outvia')
@@ -1402,9 +1422,17 @@
         const { value, min, max, step, parentElement: parent } = event.target
         const decimals3 = step && step.includes('.') ? step.split('.')[1] : 1
         const percent3 = `${((value - min) / (max - min) * 100).toFixed(decimals3)}%`
+        
+        let text3
         parent.style.setProperty('--p', percent3)
-
-        output3.value = `valor: ${value} (${percent3})`
+        if (document.getElementById('via').value >= 0 && document.getElementById('via').value < 3) {
+            text3 = "Good road condition ."
+        } else if (document.getElementById('via').value >= 3 && document.getElementById('via').value < 7) {
+            text3 = "Regular road condition ."
+        } else if (document.getElementById('via').value >= 7 && document.getElementById('via').value <= 10) {
+            text3 = "Poor road condition ."
+        }
+        output3.value = `value: ${value} (${text3})`
     }
 
     const output4 = document.querySelector('#outdeslizamiento')
@@ -1414,7 +1442,7 @@
         const percent4 = `${((value - min) / (max - min) * 100).toFixed(decimals4)}%`
         parent.style.setProperty('--p', percent4)
 
-        output4.value = `valor: ${value} (${percent4})`
+        output4.value = `value: ${value} (${percent4})`
     }
 
     const output5 = document.querySelector('#outvelocidad')
@@ -1423,8 +1451,34 @@
         const decimals5 = step && step.includes('.') ? step.split('.')[1] : 1
         const percent5 = `${((value - min) / (max - min) * 100).toFixed(decimals5)}%`
         parent.style.setProperty('--p', percent5)
+        let text5
+        
+        if (document.getElementById('velocidad').value == 0) {
+            text5 = "0 Km/h."
+        } else if (document.getElementById('velocidad').value == 10) {
+            text5 = "10 Km/h."
+        } else if (document.getElementById('velocidad').value == 20) {
+            text5 = "20 Km/h."
+        } else if (document.getElementById('velocidad').value == 30) {
+            text5 = "30 Km/h."
+        } else if (document.getElementById('velocidad').value == 40) {
+            text5 = "40 Km/h."
+        } else if (document.getElementById('velocidad').value == 50) {
+            text5 = "50 Km/h."
+        } else if (document.getElementById('velocidad').value == 60) {
+            text5 = "60 Km/h."
+        } else if (document.getElementById('velocidad').value == 70) {
+            text5 = "70 Km/h."
+        } else if (document.getElementById('velocidad').value == 80) {
+            text5 = "80 Km/h."
+        } else if (document.getElementById('velocidad').value == 90) {
+            text5 = "90 Km/h."
+        } else {
+            text5 = "100 Km/h."
+        }
 
-        output5.value = `valor: ${value} (${percent5})`
+        
+        output5.value = `value:  ${text5}`
     }
 
     const output6 = document.querySelector('#outHora')
@@ -1466,7 +1520,6 @@
 
         output9.value = `valor: ${value} (${percent9})`
     }
-
 
 </script>
 
@@ -1721,13 +1774,14 @@
 
         const response2 = await fetch('/ruta', options1);
         result2 = await response2.json();
-        
 
-        
+
+
     }
-    
-    function swalIt(){
-        swal('Route Saved Successful with ID:  '+ idglobal)
+
+    function swalIt() {
+        document.getElementById("endall").style.display = 'none';
+        swal('Route Saved Successful with ID:  ' + idglobal)
     }
 
 </script>
@@ -1933,7 +1987,7 @@ document.getElementById("notasb").innerHTML = result.notas; */
             geodesic: true,
             strokeColor: "#0f2547",
             strokeOpacity: 1.0,
-            strokeWeight: 5,
+            strokeWeight: 8,
             zIndex: 998,
 
         });
@@ -1988,7 +2042,7 @@ document.getElementById("notasb").innerHTML = result.notas; */
             geodesic: true,
             strokeColor: "#a1ccae",
             strokeOpacity: 1.0,
-            strokeWeight: 5,
+            strokeWeight: 8,
             zIndex: 1000,
 
         });
@@ -2098,29 +2152,29 @@ document.getElementById("notasb").innerHTML = result.notas; */
         document.getElementById("textointro").style.display = 'none';
         document.getElementById("riskh").style.display = 'block';
     }
-    
+
     function cambioSearch() {
         document.getElementById("head1").style.display = 'none';
         document.getElementById("contenido").style.display = 'none';
         document.getElementById("segmentosruta").style.display = 'none';
-        if(BN == 1 ){
+        if (BN == 1) {
             document.getElementById("evaluacion").style.display = 'none';
             document.getElementById("fotosevaluacion").style.display = 'none';
-            
+
         }
-        
+
         document.getElementById("content").style.display = 'block';
     }
 
-    function cambioAnalysis(){
-        document.getElementById("head1").style.display ='block';
+    function cambioAnalysis() {
+        document.getElementById("head1").style.display = 'block';
         document.getElementById("contenido").style.display = 'block';
         document.getElementById("segmentosruta").style.display = 'block';
-        if(BN == 1 ){
+        if (BN == 1) {
             document.getElementById("evaluacion").style.display = 'block';
             document.getElementById("fotosevaluacion").style.display = 'block';
         }
-        
+
         document.getElementById("content").style.display = 'none';
     }
 </script>
@@ -2157,266 +2211,266 @@ document.getElementById("notasb").innerHTML = result.notas; */
     } */
 
     async function search() {
-      if (document.getElementById("inputSearchB").value != "") {
-        var input = document.getElementById("inputSearchB").value;
-        const consulta = { con: input };
-        const options1 = {
-          method: "POST",
-          body: JSON.stringify(consulta),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        };
+        if (document.getElementById("inputSearchB").value != "") {
+            var input = document.getElementById("inputSearchB").value;
+            const consulta = { con: input };
+            const options1 = {
+                method: "POST",
+                body: JSON.stringify(consulta),
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            };
 
-        const response1 = await fetch("/consultaID", options1);
-        result = await response1.json();
-        
-        drawConsultedRoute(result);
+            const response1 = await fetch("/consultaID", options1);
+            result = await response1.json();
 
-        querySegment(result);
-        
-      }
+            drawConsultedRoute(result);
+
+            querySegment(result);
+
+        }
     }
 
     async function querySegment(result) {
-      var ids = result.idsegrut.split("—");
-      ids = ids.join(",");
-      const segmentos = { con: ids };
-      const options2 = {
-        method: "POST",
-        body: JSON.stringify(segmentos),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
+        var ids = result.idsegrut.split("—");
+        ids = ids.join(",");
+        const segmentos = { con: ids };
+        const options2 = {
+            method: "POST",
+            body: JSON.stringify(segmentos),
+            headers: {
+                "Content-Type": "application/json",
+            },
+        };
 
-      const response2 = await fetch("/consultaSeg", options2);
-      result2 = await response2.json();
-      
-      procesarSegmentsB(result, result2);
+        const response2 = await fetch("/consultaSeg", options2);
+        result2 = await response2.json();
+
+        procesarSegmentsB(result, result2);
     }
 
     function drawConsultedRoute(res) {
-      var sections;
-      var tempRoute = [];
-      sections = result.polyline.split("—");
-      for (var i = 0; i < sections.length; i++) {
-        tempRoute.push(JSON.parse(sections[i]));
-      }
-      drawRouteB(tempRoute);
+        var sections;
+        var tempRoute = [];
+        sections = result.polyline.split("—");
+        for (var i = 0; i < sections.length; i++) {
+            tempRoute.push(JSON.parse(sections[i]));
+        }
+        drawRouteB(tempRoute);
 
     }
 
     function drawRouteB(tempRoute) {
-      var route = new google.maps.Polyline({
-        path: tempRoute,
-        geodesic: true,
-        strokeColor: "#000000",
-        strokeWeight: 8,
-        strokeOpacity: 1,
-        map: null,
-      });
-      var path = route.getPath();
-      placeIdArray = [];
-      runSnapToRoadB(path);
+        var route = new google.maps.Polyline({
+            path: tempRoute,
+            geodesic: true,
+            strokeColor: "#000000",
+            strokeWeight: 8,
+            strokeOpacity: 1,
+            map: null,
+        });
+        var path = route.getPath();
+        placeIdArray = [];
+        runSnapToRoadB(path);
     }
 
     function DrawSectionB(segment, color) {
-      var lineSymbol = {
-        path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
-      };
-      if (polylinesB.length > 0) {
-        var line = polylinesB[polylinesB.length - 1];
-        line.setMap(null);
-      }
-      var riskpath = new google.maps.Polyline({
-        path: segment,
-        geodesic: true,
-        strokeColor: color,
-        strokeOpacity: 1.0,
-        strokeWeight: 2,
-        icons: [
-          {
-            icon: lineSymbol,
-            offset: "100%",
-            repeat: "20px",
-          },
-        ],
-      });
-
-      riskpath.setMap(mapB);
-      polylinesB.push(riskpath);
-    }
-  </script>
-
-  <script>
-    function procesarSegmentsB(res, res2) {
-      var tempseg = res.segment.split("—");
-      var seg = [];
-      var risk = res.risk;
-      var temp = risk.split("—");
-      var risk = res.risk;
-      var temp = risk.split("—");
-      var color;
-      for (var i = 0; i < tempseg.length; i++) {
-        risk = parseFloat(temp[i]);
-        var tempseg2 = JSON.parse(tempseg[i]);
-        var tempseg3 = [
-          { lat: tempseg2.lat, lng: tempseg2.lng },
-          { lat: tempseg2.lat1, lng: tempseg2.lng1 },
-        ];
-
-        if (risk > 70 && risk <= 100) {
-          
-          color = "#ff0000";
-        } else if (risk > 30 && risk <= 70) {
-          color = "#f6d866";
-        } else {
-          color = "#008000";
+        var lineSymbol = {
+            path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+        };
+        if (polylinesB.length > 0) {
+            var line = polylinesB[polylinesB.length - 1];
+            line.setMap(null);
         }
-        
-        drawSegmentB(tempseg3, color, res2[i]);
-      }
-      
+        var riskpath = new google.maps.Polyline({
+            path: segment,
+            geodesic: true,
+            strokeColor: color,
+            strokeOpacity: 1.0,
+            strokeWeight: 2,
+            icons: [
+                {
+                    icon: lineSymbol,
+                    offset: "100%",
+                    repeat: "20px",
+                },
+            ],
+        });
+
+        riskpath.setMap(mapB);
+        polylinesB.push(riskpath);
+    }
+</script>
+
+<script>
+    function procesarSegmentsB(res, res2) {
+        var tempseg = res.segment.split("—");
+        var seg = [];
+        var risk = res.risk;
+        var temp = risk.split("—");
+        var risk = res.risk;
+        var temp = risk.split("—");
+        var color;
+        for (var i = 0; i < tempseg.length; i++) {
+            risk = parseFloat(temp[i]);
+            var tempseg2 = JSON.parse(tempseg[i]);
+            var tempseg3 = [
+                { lat: tempseg2.lat, lng: tempseg2.lng },
+                { lat: tempseg2.lat1, lng: tempseg2.lng1 },
+            ];
+
+            if (risk > 70 && risk <= 100) {
+
+                color = "#ff0000";
+            } else if (risk > 30 && risk <= 70) {
+                color = "#f6d866";
+            } else {
+                color = "#008000";
+            }
+
+            drawSegmentB(tempseg3, color, res2[i]);
+        }
+
     }
 
-    
+
 
     function drawSegmentB(seg, color, res2) {
-      var route = new google.maps.Polyline({
-        path: seg,
-        geodesic: true,
-        strokeColor: "#000000",
-        strokeWeight: 8,
-        strokeOpacity: 1,
-        map: null,
-      });
-      var path = route.getPath();
-      placeIdArray = [];
-      runSnapToSegmentB(path, color, res2);
+        var route = new google.maps.Polyline({
+            path: seg,
+            geodesic: true,
+            strokeColor: "#000000",
+            strokeWeight: 8,
+            strokeOpacity: 1,
+            map: null,
+        });
+        var path = route.getPath();
+        placeIdArray = [];
+        runSnapToSegmentB(path, color, res2);
     }
-  </script>
-  <script>
+</script>
+<script>
     //////SNAP TO ROAD FUNCTIONS //////
     //Ajusta la ruta creada por el usuario a los caminos más apropiados
     function runSnapToRoadB(path) {
-      var pathValues = [];
-      for (var i = 0; i < path.getLength(); i++) {
-        pathValues.push(path.getAt(i).toUrlValue());
-      }
-
-      $.get(
-        "https://roads.googleapis.com/v1/snapToRoads",
-        {
-          interpolate: true,
-          key: apiKey,
-          path: pathValues.join("|"),
-        },
-        function (data) {
-          processSnapToRoadResponseB(data);
-          drawSnappedPolylineB();
+        var pathValues = [];
+        for (var i = 0; i < path.getLength(); i++) {
+            pathValues.push(path.getAt(i).toUrlValue());
         }
-      );
+
+        $.get(
+            "https://roads.googleapis.com/v1/snapToRoads",
+            {
+                interpolate: true,
+                key: apiKey,
+                path: pathValues.join("|"),
+            },
+            function (data) {
+                processSnapToRoadResponseB(data);
+                drawSnappedPolylineB();
+            }
+        );
     }
 
     //Ajusta el segmento de ruta definido por el usuario a los caminos más apropiados
     function runSnapToSegmentB(path, color, res2) {
-      var pathValues = [];
-      for (var i = 0; i < path.getLength(); i++) {
-        pathValues.push(path.getAt(i).toUrlValue());
-      }
-
-      $.get(
-        "https://roads.googleapis.com/v1/snapToRoads",
-        {
-          interpolate: true,
-          key: apiKey,
-          path: pathValues.join("|"),
-        },
-        function (data) {
-          processSnapToRoadResponseB(data);
-          drawSnappedSegmentB(color, res2);
+        var pathValues = [];
+        for (var i = 0; i < path.getLength(); i++) {
+            pathValues.push(path.getAt(i).toUrlValue());
         }
-      );
+
+        $.get(
+            "https://roads.googleapis.com/v1/snapToRoads",
+            {
+                interpolate: true,
+                key: apiKey,
+                path: pathValues.join("|"),
+            },
+            function (data) {
+                processSnapToRoadResponseB(data);
+                drawSnappedSegmentB(color, res2);
+            }
+        );
     }
 
     // Procesa la respuesta de la función anterior (runSnapToRoadB)
     function processSnapToRoadResponseB(data) {
-      snappedCoordinates = [];
-      placeIdArray = [];
-      for (var i = 0; i < data.snappedPoints.length; i++) {
-        var latlng = new google.maps.LatLng(
-          data.snappedPoints[i].location.latitude,
-          data.snappedPoints[i].location.longitude
-        );
-        snappedCoordinates.push(latlng);
-        placeIdArray.push(data.snappedPoints[i].placeId);
-      }
+        snappedCoordinates = [];
+        placeIdArray = [];
+        for (var i = 0; i < data.snappedPoints.length; i++) {
+            var latlng = new google.maps.LatLng(
+                data.snappedPoints[i].location.latitude,
+                data.snappedPoints[i].location.longitude
+            );
+            snappedCoordinates.push(latlng);
+            placeIdArray.push(data.snappedPoints[i].placeId);
+        }
     }
 
     // Dibuja la polylinea ajustada al camino (después de procesar la respuesta)
     function drawSnappedPolylineB() {
-      
-      if (polylinesB.length > 0) {
-        polylinesB[polylinesB.length - 1].setMap(null);
-      }
-      var snappedPolyline = new google.maps.Polyline({
-        path: snappedCoordinates,
-        geodesic: true,
-        strokeColor: "#0f2547",
-        strokeOpacity: 1.0,
-        strokeWeight: 5,
-        zIndex: 998,
-      });
-      snappedPolyline.setMap(mapB);
 
-      polylinesB[0] = snappedPolyline;
-      zoomToObjectB(snappedPolyline);
+        if (polylinesB.length > 0) {
+            polylinesB[polylinesB.length - 1].setMap(null);
+        }
+        var snappedPolyline = new google.maps.Polyline({
+            path: snappedCoordinates,
+            geodesic: true,
+            strokeColor: "#0f2547",
+            strokeOpacity: 1.0,
+            strokeWeight: 8,
+            zIndex: 998,
+        });
+        snappedPolyline.setMap(mapB);
+
+        polylinesB[0] = snappedPolyline;
+        zoomToObjectB(snappedPolyline);
     }
 
     function drawSnappedSegmentB(color, result) {
-      var snappedPolyline = new google.maps.Polyline({
-        path: snappedCoordinates,
-        geodesic: true,
-        strokeColor: color,
-        strokeOpacity: 1.0,
-        strokeWeight: 5,
-        zIndex: 1000,
-      });
-      var descriptor;
-      var rut = result.fecharuta.split("T");
-      var fecharutaB = rut[0];
-      if (result.riesgo <= 30) {
-        descriptor = "Low";
-        color = "#008000";
-        icon = "http://maps.google.com/mapfiles/ms/icons/green.png";
-      } else if (result.riesgo > 30 && result.riesgo <= 70) {
-        descriptor = "Moderate";
-        color = "#f6d866";
-        icon = "http://maps.google.com/mapfiles/ms/icons/orange.png";
-      } else if (result.riesgo > 70 && result.riesgo <= 100) {
-        color = "#ff0000";
-        descriptor = "High";
-        icon = "http://maps.google.com/mapfiles/ms/icons/red.png";
-      }
-      snappedPolyline.addListener("mouseover", () => {
-        /*  document.getElementById("id").innerHTML = result.id; */
-        document.getElementById("fecharutaB").innerHTML = fecharutaB;
-        document.getElementById("InitcoordB").innerHTML =
-          result.latitud + ", " + result.longitud;
-        document.getElementById("FinalcoordB").innerHTML =
-          result.latitud1 + ", " + result.longitud1;
-        document.getElementById("riesgoB").innerHTML =
-          descriptor + " (" + result.riesgo.toFixed(2) + "%)";
-        document.getElementById("notasbB").innerHTML = result.notas;
-      });
-      snappedPolyline.setMap(mapB);
-      SnappedSegmentsB.push(snappedPolyline);
-      
+        var snappedPolyline = new google.maps.Polyline({
+            path: snappedCoordinates,
+            geodesic: true,
+            strokeColor: color,
+            strokeOpacity: 1.0,
+            strokeWeight: 8,
+            zIndex: 1000,
+        });
+        var descriptor;
+        var rut = result.fecharuta.split("T");
+        var fecharutaB = rut[0];
+        if (result.riesgo <= 30) {
+            descriptor = "Low";
+            color = "#008000";
+            icon = "http://maps.google.com/mapfiles/ms/icons/green.png";
+        } else if (result.riesgo > 30 && result.riesgo <= 70) {
+            descriptor = "Moderate";
+            color = "#f6d866";
+            icon = "http://maps.google.com/mapfiles/ms/icons/orange.png";
+        } else if (result.riesgo > 70 && result.riesgo <= 100) {
+            color = "#ff0000";
+            descriptor = "High";
+            icon = "http://maps.google.com/mapfiles/ms/icons/red.png";
+        }
+        snappedPolyline.addListener("mouseover", () => {
+            /*  document.getElementById("id").innerHTML = result.id; */
+            document.getElementById("fecharutaB").innerHTML = fecharutaB;
+            document.getElementById("InitcoordB").innerHTML =
+                result.latitud + ", " + result.longitud;
+            document.getElementById("FinalcoordB").innerHTML =
+                result.latitud1 + ", " + result.longitud1;
+            document.getElementById("riesgoB").innerHTML =
+                descriptor + " (" + result.riesgo.toFixed(2) + "%)";
+            document.getElementById("notasbB").innerHTML = result.notas;
+        });
+        snappedPolyline.setMap(mapB);
+        SnappedSegmentsB.push(snappedPolyline);
+
     }
 
-    
-  </script>
+
+</script>
 
 
 
