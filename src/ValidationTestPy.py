@@ -26,77 +26,77 @@ Riesgo = ctrl.Consequent(np.arange(0, 11, 1), 'Riesgo') #output
 Riesgo['bajo'] = fuzz.trapmf(NumMoto.universe, [0, 0, 2,4])
 Riesgo['medio'] = fuzz.trimf(NumMoto.universe,[2,6,8])
 Riesgo['alto'] = fuzz.trapmf(NumMoto.universe, [6, 8, 10, 10])
-# Riesgo.view() 
+Riesgo.view() 
 
 
 #------ Función de pertenencia para las bicicletas-----  Del 0 al 10 cuanto flujo de bicicleta hay
 NumBici['pocas'] = fuzz.trimf(NumBici.universe,[0,0,5])
 NumBici['algunas'] = fuzz.trimf(NumBici.universe,[4 ,5.5,7])
 NumBici['Bastantes'] = fuzz.trapmf(NumBici.universe, [6, 8, 10, 10])
-# NumBici.view() """
+NumBici.view() 
 #------ Función de pertenencia para las motos-----      Del 0 al 10 cuanto flujo de moto hay
 NumMoto['pocas'] = fuzz.trimf(NumMoto.universe,[0,0,5])
 NumMoto['algunas'] = fuzz.trimf(NumMoto.universe,[4,5.5,7])
 NumMoto['Bastantes'] = fuzz.trapmf(NumMoto.universe, [6, 8, 10, 10])
-# NumMoto.view() """
+NumMoto.view() 
 #Función de pertenencia para el flujo de peatones----   Cantidad de peatones en la via
 Numpeaton['pocos'] = fuzz.trimf(Numpeaton.universe,[0,0,5])
 Numpeaton['algunos'] = fuzz.trimf(Numpeaton.universe,[4,5.5,7])
 Numpeaton['Bastantes'] = fuzz.trapmf(Numpeaton.universe, [6, 8, 10, 10])
-#Numpeaton.view()
+Numpeaton.view()
 #Función de pertenencia para condición de la vía---- Del 0 al 10 en que condiciones se encuentra la vía
 via['deficiente'] = fuzz.trimf(via.universe,[0,0,5])
 via['regular'] = fuzz.trimf(via.universe,[0,5,10])
 via['buena'] = fuzz.trimf(via.universe, [5,10,10])
-#via.view()
+via.view()
 #Función de pertenencia para resistencia al deslizamiento   --- ¿Qué tan bueno es la resistencia al deslizamiento de la vía?
 deslizamiento['SPD'] = fuzz.trimf(deslizamiento.universe,[0,2,3])
 deslizamiento['SPA'] = fuzz.trimf(deslizamiento.universe,[2,4,5])
 deslizamiento['PD'] = fuzz.trimf(deslizamiento.universe, [4,6,7])    
 deslizamiento['PR'] = fuzz.trimf(deslizamiento.universe,[5,7,8])
 deslizamiento['PB'] = fuzz.trimf(deslizamiento.universe,[7,9,10])
-#deslizamiento.view()
+deslizamiento.view()
 #Función de pertenencia para límite de velocidad seleccione le limite de velocidad presente en la ruta
 velocidad['baja'] = fuzz.trimf(velocidad.universe,[0,20,40])
 velocidad['media'] = fuzz.trimf(velocidad.universe,[20,40,60])
 velocidad['alta'] = fuzz.trapmf(velocidad.universe, [50,80,100,100])
-#velocidad.view()
+velocidad.view()
 #Hora  Seleccione la hora del viaje
 Hora['Madrugada'] = fuzz.trapmf(Hora.universe,[0,0,2,6])
 Hora['Temprano'] = fuzz.trimf(Hora.universe,[5,12,14])
 Hora['Tarde'] = fuzz.trimf(Hora.universe,[12,16,18])
 Hora['Noche'] = fuzz.trapmf(Hora.universe,[17,21,25,25])
-#Hora.view()
+Hora.view()
 #alumbrado   del 0 al 10 que tan bueno es el alumbrado público
 alumbrado['insuficiente'] = fuzz.trimf(alumbrado.universe,[0,0,5])
 alumbrado['aceptable'] = fuzz.trimf(alumbrado.universe,[4,5,6])
 alumbrado['bueno'] = fuzz.trimf(alumbrado.universe,[5,10,10])
-#alumbrado.view()
+alumbrado.view()
 #calzada dividida **Binaria*
 calzadadiv['si']= fuzz.trimf(calzadadiv.universe,[0,0,5])
 calzadadiv['no']= fuzz.trimf(calzadadiv.universe,[5,10,10])
-#calzadadiv.view()
+calzadadiv.view()
 #Separador de la vía  "Del 0 al 10, cuál es la calidad del separador de la vía.
 Separador['insuficiente'] = fuzz.trimf(alumbrado.universe,[0,0,5])
 Separador['aceptable'] = fuzz.trimf(alumbrado.universe,[3,5,7])
 Separador['bueno'] = fuzz.trimf(alumbrado.universe,[5,10,10])
-#Separador.view()
+Separador.view()
 #Severidad de obras en la vía  "Del 0 al 10, cuál es severidad de las obras en la vía
 Obras['Baja'] = fuzz.trimf(alumbrado.universe,[0,4,7])
 Obras['Alta'] = fuzz.trimf(alumbrado.universe,[4,7,10])
-#Obras.view()
+Obras.view()
 #Históricos de siniestralidad "Del 0 al 10, qué tan altos son los antecedentes de siniestralidad en la ruta
 Siniestralidad['bajos'] = fuzz.trimf(alumbrado.universe,[0,0,5])
 Siniestralidad['moderados'] = fuzz.trimf(alumbrado.universe,[2,5,8])
 Siniestralidad['altos'] = fuzz.trimf(alumbrado.universe,[5,10,10])
-#Siniestralidad.view()
+Siniestralidad.view()
 
 #Cruce de la vía  "Del 0 al 10, cuál es la calidad del Cruce de la vía.
 Cruce['insuficiente'] = fuzz.trimf(alumbrado.universe,[0,0,5])
 Cruce['aceptable'] = fuzz.trimf(alumbrado.universe,[3,5,7])
 Cruce['bueno'] = fuzz.trimf(alumbrado.universe,[5,10,10])
 
-#Cruce.view()
+Cruce.view()
 
 #set de reglas propuestos
 #rule1 = ctrl.Rule(NumBici['pocas'] & NumMoto['pocas'], Riesgo['bajo'])

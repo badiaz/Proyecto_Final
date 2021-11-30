@@ -1370,15 +1370,8 @@
         const percent = `${((value - min) / (max - min) * 100).toFixed(decimals)}%`
         let text
 
-        parent.style.setProperty('--p', percent)
-        if (document.getElementById('bicicletas').value >= 0 && document.getElementById('bicicletas').value < 3) {
-            text = "There is a low bicycle flow."
-        } else if (document.getElementById('bicicletas').value >= 3 && document.getElementById('bicicletas').value < 7) {
-            text = "There is a Moderate bicycle flow.."
-        } else if (document.getElementById('bicicletas').value >= 7 && document.getElementById('bicicletas').value <= 10) {
-            text = "There is a High bicycle flow."
-        }
-        output.value = `value: ${value}  (${text})`
+        
+        output.value = `value: ${value}  `
     }
 
     const output1 = document.querySelector('#outmoto')
@@ -1396,7 +1389,7 @@
         } else if (document.getElementById('motos').value >= 7 && document.getElementById('motos').value <= 10) {
             text1 = "There is a High motorcycle flow."
         }
-        output1.value = `value: ${value} (${text1})`
+        output1.value = `value: ${value}  `
     }
 
     const output2 = document.querySelector('#outpeaton')
@@ -1414,7 +1407,7 @@
         } else if (document.getElementById('peaton').value >= 7 && document.getElementById('peaton').value <= 10) {
             text2 = "There is a High pedestrians flow."
         }
-        output2.value = `value: ${value} (${text2})`
+        output2.value = `value: ${value}  `
     }
 
     const output3 = document.querySelector('#outvia')
@@ -1432,7 +1425,7 @@
         } else if (document.getElementById('via').value >= 7 && document.getElementById('via').value <= 10) {
             text3 = "Poor road condition ."
         }
-        output3.value = `value: ${value} (${text3})`
+        output3.value = `value: ${value}  `
     }
 
     const output4 = document.querySelector('#outdeslizamiento')
@@ -1442,7 +1435,7 @@
         const percent4 = `${((value - min) / (max - min) * 100).toFixed(decimals4)}%`
         parent.style.setProperty('--p', percent4)
 
-        output4.value = `value: ${value} (${percent4})`
+        output4.value = `value: ${value}  `
     }
 
     const output5 = document.querySelector('#outvelocidad')
@@ -1478,7 +1471,7 @@
         }
 
         
-        output5.value = `value:  ${text5}`
+        output5.value = `value: ${value}  `
     }
 
     const output6 = document.querySelector('#outHora')
@@ -1488,7 +1481,7 @@
         const percent6 = `${((value - min) / (max - min) * 100).toFixed(decimals6)}%`
         parent.style.setProperty('--p', percent6)
 
-        output6.value = `valor: ${value} (${percent6})`
+        output6.value = `value: ${value}  `
     }
 
     const output7 = document.querySelector('#outalumbrado')
@@ -1498,7 +1491,7 @@
         const percent7 = `${((value - min) / (max - min) * 100).toFixed(decimals7)}%`
         parent.style.setProperty('--p', percent7)
 
-        output7.value = `valor: ${value} (${percent7})`
+        output7.value = `value: ${value}  `
     }
 
     const output8 = document.querySelector('#outseparador')
@@ -1508,7 +1501,7 @@
         const percent8 = `${((value - min) / (max - min) * 100).toFixed(decimals8)}%`
         parent.style.setProperty('--p', percent8)
 
-        output8.value = `valor: ${value} (${percent8})`
+        output8.value = `value: ${value}  `
     }
 
     const output9 = document.querySelector('#outseveridad')
@@ -1518,7 +1511,7 @@
         const percent9 = `${((value - min) / (max - min) * 100).toFixed(decimals9)}%`
         parent.style.setProperty('--p', percent9)
 
-        output9.value = `valor: ${value} (${percent9})`
+        output9.value = `value: ${value}  `
     }
 
 </script>

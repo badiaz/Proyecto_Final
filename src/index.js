@@ -386,7 +386,7 @@ app.post('/ruta', (req, res) => {
 app.post('/consultaSeg', (req, res) => {
     var nombre = req.body.con;
     console.log(nombre);
-    let sql = `SELECT * FROM inforuta WHERE id in (${req.body.con})`;
+    let sql = `SELECT * FROM inforuta WHERE id in (${req.body.con}) ORDER BY pk DESC `;
     client.query(sql)
         .then(raw => {
             console.log("estas son, crack. Pilla: ")
